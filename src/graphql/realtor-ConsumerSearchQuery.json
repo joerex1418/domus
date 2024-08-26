@@ -1,0 +1,30 @@
+{
+    "query": "",
+    "variables": {
+        "geoSupportedSlug": "60013",
+        "query": {
+            "primary": true,
+            "status": ["for_sale", "ready_to_build"],
+            "search_location": {
+                "location": "60013, Cary, IL"
+            }
+        },
+        "client_data": {
+            "device_data": {
+                "device_type": "desktop"
+            }
+        },
+        "limit": 42,
+        "offset": 0,
+        "sort_type": "relevant",
+        "search_promotion": {
+            "names": ["POSTALCODE"],
+            "slots": [5, 6, 7, 8],
+            "promoted_properties": [
+                []
+            ]
+        }
+    },
+    "isClient": true,
+    "visitor_id": "b791c82b-4133-400d-b86a-94e3c68005eb"
+}
