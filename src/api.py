@@ -287,6 +287,70 @@ class RealtorAPI:
 
         return data
 
+    class request:
+        @staticmethod
+        def search(
+                zipcode=None, 
+                city=None, 
+                coordinates:tuple[float]=None,
+                radius_mi=None,
+                primary:bool=True,
+                pending:bool=False,
+                contingent:bool=False,
+                limit:int=None,
+                sort_type=None,
+            ):
+            url = "https://www.realtor.com/api/v1/rdc_search_srp"
+            
+            params = {"client_id": "rdc-search-for-sale-search", "schema": "vesta"}
+
+            operation_name = "ConsumerSearchQuery"
+
+            payload = readjson(paths.GRAPHQL_DIR.joinpath(f"realtor-{operation_name}.json"))
+            payload["query"] = readfile(paths.GRAPHQL_DIR.joinpath(f"realtor-{operation_name}.gql"))
+
+            if zipcode != None:
+                zipcode = str(zipcode).strip()
+                payload["variables"]["query"]["search_location"] = {"location": zipcode}
+                payload["variables"]["geoSupportedSlug"] = zipcode
+            
+            elif city != None:
+                payload["variables"]["query"]["search_location"] = {"location": city}
+                payload["variables"]["geoSupportedSlug"] = city
+            
+            elif coordinates != None:
+                bbox = get_bounding_box(float(coordinates[0]), float(coordinates[1]), radius=radius_mi)
+                payload["variables"]["query"]["boundary"] = {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [bbox["west"], bbox["north"]],
+                            [bbox["east"], bbox["north"]],
+                            [bbox["east"], bbox["south"]],
+                            [bbox["west"], bbox["south"]],
+                            [bbox["west"], bbox["north"]],
+                        ]
+                    ]
+                }
+
+            
+            payload["variables"]["query"]["primary"] = primary
+            payload["variables"]["query"]["pending"] = pending
+            payload["variables"]["query"]["contingent"] = contingent
+            
+            limit = int(limit) if str(limit).isdigit() else 50
+            sort_type = str(sort_type).lower() if sort_type != None else "relevant"
+
+            # payload["variables"]["offset"] = 
+            payload["variables"]["sort_type"] = sort_type
+            payload["variables"]["limit"] = int(limit)
+
+
+            req = httpx.Request("POST", url, params=params, json=payload)
+            
+            return req
+
+
 
 
 class ZillowAPI:
@@ -376,7 +440,7 @@ class ZillowAPI:
 
         return r.json()
     
-    def house_lookup(self, zpid):
+    def property_lookup(self, zpid):
         url = "https://zm.zillow.com/api/public/v3/mobile-search/homes/lookup"
 
         payload = {
@@ -400,7 +464,7 @@ class ZillowAPI:
 
         return r.json()
 
-    def query_understanding(self,query:str):
+    def _query_understanding(self,query:str):
         url = "https://www.zillow.com/zg-graph"
 
         payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-QueryUnderstanding.json"))
@@ -421,7 +485,7 @@ class ZillowAPI:
 
         return r.json() 
 
-    def query_understanding2(self, query:str):
+    def _query_understanding2(self, query:str):
         url = "https://www.zillow.com/zg-graph"
         
         payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-getQueryUnderstandingResults.json"))
