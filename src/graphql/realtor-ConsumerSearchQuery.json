@@ -1,7 +1,7 @@
 {
     "query": "",
     "variables": {
-        "geoSupportedSlug": "60013",
+        "geoSupportedSlug": "",
         "query": {
             "primary": true,
             "pending": false,

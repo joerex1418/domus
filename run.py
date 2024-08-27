@@ -13,12 +13,15 @@ from src.util import savejson
 realtor = RealtorAPI()
 zillow = ZillowAPI()
 
-# data = realtor.map_lookup((41.8757, -88.386897), radius_mi=10)
-# data = realtor.zipcode_lookup(60013)
-# data = realtor.city_lookup("St Charles", "IL")
-# data = realtor._property_and_tax_history("7037747684")
-
-# data = realtor._get_graphql_request("DPPropertyEstimates", "7037747684", month_forecast_count=10)
+# data = realtor.map_search((41.8757, -88.386897), radius_mi=10)
+# data = realtor.zipcode_search(60013)
+# data = realtor.city_search("St Charles", "IL")
+# data = realtor.property_and_tax_history("7037747684")
+# data = realtor.property_details("7037747684")
+# data = realtor.property_school_data("7037747684")
+# data = realtor.property_estimates("7037747684")
+# data = realtor.property_saves("7037747684")
+# data = realtor.property_gallery("7037747684")
 
 
 # url = "https://www.zillow.com/async-create-search-page-state"
@@ -27,13 +30,8 @@ zillow = ZillowAPI()
 
 
 # data = zillow.coordinates_lookup((41.85770608977258, -88.05687809090907), radius_mi=5)
-# data = zillow._query_understanding("Naperville IL")
-# data = zillow._query_understanding2("940 Pearson Rd Cary, IL")
-# data = zillow._query_understanding2("Naperville, IL")
-# data = zillow.property_lookup(5071833)
-
-data = realtor.city_lookup("Naperville", "IL")
+# data = zillow.query_understanding("Naperville IL")
+# data = zillow.query_understanding("940 Pearson Rd Cary, IL")
+data = zillow.property_lookup(5071833)
 
 savejson(data, "temp.json")
-
-
