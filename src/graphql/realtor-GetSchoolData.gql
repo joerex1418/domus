@@ -1,0 +1,44 @@
+query PropertyAndTaxHistory($propertyId: ID!) {
+  home(property_id: $propertyId) {
+    status
+    property_history {
+      date
+      event_name
+      price
+      price_change
+      price_sqft
+      source_listing_id
+      source_name
+      price_change_percentage
+      days_after_listed
+      listing {
+        list_price
+        last_status_change_date
+        last_update_date
+        status
+        list_date
+        listing_id
+        __typename
+      }
+      __typename
+    }
+    tax_history {
+      assessment {
+        building
+        land
+        total
+        __typename
+      }
+      market {
+        building
+        land
+        total
+        __typename
+      }
+      tax
+      year
+      __typename
+    }
+    __typename
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "extensions": {
+    "persistedQuery": {
+      "sha256Hash": "4f8c65386f9530ebaf6361ad2446d3b1e1331c9b9e54b1c40b7d12c2ed9be1ce",
+      "version": 1
+    }
+  },
+  "operationName": "QueryUnderstanding",
+  "variables": {
+    "query": "",
+    "queryOptions": {
+      "debug": false,
+      "interactionId": "9AB34EED-9AB8-4F85-BF69-18E36F8F9D20",
+      "maxResults": 1,
+      "multiRegion": null,
+      "priorSearches": [
+        "60540",
+        "60013",
+        "Naperville IL homes",
+        "Schaumburg IL homes",
+        "Saint Charles IL homes",
+        "60013",
+        "60563"
+      ],
+      "regionId": null,
+      "spellCheck": true,
+      "userIdentity": {
+        "abKey": "D7A824BD-3ACF-4FBD-BD2A-5AFC0A38A5A6",
+        "deviceInstallationId": "D7A824BD-3ACF-4FBD-BD2A-5AFC0A38A5A6",
+        "zuid": null
+      },
+      "userLocation": {
+        "latitude": 42.20635123094911,
+        "longitude": -88.263677916120912
+      },
+      "userSearchContext": "FOR_SALE",
+      "viewPort": {
+        "maxX": 41.857706089772577,
+        "maxY": -88.056878090909066,
+        "minX": 41.668181119900979,
+        "minY": -88.218531909090871
+      }
+    },
+    "querySource": "RECENT",
+    "resultType": [
+      "ADDRESSES",
+      "REGIONS",
+      "FORSALE",
+      "RENTALS",
+      "SOLD",
+      "SEMANTIC_REGIONS"
+    ]
+  }
+}

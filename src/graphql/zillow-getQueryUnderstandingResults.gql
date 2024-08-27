@@ -1,0 +1,115 @@
+query getQueryUnderstandingResults($query: String!, $queryOptions: SearchAssistanceQueryOptions, $querySource: SearchAssistanceQuerySource = UNKNOWN, $resultType: [SearchAssistanceResultType]) {
+  searchAssistanceResult: zgsQueryUnderstandingRequest(
+    query: $query
+    queryOptions: $queryOptions
+    querySource: $querySource
+    resultType: $resultType
+  ) {
+    requestId
+    results {
+      __typename
+      id
+      ...RegionResultFields
+      ...SemanticResultFields
+      ...RentalCommunityResultFields
+    }
+    __typename
+  }
+}
+
+fragment RegionResultFields on SearchAssistanceRegionResult {
+  regionId
+  subType
+  __typename
+}
+
+fragment SemanticResultFields on SearchAssistanceSemanticResult {
+  nearMe
+  regionIds
+  regionTypes
+  regionDisplayIds
+  queryResolutionStatus
+  viewLatitudeDelta
+  filters {
+    basementStatusType
+    baths {
+      min
+      max
+      __typename
+    }
+    beds {
+      min
+      max
+      __typename
+    }
+    excludeTypes
+    hoaFeesPerMonth {
+      min
+      max
+      __typename
+    }
+    homeType
+    keywords
+    listingStatusType
+    livingAreaSqft {
+      min
+      max
+      __typename
+    }
+    lotSizeSqft {
+      min
+      max
+      __typename
+    }
+    parkingSpots {
+      min
+      max
+      __typename
+    }
+    price {
+      min
+      max
+      __typename
+    }
+    searchRentalFilters {
+      monthlyPayment {
+        min
+        max
+        __typename
+      }
+      petsAllowed
+      rentalAvailabilityDate {
+        min
+        max
+        __typename
+      }
+      __typename
+    }
+    searchSaleFilters {
+      daysOnZillow {
+        min
+        max
+        __typename
+      }
+      __typename
+    }
+    showOnlyType
+    view
+    yearBuilt {
+      min
+      max
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment RentalCommunityResultFields on SearchAssistanceRentalCommunityResult {
+  location {
+    latitude
+    longitude
+    __typename
+  }
+  __typename
+}
