@@ -242,7 +242,7 @@ class RealtorAPI:
     class request:
         @staticmethod
         def map_search(
-                coordinates:tuple[float]=None,
+                coordinates:tuple[float],
                 radius_mi=None,
                 primary:bool=True,
                 pending:bool=False,
@@ -272,6 +272,50 @@ class RealtorAPI:
                         [bbox["west"], bbox["north"]],
                     ]
                 ]
+            }
+
+            
+            payload["variables"]["query"]["primary"] = primary
+            payload["variables"]["query"]["pending"] = pending
+            payload["variables"]["query"]["contingent"] = contingent
+            
+            limit = int(limit) if str(limit).isdigit() else 50
+            sort_type = str(sort_type).lower() if sort_type != None else "relevant"
+
+            payload["variables"]["limit"] = int(limit)
+            # payload["variables"]["offset"] = int(offset)
+            payload["variables"]["sort_type"] = sort_type
+
+
+            req = httpx.Request("POST", url, params=params, json=payload)
+            
+            return req
+
+
+        @staticmethod
+        def polygon_search(
+                coordinate_list:list[tuple[float]],
+                radius_mi=None,
+                primary:bool=True,
+                pending:bool=False,
+                contingent:bool=False,
+                limit:int=None,
+                offset:int=None,
+                sort_type=None,
+            ):
+            url = "https://www.realtor.com/api/v1/rdc_search_srp"
+            
+            params = {"client_id": "rdc-search-for-sale-search", "schema": "vesta"}
+
+            operation_name = "ConsumerSearchQuery"
+
+            payload = readjson(paths.GRAPHQL_DIR.joinpath(f"realtor-{operation_name}.json"))
+            payload["query"] = readfile(paths.GRAPHQL_DIR.joinpath(f"realtor-{operation_name}.gql"))
+
+            # bbox = get_bounding_box(float(coordinates[0]), float(coordinates[1]), radius=radius_mi)
+            payload["variables"]["query"]["boundary"] = {
+                "type": "MultiPolygon",
+                "coordinates": [coordinate_list]
             }
 
             
@@ -551,8 +595,6 @@ class RealtorAPI:
         
 
 
-
-
 class ZillowAPI:
     def __init__(self):
         pass
@@ -695,3 +737,9 @@ class ZillowAPI:
         }
 
 
+
+class MLSAPI:
+    def __init__(self) -> None:
+        pass
+
+    
