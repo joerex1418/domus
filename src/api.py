@@ -5,6 +5,7 @@ from typing import Optional
 from pathlib import Path
 
 import httpx
+import orjson
 from dateutil.relativedelta import relativedelta
 
 from . import paths
@@ -13,7 +14,7 @@ from .util import readfile
 from .util import get_bounding_box
 
 
-class RealtorAPI:
+class Realtor:
     def __init__(self) -> None:
         pass
 
@@ -123,12 +124,12 @@ class RealtorAPI:
         return data
 
 
-    def property_link(self, permalink:str):
+    def generate_property_link(self, permalink:str):
         base_url = "https://www.realtor.com/realestateandhomes-detail"
         return f"{base_url}/{permalink}"
     
 
-    def custom_photo_link(self, og_url, width:Optional[int]=None):
+    def generate_custom_photo_link(self, og_url, width:Optional[int]=None):
         if width != None:
             url_obj = httpx.URL(og_url)
 
@@ -229,6 +230,7 @@ class RealtorAPI:
     def _compact_property_data(self, rawdata):
         ...
 
+
     def _compact_search_data(self, rawdata):
         data = {
             "count": rawdata["data"]["home_search"]["count"],
@@ -238,6 +240,7 @@ class RealtorAPI:
         }
 
         return data
+
 
     class request:
         @staticmethod
@@ -595,7 +598,7 @@ class RealtorAPI:
         
 
 
-class ZillowAPI:
+class Zillow:
     def __init__(self):
         pass
 
@@ -738,8 +741,59 @@ class ZillowAPI:
 
 
 
-class MLSAPI:
+class Redfin:
     def __init__(self) -> None:
         pass
+    
+    def search(self):
+        req = self.request.search()
+
+        with httpx.Client() as client:
+            r = client.send(req)
+            rawdata = orjson.loads(r.text.replace(r"{}&&", ""))
+
+        return rawdata
+
+    class request:
+        @staticmethod
+        def search():
+            url = "https://www.redfin.com/stingray/api/gis"
+
+            params = {
+                'al': '1',
+                'include_nearby_homes': 'true',
+                'market': 'chicago',
+                'mpt': '99',
+                'num_beds': '2',
+                'num_homes': '350',
+                'ord': 'redfin-recommended-asc',
+                'page_number': '1',
+                'poly': '-88.26928 42.20935,-88.16886 42.20935,-88.16886 42.25987,-88.26928 42.25987,-88.26928 42.20935',
+                'region_id': '25756',
+                'region_type': '2',
+                'sf': '1,2,5,6,7',
+                'start': '0',
+                'status': '9',
+                'uipt': '1,2,3,4,5,6,7,8',
+                'v': '8',
+                'zoomLevel': '14',
+            }
+
+            headers = {
+                "accept": "*/*",
+                "accept-language": "en-GB,en;q=0.5",
+                "accept-encoding": "gzip, deflate, br, zstd",
+                "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                "host": "www.redfin.com",
+                "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:129.0) Gecko/20100101 Firefox/129.0",
+            }
+
+            # params = httpx.QueryParams(params)
+
+            req = httpx.Request("GET", url, params=params, headers=headers)
+
+            return req
+
+
 
     
