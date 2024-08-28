@@ -36,6 +36,7 @@ redfin = Redfin()
 # data = zillow.query_understanding("940 Pearson Rd Cary, IL")
 # data = zillow.property_lookup(5071833)
 
+
 data = redfin.search()
 
 savejson(data, "temp.json")
