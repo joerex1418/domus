@@ -37,6 +37,6 @@ redfin = Redfin()
 # data = zillow.property_lookup(5071833)
 
 
-data = redfin.search()
+# data = redfin.map_search()
 
-savejson(data, "temp.json")
+# savejson(data, "temp.json")

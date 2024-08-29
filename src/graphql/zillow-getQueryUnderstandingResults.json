@@ -4,7 +4,7 @@
     "querySource": "MANUAL",
     "query": "",
     "queryOptions": {
-      "maxResults": 1,
+      "maxResults": 20,
       "userIdentity": {
         "abKey": "86fce1d3-f926-4d72-adea-f90b80cf36f5"
       },

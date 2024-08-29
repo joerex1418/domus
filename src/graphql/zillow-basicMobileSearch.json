@@ -1,0 +1,62 @@
+{
+    "homeDetailsUriParameters": {
+        "googleMaps": false,
+        "showFactsAndFeatures": true,
+        "platform": "iphone",
+        "streetView": false
+    },
+    "excludeFilter": [
+        "pending",
+        "acceptingBackupOffers"
+    ],
+    "priceRange": {
+        "max": 480000
+    },
+    "bedroomsRange": {
+        "min": 0
+    },
+    "sortOrder": "relevance",
+    "sortAscending": false,
+    "supplementResultsWithOffMarket": false,
+    "includeFlexField": true,
+    "filterHiddenHomes": true,
+    "includeUngroupedCount": false,
+    "photoTreatments": [
+        "medium",
+        "highResolution"
+    ],
+    "regionParameters": {
+        "regionIds": [
+            {
+                "regionIdType": "city",
+                "regionId": "4271"
+            }
+        ],
+        "regionType": "standardId",
+        "boundaries": {
+            "southLatitude": -89.99999999999,
+            "northLatitude": 89.99999999999,
+            "westLongitude": -179.99999999999,
+            "eastLongitude": 179.99999999999
+        }
+    },
+    "returnFlags": [
+        "navigationAds"
+    ],
+    "keywords": "Shed",
+    "paging": {
+        "pageSize": 75,
+        "pageNumber": 1
+    },
+    "showAllFirstPartyPhotos": true,
+    "listingCategoryFilter": "category1",
+    "homeStatuses": [
+        "fsba",
+        "fsbo",
+        "foreclosure",
+        "auction",
+        "comingSoon",
+        "newConstruction"
+    ],
+    "zoomLevel": 10
+}

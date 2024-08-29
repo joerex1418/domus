@@ -1,3 +1,4 @@
+import rich
 import httpx
 import orjson
 from flask import request
@@ -7,7 +8,12 @@ from flask.templating import render_template
 from flask.helpers import url_for
 from flask_assets import Environment, Bundle
 
+from src.api import Realtor
+from src.api import Zillow
 from src.api import Redfin
+from src.api import send_request
+from src.api import readjson
+from src import paths
 
 app = Flask(__name__)
 # app.config["JSON_SORT_KEYS"] = False
@@ -23,23 +29,26 @@ def inject_dict_for_all_templates():
 
 @app.route("/")
 def index():
-    url = ""
-    headers = {
-        "accept": "*/*",
-        "accept-language": "en-GB,en;q=0.5",
-        "accept-encoding": "gzip, deflate, br, zstd",
-        # "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "host": "www.redfin.com",
-        "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:129.0) Gecko/20100101 Firefox/129.0",
-    }
-
-    
+    zillow = Zillow()
     redfin = Redfin()
+
+    # url = "https://zm.zillow.com/api/public/v2/mobile-search/homes/search"
+    # headers = zillow.request._mobile_headers()
+    # payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-basicMobileSearch.json"))
+    
+    # url = "https://www.zillow.com/zg-graph"
+    # headers = zillow.request._mobile_headers_alt()
+    # payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-Autocomplete.json"))
+    
+    data = zillow.query_understanding("Springfield, IL")
+    # data = zillow.query_understanding("Crystal Lake, IL")
+    
+    # data = zillow.autocomplete_results("Crystal Lake, IL")
 
     # data = redfin.search()
     # data = redfin.map_search((42.221805, -88.23305500000001))
     # data = redfin.region_search(18063, "zipcode")
-    data = redfin.query_region("Crystal Lake, IL")
+    # data = redfin.query_region("640 Stevens St")
 
     return data
 

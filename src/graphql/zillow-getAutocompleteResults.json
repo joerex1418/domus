@@ -1,0 +1,19 @@
+{
+    "operationName": "getAutocompleteResults",
+    "variables": {
+        "query": "60540",
+        "queryOptions": {
+            "maxResults": 10,
+            "userIdentity": {
+                "abKey": "d2697881-373f-4d2a-b8e1-2ec3f26303d5"
+            },
+            "userSearchContext": "FOR_SALE",
+            "userLocation": {
+                "latitude": 41.80446765232816,
+                "longitude": -88.16802750000002
+            }
+        },
+        "resultType": ["REGIONS", "FORSALE", "RENTALS", "SOLD", "BUILDER_COMMUNITIES"]
+    },
+    "query": ""
+}

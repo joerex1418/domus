@@ -1,0 +1,38 @@
+{
+    "extensions": {
+        "persistedQuery": {
+            "sha256Hash": "7ec843067d56a7b104c3e5bd943883d82d6d710da7573be608d247793ebe2dc3",
+            "version": 1
+        }
+    },
+    "operationName": "Autocomplete",
+    "variables": {
+        "query": "60013",
+        "queryOptions": {
+            "debug": false,
+            "interactionId": "30199DE3-1093-4963-BE18-7931D96F739D",
+            "maxResults": 10,
+            "multiRegion": null,
+            "priorSearches": [],
+            "regionId": null,
+            "spellCheck": true,
+            "userIdentity": {
+                "abKey": "D7A824BD-3ACF-4FBD-BD2A-5AFC0A38A5A6",
+                "deviceInstallationId": "D7A824BD-3ACF-4FBD-BD2A-5AFC0A38A5A6",
+                "zuid": null
+            },
+            "userLocation": {
+                "latitude": 41.884949724144064,
+                "longitude": -87.636613873746612
+            },
+            "userSearchContext": "FOR_SALE",
+            "viewPort": {
+                "maxX": 41.781355535428851,
+                "maxY": -88.153666908343126,
+                "minX": 41.767502227774948,
+                "minY": -88.165485091656905
+            }
+        },
+        "resultType": ["SCHOOL_DISTRICTS", "ADDRESSES", "COMMERCIAL_NAME", "SEMANTIC_REGIONS", "SCHOOLS", "COMMERCIAL_ADDRESS", "REGIONS"]
+    }
+}

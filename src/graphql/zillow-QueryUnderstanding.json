@@ -11,17 +11,9 @@
     "queryOptions": {
       "debug": false,
       "interactionId": "9AB34EED-9AB8-4F85-BF69-18E36F8F9D20",
-      "maxResults": 1,
+      "maxResults": 20,
       "multiRegion": null,
-      "priorSearches": [
-        "60540",
-        "60013",
-        "Naperville IL homes",
-        "Schaumburg IL homes",
-        "Saint Charles IL homes",
-        "60013",
-        "60563"
-      ],
+      "priorSearches": [],
       "regionId": null,
       "spellCheck": true,
       "userIdentity": {
@@ -45,9 +37,6 @@
     "resultType": [
       "ADDRESSES",
       "REGIONS",
-      "FORSALE",
-      "RENTALS",
-      "SOLD",
       "SEMANTIC_REGIONS"
     ]
   }

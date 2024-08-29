@@ -1,0 +1,100 @@
+query getAutocompleteResults($query: String!, $queryOptions: SearchAssistanceQueryOptions, $resultType: [SearchAssistanceResultType]) {
+  searchAssistanceResult: zgsAutocompleteRequest(
+    query: $query
+    queryOptions: $queryOptions
+    resultType: $resultType
+  ) {
+    requestId
+    results {
+      __typename
+      id
+      ...RegionResultFields
+      ...SemanticResultFields
+      ...RentalCommunityResultFields
+      ...BuilderCommunityResultFields
+    }
+  }
+}
+
+fragment RegionResultFields on SearchAssistanceRegionResult {
+  regionId
+  subType
+}
+
+fragment SemanticResultFields on SearchAssistanceSemanticResult {
+  nearMe
+  regionIds
+  regionTypes
+  regionDisplayIds
+  queryResolutionStatus
+  viewLatitudeDelta
+  filters {
+    basementStatusType
+    baths {
+      min
+      max
+    }
+    beds {
+      min
+      max
+    }
+    excludeTypes
+    hoaFeesPerMonth {
+      min
+      max
+    }
+    homeType
+    keywords
+    listingStatusType
+    livingAreaSqft {
+      min
+      max
+    }
+    lotSizeSqft {
+      min
+      max
+    }
+    parkingSpots {
+      min
+      max
+    }
+    price {
+      min
+      max
+    }
+    searchRentalFilters {
+      monthlyPayment {
+        min
+        max
+      }
+      petsAllowed
+      rentalAvailabilityDate {
+        min
+        max
+      }
+    }
+    searchSaleFilters {
+      daysOnZillow {
+        min
+        max
+      }
+    }
+    showOnlyType
+    view
+    yearBuilt {
+      min
+      max
+    }
+  }
+}
+
+fragment RentalCommunityResultFields on SearchAssistanceRentalCommunityResult {
+  location {
+    latitude
+    longitude
+  }
+}
+
+fragment BuilderCommunityResultFields on SearchAssistanceBuilderCommunityResult {
+  plid
+}

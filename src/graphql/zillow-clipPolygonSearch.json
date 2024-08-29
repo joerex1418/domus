@@ -1,0 +1,57 @@
+{
+    "showAllFirstPartyPhotos": true,
+    "keywords": "Shed",
+    "includeFlexField": true,
+    "priceRange": {
+        "max": 480000
+    },
+    "includeUngroupedCount": false,
+    "supplementResultsWithOffMarket": false,
+    "paging": {
+        "pageNumber": 1,
+        "pageSize": 75
+    },
+    "zoomLevel": 12,
+    "bedroomsRange": {
+        "min": 0
+    },
+    "photoTreatments": [
+        "medium",
+        "highResolution"
+    ],
+    "filterHiddenHomes": true,
+    "sortAscending": false,
+    "regionParameters": {
+        "clipPolygon": "clipPolygon=42.18420177526358,-88.25644724309578|42.183453267268156,-88.26777523373116|42.17885510181538,-88.27816523586114|42.16842778662581,-88.28927676481591|42.16013818076116,-88.29418315581164|42.1542010865108,-88.29310086392307|42.1483704257138,-88.2861020408419|42.14756799904612,-88.27167148452989|42.149226335465336,-88.26423974469334|42.1558592491553,-88.25579786796268|42.168213873355334,-88.25139654871691|42.17896203809963,-88.25161300709462|42.18323940726214,-88.25933335700051|:",
+        "boundaries": {
+            "southLatitude": 42.13087017448893,
+            "eastLongitude": -88.24273257609494,
+            "westLongitude": -88.30284712843357,
+            "northLatitude": 42.20090490541405
+        },
+        "regionType": "customPolygon"
+    },
+    "homeDetailsUriParameters": {
+        "platform": "iphone",
+        "streetView": false,
+        "showFactsAndFeatures": true,
+        "googleMaps": false
+    },
+    "sortOrder": "relevance",
+    "homeStatuses": [
+        "fsba",
+        "fsbo",
+        "foreclosure",
+        "auction",
+        "comingSoon",
+        "newConstruction"
+    ],
+    "returnFlags": [
+        "navigationAds"
+    ],
+    "excludeFilter": [
+        "pending",
+        "acceptingBackupOffers"
+    ],
+    "listingCategoryFilter": "category1"
+}
