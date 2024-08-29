@@ -19,6 +19,7 @@ from .constants import FINANCING_TYPE_MAP
 from .constants import REGION_TYPE_REVERSE_MAP
 
 
+
 class Realtor:
     def __init__(self) -> None:
         pass
@@ -840,18 +841,6 @@ class Redfin:
         return rawdata
 
 
-
-
-    def search(self):
-        req = self.request.search()
-
-        with httpx.Client() as client:
-            r = client.send(req)
-            rawdata = orjson.loads(r.text.replace(r"{}&&", ""))
-
-        return rawdata
-
-
     def query_region(self, location:str):
         req = self.request.query_region(location)
 
@@ -972,7 +961,7 @@ class Redfin:
                 "rdfn_lst": rdfn_lst,
             }
 
-            headers = redfin_headers()
+            headers = _redfin_headers()
 
             req = httpx.Request("GET", url, params=params, headers=headers)
 
@@ -1044,7 +1033,7 @@ class Redfin:
                 "rdfn_lst": rdfn_lst,
             }
 
-            headers = redfin_headers()
+            headers = _redfin_headers()
 
             req = httpx.Request("GET", url, params=params, headers=headers)
 
@@ -1115,7 +1104,7 @@ class Redfin:
                 "rdfn_lst": rdfn_lst,
             }
 
-            headers = redfin_headers()
+            headers = _redfin_headers()
 
             req = httpx.Request("GET", url, params=params, headers=headers)
 
@@ -1132,72 +1121,7 @@ class Redfin:
                 "v": "1",
             }
 
-            headers = redfin_headers()
-
-            req = httpx.Request("GET", url, params=params, headers=headers)
-
-            return req
-
-
-        @staticmethod
-        def search(
-            home_types:list[Literal["home", "condo", "townhouse", "multi-family", "land", "other", "mobile", "co-op"]]=None,
-            num_beds=None,
-            max_num_beds=None,
-            num_baths=None, 
-            num_homes=350,
-            excl_ar=False, 
-            excl_ss=False,
-            time_on_market_range:Literal["1-", "3-", "7-", "14-", "30-", "-7", "-14", "-30", "-45", "-60", "-90", "-180"]=None,
-            redfin_listings_only=False,
-            financing_type:Literal["FHA", "VA"]=None,
-            pool_type:Literal["private", "community", "private_or_community", "no_private_pool"]=None,
-            sort_by=None,
-            ):
-            url = "https://www.redfin.com/stingray/api/gis"
-
-            sf = "1,2,3,4,5,6,7"
-
-            if financing_type != None:
-                financing_type = FINANCING_TYPE_MAP[str(financing_type).upper()]
-
-            if pool_type != None:
-                pool_type = POOL_TYPE_MAP[str(pool_type)]
-
-            rdfn_lst = redfin_listings_only            
-
-            if home_types == None:
-                home_types = ["1"]
-            else:
-                home_types = [str(UIPT_MAP[x]) for x in home_types]
-
-            sort_by = "redfin-recommended-asc" if sort_by != None else None
-
-            params = {
-                "query": "Naperville, IL",
-                "al": "1",
-                "include_nearby_homes": "true",
-                "mpt": "99",
-                "num_beds": num_beds,
-                "max_num_beds": max_num_beds,
-                "num_baths": num_baths,
-                "num_homes": num_homes,
-                "ord": sort_by,
-                "page_number": "1",
-                "pool_types": pool_type,
-                "sf": sf,
-                "start": "0",
-                "status": "9",
-                "uipt": ",".join(home_types),
-                "v": "8",
-                "excl_ar": excl_ar,
-                "excl_ss": excl_ss,
-                "time_on_market_range": time_on_market_range,
-                "financing_type": financing_type,
-                "rdfn_lst": rdfn_lst,
-            }
-
-            headers = redfin_headers()
+            headers = _redfin_headers()
 
             req = httpx.Request("GET", url, params=params, headers=headers)
 
@@ -1205,7 +1129,7 @@ class Redfin:
 
 
 
-def redfin_headers():
+def _redfin_headers():
     return {
         "accept": "*/*",
         "accept-language": "en-GB,en;q=0.5",
