@@ -637,11 +637,12 @@ class Zillow:
         return rawdata
     
 
-    def region_search(self, region_id, region_type_id):
+    def region_search(self, region_id, region_type_id, coordinates:list[tuple[float, float]]):
         # TODO: Figure this one out. You had a good payload for it...I thinks
         req = self.request.region_search(
             region_id=region_id,
-            region_type_id=region_type_id
+            region_type_id=region_type_id,
+            coordinates=coordinates
             )
         
         r = send_request(req)
@@ -661,6 +662,20 @@ class Zillow:
             r = client.send(req)
         
         print("HELLO!", r.text)
+
+        rawdata = orjson.loads(r.content)
+
+        return rawdata
+
+    
+    def region_search(self, region_id, region_type_id, coordinates:list[tuple[float, float]]):
+        req = self.request.region_search(
+            region_id=region_id,
+            region_type_id=region_type_id,
+            coordinates=coordinates
+        )
+
+        r = send_request(req)
 
         rawdata = orjson.loads(r.content)
 
@@ -893,8 +908,43 @@ class Zillow:
 
 
         @staticmethod
-        def region_search(region_id, region_type_id):
-            ...
+        def region_search(region_id, region_type_id, coordinates:list[tuple[float, float]]):
+            url = "https://zm.zillow.com/api/public/v2/mobile-search/homes/search"
+            
+            headers = Zillow.request._mobile_headers()
+
+            payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-regionSearch.json"))
+            # payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-searchQueryState.json"))
+            
+            all_lat = [x[1] for x in coordinates]
+            all_lon = [x[0] for x in coordinates]
+
+            north = max(all_lat)
+            south = min(all_lat)
+            east = max(all_lon)
+            west = min(all_lon)
+
+            # payload["searchQueryState"]["mapBounds"] = {
+            #     "north": north,
+            #     "south": south,
+            #     "east": east,
+            #     "west": west,
+            # }
+            # payload["searchQueryState"]["regionSelection"][0]["regionId"] = region_id
+            # payload["searchQueryState"]["regionSelection"][0]["regionType"] = region_type_id
+
+            payload["regionParameters"]["regionIds"][0]["regionId"] = str(region_id)
+            payload["regionParameters"]["regionIds"][0]["regionIdType"] = "city"
+            payload["regionParameters"]["boundaries"]["northLatitude"] = north
+            payload["regionParameters"]["boundaries"]["southLatitude"] = south
+            payload["regionParameters"]["boundaries"]["eastLongitude"] = east
+            payload["regionParameters"]["boundaries"]["westLongitude"] = west
+
+            req = httpx.Request("POST", url, headers=headers, json=payload)
+
+            return req
+
+            
 
 
         @staticmethod

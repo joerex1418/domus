@@ -34,16 +34,15 @@ def index():
 
     # url = "https://zm.zillow.com/api/public/v2/mobile-search/homes/search"
     # headers = zillow.request._mobile_headers()
-    # payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-basicMobileSearch.json"))
+    # payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-regionSearch.json"))
     
     # url = "https://www.zillow.com/zg-graph"
     # headers = zillow.request._mobile_headers_alt()
     # payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-Autocomplete.json"))
     
     data = zillow.query_understanding("Springfield, IL")
-    # data = zillow.query_understanding("Crystal Lake, IL")
-    
-    # data = zillow.autocomplete_results("Crystal Lake, IL")
+    item = data[0]
+    data = zillow.region_search(region_id=item["region_id"], region_type_id=item["region_type_id"], coordinates=item["polygon"])
 
     # data = redfin.search()
     # data = redfin.map_search((42.221805, -88.23305500000001))
