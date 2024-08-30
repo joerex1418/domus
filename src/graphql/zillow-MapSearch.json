@@ -5,14 +5,12 @@
     "supplementResultsWithOffMarket": false,
     "keywords": "Shed",
     "regionParameters": {
-        "clipPolygon": "",
         "boundaries": {
-            "southLatitude": null,
-            "eastLongitude": null,
             "westLongitude": null,
-            "northLatitude": null
-        },
-        "regionType": "customPolygon"
+            "eastLongitude": null,
+            "northLatitude": null,
+            "southLatitude": null
+        }
     },
     "priceRange": {
         "max": 500000000
@@ -28,17 +26,6 @@
     "bathroomsRange": {
         "min": 1
     },
-    "zoomLevel": 10,
-    "photoTreatments": [
-        "medium",
-        "highResolution"
-    ],
-    "homeDetailsUriParameters": {
-        "platform": "iphone",
-        "streetView": false,
-        "showFactsAndFeatures": true,
-        "googleMaps": false
-    },
     "homeStatuses": [
         "fsba",
         "fsbo",
@@ -47,15 +34,26 @@
         "comingSoon",
         "newConstruction"
     ],
-    "returnFlags": [
-        "navigationAds"
-    ],
+    "includeFlexField": true,
     "excludeFilter": [
         "pending",
         "acceptingBackupOffers"
     ],
+    "returnFlags": [
+        "navigationAds"
+    ],
+    "zoomLevel": 10,
+    "homeDetailsUriParameters": {
+        "platform": "iphone",
+        "googleMaps": false,
+        "streetView": false,
+        "showFactsAndFeatures": true
+    },
     "includeUngroupedCount": false,
     "showAllFirstPartyPhotos": true,
-    "includeFlexField": true,
+    "photoTreatments": [
+        "medium",
+        "highResolution"
+    ],
     "listingCategoryFilter": "category1"
 }

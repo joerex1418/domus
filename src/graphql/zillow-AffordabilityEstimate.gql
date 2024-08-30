@@ -1,0 +1,101 @@
+query getAffordabilityEstimateFromPersonalizedPaymentChipMVP($zpid: ID!, $userOverrides: UserMortgagePreferences) {
+  property(zpid: $zpid) {
+    affordabilityEstimate(params: $userOverrides) {
+      monthly {
+        homeownersInsurance
+        principalAndInterest
+        privateMortgageInterest
+        propertyTax
+        hoaFees
+      }
+      monthlyCostCalculatorData {
+        mortgageCTA {
+          routingURL
+          ctaCopyText
+        }
+      }
+      mortgageChipData {
+        isPersonalized
+      }
+      usedInputs {
+        downPaymentAmount
+        downPaymentPercent
+        fromFinancialProfile
+        isDownpaymentPreferencePercent
+        creditScore {
+          rangeType
+        }
+        loan {
+          rate
+          rateSource
+          loanTypeTerm
+          loanDetailsString
+        }
+      }
+      totalMonthlyCost
+      personalizedPaymentData {
+        hub {
+          hubHero {
+            title
+            titleTooltip {
+              title
+              bodyCopy
+              mortgageLink {
+                copy
+                link
+              }
+            }
+            bodyText
+            cta {
+              ctaCopyText
+              routingURL
+            }
+            estMonthlyPayment
+            monthlyHOAFees {
+              copy
+              percentageOfTotal
+              showTooltip
+              tooltip {
+                bodyCopy
+                title
+                mortgageLink {
+                  copy
+                  link
+                }
+              }
+              value
+            }
+            monthlyPrincipalAndInterest {
+              copy
+              percentageOfTotal
+              showTooltip
+              value
+              tooltip {
+                bodyCopy
+                mortgageLink {
+                  copy
+                  link
+                }
+                title
+              }
+            }
+            monthlyTaxesAndInsurance {
+              copy
+              percentageOfTotal
+              showTooltip
+              value
+              tooltip {
+                bodyCopy
+                mortgageLink {
+                  copy
+                  link
+                }
+                title
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

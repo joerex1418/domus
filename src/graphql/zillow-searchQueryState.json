@@ -6,11 +6,13 @@
         "isMapVisible": false,
         "isListVisible": true,
         "mapBounds": {
-            "north": 41.799297628508896,
-            "south": 41.72656897245657,
-            "east": -87.93686118896484,
-            "west": -88.33854881103515
+            "north": 0,
+            "south": 0,
+            "east": 0,
+            "west": 0,
+            "zoom": 10
         },
+        "mapZoom": 10,
         "usersSearchTerm": "",
         "regionSelection": [
             {
@@ -20,13 +22,12 @@
         ],
         "filterState": {
             "sortSelection": {
-                "value": null
+                "value": "globalrelevanceex"
             },
             "isAllHomes": {
                 "value": true
             }
-        },
-        "mapZoom": 12
+        }
     },
     "wants": {
         "cat1": ["listResults", "mapResults", "regionResults"],

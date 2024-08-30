@@ -10,7 +10,7 @@
         "acceptingBackupOffers"
     ],
     "priceRange": {
-        "max": 480000
+        "max": 500000000
     },
     "bedroomsRange": {
         "min": 0
@@ -58,5 +58,5 @@
         "comingSoon",
         "newConstruction"
     ],
-    "zoomLevel": 10
+    "zoomLevel": 1
 }

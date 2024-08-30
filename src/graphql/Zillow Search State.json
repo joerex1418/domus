@@ -1,0 +1,3386 @@
+{
+    "queryState": {
+        "isMapVisible": true,
+        "mapBounds": {
+            "west": -88.24317826080001,
+            "east": -88.1562217392,
+            "south": 42.203328739199996,
+            "north": 42.2902852608
+        },
+        "regionSelection": [{
+            "regionId": 33488,
+            "regionType": 6
+        }],
+        "filterState": {
+            "sortSelection": {
+                "value": "globalrelevanceex"
+            },
+            "isAllHomes": {
+                "value": true
+            }
+        }
+    },
+    "filterDefinitions": {
+        "price": {
+            "id": "price",
+            "labels": {
+                "default": "Price",
+                "long": "Price Range",
+                "valueFormatter": {
+                    "none": "Any",
+                    "min": "${{min}}+",
+                    "max": "Up to ${{max}}",
+                    "minMax": "${{min}}-${{max}}",
+                    "identicalMinMax": "${{min}}",
+                    "numberFormatter": "0,0",
+                    "inputFormatter": "0.[0]a"
+                }
+            },
+            "sortOrder": 1,
+            "type": "Range",
+            "defaultValue": {
+                "min": null,
+                "max": null
+            },
+            "suggestedEnums": [{
+                "label": "$50,000",
+                "value": 50000
+            }, {
+                "label": "$100,000",
+                "value": 100000
+            }, {
+                "label": "$150,000",
+                "value": 150000
+            }, {
+                "label": "$200,000",
+                "value": 200000
+            }, {
+                "label": "$250,000",
+                "value": 250000
+            }, {
+                "label": "$300,000",
+                "value": 300000
+            }, {
+                "label": "$350,000",
+                "value": 350000
+            }, {
+                "label": "$400,000",
+                "value": 400000
+            }, {
+                "label": "$450,000",
+                "value": 450000
+            }, {
+                "label": "$500,000",
+                "value": 500000
+            }, {
+                "label": "$550,000",
+                "value": 550000
+            }, {
+                "label": "$600,000",
+                "value": 600000
+            }, {
+                "label": "$650,000",
+                "value": 650000
+            }, {
+                "label": "$700,000",
+                "value": 700000
+            }, {
+                "label": "$750,000",
+                "value": 750000
+            }, {
+                "label": "$800,000",
+                "value": 800000
+            }, {
+                "label": "$850,000",
+                "value": 850000
+            }, {
+                "label": "$900,000",
+                "value": 900000
+            }, {
+                "label": "$950,000",
+                "value": 950000
+            }, {
+                "label": "$1M",
+                "value": 1000000
+            }, {
+                "label": "$1.25M",
+                "value": 1250000
+            }, {
+                "label": "$1.5M",
+                "value": 1500000
+            }, {
+                "label": "$1.75M",
+                "value": 1750000
+            }, {
+                "label": "$2M",
+                "value": 2000000
+            }, {
+                "label": "$2.25M",
+                "value": 2250000
+            }, {
+                "label": "$2.5M",
+                "value": 2500000
+            }, {
+                "label": "$2.75M",
+                "value": 2750000
+            }, {
+                "label": "$3M",
+                "value": 3000000
+            }, {
+                "label": "$3.25M",
+                "value": 3250000
+            }, {
+                "label": "$3.5M",
+                "value": 3500000
+            }, {
+                "label": "$3.75M",
+                "value": 3750000
+            }, {
+                "label": "$4M",
+                "value": 4000000
+            }, {
+                "label": "$4.25M",
+                "value": 4250000
+            }, {
+                "label": "$4.5M",
+                "value": 4500000
+            }, {
+                "label": "$4.75M",
+                "value": 4750000
+            }, {
+                "label": "$5M",
+                "value": 5000000
+            }, {
+                "label": "$6M",
+                "value": 6000000
+            }, {
+                "label": "$7M",
+                "value": 7000000
+            }, {
+                "label": "$8M",
+                "value": 8000000
+            }, {
+                "label": "$9M",
+                "value": 9000000
+            }, {
+                "label": "$10M",
+                "value": 10000000
+            }, {
+                "label": "$11M",
+                "value": 11000000
+            }, {
+                "label": "$12M",
+                "value": 12000000
+            }, {
+                "label": "$13M",
+                "value": 13000000
+            }, {
+                "label": "$14M",
+                "value": 14000000
+            }, {
+                "label": "$15M",
+                "value": 15000000
+            }, {
+                "label": "$16M",
+                "value": 16000000
+            }, {
+                "label": "$17M",
+                "value": 17000000
+            }, {
+                "label": "$18M",
+                "value": 18000000
+            }],
+            "exposedPillEnabled": false
+        },
+        "monthlyPayment": {
+            "id": "monthlyPayment",
+            "shortId": "mp",
+            "labels": {
+                "default": "Price",
+                "valueFormatter": {
+                    "none": "Any",
+                    "min": "${{min}}+",
+                    "max": "Up to ${{max}}",
+                    "minMax": "${{min}}-${{max}}",
+                    "identicalMinMax": "${{min}}",
+                    "numberFormatter": "0,0",
+                    "inputFormatter": "0.[0]a"
+                }
+            },
+            "sortOrder": 1,
+            "type": "Range",
+            "defaultValue": {
+                "min": null,
+                "max": null
+            },
+            "suggestedEnums": [{
+                "label": "$200",
+                "value": 200
+            }, {
+                "label": "$400",
+                "value": 400
+            }, {
+                "label": "$600",
+                "value": 600
+            }, {
+                "label": "$800",
+                "value": 800
+            }, {
+                "label": "$1,000",
+                "value": 1000
+            }, {
+                "label": "$1,200",
+                "value": 1200
+            }, {
+                "label": "$1,400",
+                "value": 1400
+            }, {
+                "label": "$1,600",
+                "value": 1600
+            }, {
+                "label": "$1,800",
+                "value": 1800
+            }, {
+                "label": "$2,000",
+                "value": 2000
+            }, {
+                "label": "$2,200",
+                "value": 2200
+            }, {
+                "label": "$2,400",
+                "value": 2400
+            }, {
+                "label": "$2,600",
+                "value": 2600
+            }, {
+                "label": "$2,800",
+                "value": 2800
+            }, {
+                "label": "$3,000",
+                "value": 3000
+            }, {
+                "label": "$3,500",
+                "value": 3500
+            }, {
+                "label": "$4,000",
+                "value": 4000
+            }, {
+                "label": "$4,500",
+                "value": 4500
+            }, {
+                "label": "$5,000",
+                "value": 5000
+            }, {
+                "label": "$5,500",
+                "value": 5500
+            }, {
+                "label": "$6,000",
+                "value": 6000
+            }, {
+                "label": "$7,000",
+                "value": 7000
+            }, {
+                "label": "$8,000",
+                "value": 8000
+            }, {
+                "label": "$9,000",
+                "value": 9000
+            }, {
+                "label": "$10,000",
+                "value": 10000
+            }],
+            "exposedPillEnabled": false
+        },
+        "beds": {
+            "id": "beds",
+            "labels": {
+                "default": "Beds",
+                "valueFormatter": {
+                    "none": "Any",
+                    "min": "{{min}}+",
+                    "max": "<{{max}}",
+                    "minMax": "{{min}}-{{max}}",
+                    "identicalMinMax": {
+                        "0": "Studio",
+                        "default": "{{min}}"
+                    }
+                }
+            },
+            "sortOrder": 1,
+            "type": "Range",
+            "subType": "ExactableMin",
+            "defaultValue": {
+                "min": null,
+                "max": null
+            },
+            "suggestedEnums": {
+                "default": [{
+                    "key": "Any",
+                    "value": 0
+                }, {
+                    "key": "1+",
+                    "value": 1
+                }, {
+                    "key": "2+",
+                    "value": 2
+                }, {
+                    "key": "3+",
+                    "value": 3
+                }, {
+                    "key": "4+",
+                    "value": 4
+                }, {
+                    "key": "5+",
+                    "value": 5
+                }],
+                "exact": [{
+                    "key": "Studio",
+                    "value": 0
+                }, {
+                    "key": "1",
+                    "value": 1
+                }, {
+                    "key": "2",
+                    "value": 2
+                }, {
+                    "key": "3",
+                    "value": 3
+                }, {
+                    "key": "4",
+                    "value": 4
+                }, {
+                    "key": "5",
+                    "value": 5
+                }]
+            },
+            "exposedPillEnabled": false
+        },
+        "singleStory": {
+            "id": "singleStory",
+            "shortId": "sto",
+            "labels": {
+                "default": "Single-story only",
+                "tracking": "Single Story",
+                "valueFormatter": {
+                    "true": "1 story"
+                }
+            },
+            "sortOrder": 8,
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            },
+            "exposedPillEnabled": true
+        },
+        "baths": {
+            "id": "baths",
+            "labels": {
+                "default": "Bathrooms",
+                "valueFormatter": {
+                    "none": "Any",
+                    "min": "{{min}}+",
+                    "max": "<{{max}}",
+                    "minMax": "{{min}}-{{max}}",
+                    "identicalMinMax": "{{min}}"
+                }
+            },
+            "sortOrder": 3,
+            "type": "Range",
+            "defaultValue": {
+                "min": null,
+                "max": null
+            },
+            "suggestedEnums": {
+                "Any": 0,
+                "1+": 1,
+                "1.5+": 1.5,
+                "2+": 2,
+                "3+": 3,
+                "4+": 4
+            },
+            "exposedPillEnabled": true
+        },
+        "sqft": {
+            "id": "sqft",
+            "labels": {
+                "default": "Square feet",
+                "minimum": "Square feet minimum",
+                "maximum": "Square feet maximum",
+                "short": "Sqft",
+                "valueFormatter": {
+                    "none": "Any",
+                    "min": "{{min}}+",
+                    "max": "<{{max}}",
+                    "minMax": "{{min}}-{{max}}",
+                    "identicalMinMax": "{{min}}",
+                    "numberFormatter": "0,0",
+                    "inputFormatter": "0,0"
+                }
+            },
+            "sortOrder": 4,
+            "type": "Range",
+            "defaultValue": {
+                "min": null,
+                "max": null
+            },
+            "suggestedEnums": [{
+                "label": "500",
+                "value": 500
+            }, {
+                "label": "750",
+                "value": 750
+            }, {
+                "label": "1,000",
+                "value": 1000
+            }, {
+                "label": "1,250",
+                "value": 1250
+            }, {
+                "label": "1,500",
+                "value": 1500
+            }, {
+                "label": "1,750",
+                "value": 1750
+            }, {
+                "label": "2,000",
+                "value": 2000
+            }, {
+                "label": "2,250",
+                "value": 2250
+            }, {
+                "label": "2,500",
+                "value": 2500
+            }, {
+                "label": "2,750",
+                "value": 2750
+            }, {
+                "label": "3,000",
+                "value": 3000
+            }, {
+                "label": "3,500",
+                "value": 3500
+            }, {
+                "label": "4,000",
+                "value": 4000
+            }, {
+                "label": "5,000",
+                "value": 5000
+            }, {
+                "label": "7,500",
+                "value": 7500
+            }],
+            "exposedPillEnabled": true
+        },
+        "lotSize": {
+            "id": "lotSize",
+            "shortId": "lot",
+            "labels": {
+                "default": "Lot size",
+                "minimum": "Lot size minimum",
+                "maximum": "Lot size maximum",
+                "shortDescription": "...",
+                "longDescription": "...",
+                "pluralSubstitutes": {
+                    "acre": "acres"
+                },
+                "valueFormatter": {
+                    "none": "Any",
+                    "min": "{{min}}+ {{unit}}",
+                    "max": "<={{max}} {{unit}}",
+                    "minMax": "{{min}}-{{max}} {{unit}}",
+                    "identicalMinMax": "{{min}} {{unit}}",
+                    "numberFormatter": "0,0[.][000]",
+                    "inputFormatter": "0,0[.][000]"
+                }
+            },
+            "sortOrder": 5,
+            "type": "Range",
+            "subType": "RangeWithUnits",
+            "defaultValue": {
+                "min": null,
+                "max": null,
+                "units": "sqft"
+            },
+            "unitTypes": ["sqft", "acre"],
+            "suggestedEnums": [{
+                "label": "1,000 sqft",
+                "value": 1000,
+                "units": "sqft"
+            }, {
+                "label": "2,000 sqft",
+                "value": 2000,
+                "units": "sqft"
+            }, {
+                "label": "3,000 sqft",
+                "value": 3000,
+                "units": "sqft"
+            }, {
+                "label": "4,000 sqft",
+                "value": 4000,
+                "units": "sqft"
+            }, {
+                "label": "5,000 sqft",
+                "value": 5000,
+                "units": "sqft"
+            }, {
+                "label": "7,500 sqft",
+                "value": 7500,
+                "units": "sqft"
+            }, {
+                "label": "1/4 acre/10,890 sqft",
+                "value": 10890,
+                "units": "sqft"
+            }, {
+                "label": "1/2 acre",
+                "value": 21780,
+                "units": "sqft"
+            }, {
+                "label": "1 acre",
+                "value": 43560,
+                "units": "sqft"
+            }, {
+                "label": "2 acres",
+                "value": 87120,
+                "units": "sqft"
+            }, {
+                "label": "5 acres",
+                "value": 217800,
+                "units": "sqft"
+            }, {
+                "label": "10 acres",
+                "value": 435600,
+                "units": "sqft"
+            }, {
+                "label": "20 acres",
+                "value": 871200,
+                "units": "sqft"
+            }, {
+                "label": "50 acres",
+                "value": 2178000,
+                "units": "sqft"
+            }, {
+                "label": "100 acres",
+                "value": 4356000,
+                "units": "sqft"
+            }],
+            "exposedPillEnabled": true
+        },
+        "built": {
+            "id": "built",
+            "labels": {
+                "default": "Year built",
+                "minimum": "Year built minimum",
+                "maximum": "Year built maximum",
+                "valueFormatter": {
+                    "none": "Any",
+                    "min": "{{min}}+",
+                    "max": "<{{max}}",
+                    "minMax": "{{min}}-{{max}}",
+                    "identicalMinMax": "{{min}}",
+                    "numberFormatter": "0",
+                    "inputFormatter": "0"
+                }
+            },
+            "sortOrder": 6,
+            "type": "Range",
+            "defaultValue": {
+                "min": null,
+                "max": null
+            },
+            "exposedPillEnabled": true
+        },
+        "hoa": {
+            "id": "hoa",
+            "labels": {
+                "default": "Max HOA",
+                "valueFormatter": {
+                    "none": "Any",
+                    "max": "${{max}}/month"
+                }
+            },
+            "sortOrder": 9,
+            "type": "Range",
+            "defaultValue": {
+                "min": null,
+                "max": null
+            },
+            "suggestedEnums": {
+                "Any": null,
+                "No HOA Fee": 0,
+                "$50/month": 50,
+                "$100/month": 100,
+                "$200/month": 200,
+                "$300/month": 300,
+                "$400/month": 400,
+                "$500/month": 500,
+                "$600/month": 600,
+                "$700/month": 700,
+                "$800/month": 800,
+                "$900/month": 900,
+                "$1000/month": 1000
+            },
+            "exposedPillEnabled": true
+        },
+        "includeHomesWithNoHoaData": {
+            "id": "includeHomesWithNoHoaData",
+            "shortId": "nohoa",
+            "labels": {
+                "default": "Include homes with incomplete HOA data",
+                "tracking": "HOA No Data"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "doz": {
+            "id": "doz",
+            "labels": {
+                "default": "Days on Zillow",
+                "soldInLast": "Sold in last",
+                "both": "Listed or Sold in last",
+                "valueFormatter": {
+                    "any": "Any",
+                    "1": "1 day",
+                    "7": "7 days",
+                    "14": "14 days",
+                    "30": "30 days",
+                    "90": "90 days",
+                    "6m": "6 months",
+                    "12m": "12 months",
+                    "24m": "24 months",
+                    "36m": "36 months"
+                }
+            },
+            "sortOrder": 7,
+            "type": "Enum",
+            "defaultValue": {
+                "value": "any"
+            },
+            "allowedValues": {
+                "any": null,
+                "1": -1,
+                "7": -7,
+                "14": -14,
+                "30": -30,
+                "90": -90,
+                "6m": -182,
+                "12m": -365,
+                "24m": -730,
+                "36m": -1095
+            },
+            "suggestedEnums": {
+                "Any": "any",
+                "1 day": "1",
+                "7 days": "7",
+                "14 days": "14",
+                "30 days": "30",
+                "90 days": "90",
+                "6 months": "6m",
+                "12 months": "12m",
+                "24 months": "24m",
+                "36 months": "36m"
+            },
+            "exposedPillEnabled": true
+        },
+        "sortSelection": {
+            "id": "sortSelection",
+            "shortId": "sort",
+            "labels": {
+                "default": "Sort",
+                "valueFormatter": {
+                    "saved": "Date Saved",
+                    "listingstatus": "Listing Status",
+                    "mostrecentchange": "Most Recent Change",
+                    "globalrelevanceex": "Homes for You",
+                    "featured": "Verified Source",
+                    "priced": "Price (High to Low)",
+                    "pricea": "Price (Low to High)",
+                    "paymentd": "Payment (High to Low)",
+                    "paymenta": "Payment (Low to High)",
+                    "days": "Newest",
+                    "beds": "Bedrooms",
+                    "baths": "Bathrooms",
+                    "size": "Square Feet",
+                    "lot": "Lot Size",
+                    "zest": "Zestimate (High to Low)",
+                    "zesta": "Zestimate (Low to High)",
+                    "priorityscorecandidate": "Default"
+                }
+            },
+            "type": "Enum",
+            "defaultValue": {
+                "value": "priorityscorecandidate"
+            },
+            "allowedValues": {
+                "saved": "saved",
+                "listingstatus": "listingstatus",
+                "mostrecentchange": "mostrecentchange",
+                "globalrelevanceex": "globalrelevanceex",
+                "featured": "featured",
+                "priced": "priced",
+                "pricea": "pricea",
+                "paymentd": "paymentd",
+                "paymenta": "paymenta",
+                "days": "days",
+                "beds": "beds",
+                "baths": "baths",
+                "size": "size",
+                "lot": "lot",
+                "zest": "zest",
+                "zesta": "zesta",
+                "priorityscorecandidate": "priorityscorecandidate"
+            },
+            "ABTest": {
+                "RE_janus_brain_availability_date_candidate": "MODEL_1"
+            }
+        },
+        "keywords": {
+            "id": "keywords",
+            "shortId": "att",
+            "labels": {
+                "default": "Keywords",
+                "tracking": "Keyword"
+            },
+            "sortOrder": 2,
+            "type": "String",
+            "defaultValue": {
+                "value": ""
+            },
+            "exposedPillEnabled": true
+        },
+        "includeSchoolsSelection": {
+            "id": "includeSchoolsSelection",
+            "labels": {
+                "default": "Include",
+                "valueFormatter": {
+                    "highSchool": "high schools",
+                    "middleSchool": "middle schools",
+                    "elementarySchool": "elementary schools"
+                }
+            },
+            "type": "String",
+            "defaultValue": {
+                "highSchool": null,
+                "middleSchool": null,
+                "elementarySchool": null
+            }
+        },
+        "isElementarySchool": {
+            "id": "isElementarySchool",
+            "shortId": "sche",
+            "labels": {
+                "default": "Elementary"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isMiddleSchool": {
+            "id": "isMiddleSchool",
+            "shortId": "schm",
+            "labels": {
+                "default": "Middle"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isHighSchool": {
+            "id": "isHighSchool",
+            "shortId": "schh",
+            "labels": {
+                "default": "High"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isPublicSchool": {
+            "id": "isPublicSchool",
+            "shortId": "schp",
+            "labels": {
+                "default": "Public"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isPrivateSchool": {
+            "id": "isPrivateSchool",
+            "shortId": "schr",
+            "labels": {
+                "default": "Private"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isCharterSchool": {
+            "id": "isCharterSchool",
+            "shortId": "schc",
+            "labels": {
+                "default": "Charter"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "greatSchoolsRating": {
+            "id": "greatSchoolsRating",
+            "shortId": "schb",
+            "labels": {
+                "default": "GreatSchools Rating",
+                "valueFormatter": {
+                    "none": "Any"
+                }
+            },
+            "type": "Range",
+            "defaultValue": {
+                "min": 1
+            },
+            "suggestedEnums": [{
+                "label": "1+",
+                "value": 1
+            }, {
+                "label": "2+",
+                "value": 2
+            }, {
+                "label": "3+",
+                "value": 3
+            }, {
+                "label": "4+",
+                "value": 4
+            }, {
+                "label": "5+",
+                "value": 5
+            }, {
+                "label": "6+",
+                "value": 6
+            }, {
+                "label": "7+",
+                "value": 7
+            }, {
+                "label": "8+",
+                "value": 8
+            }, {
+                "label": "9+",
+                "value": 9
+            }, {
+                "label": "10",
+                "value": 10
+            }]
+        },
+        "includeUnratedSchools": {
+            "id": "includeUnratedSchools",
+            "shortId": "schu",
+            "labels": {
+                "default": "Include schools with no rating"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "enableSchools": {
+            "id": "enableSchools",
+            "shortId": "sch",
+            "labels": {
+                "default": "Schools"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "dataSourceSelection": {
+            "id": "dataSourceSelection",
+            "shortId": "dsrc",
+            "labels": {
+                "default": "Data Source"
+            },
+            "type": "String",
+            "defaultValue": {
+                "value": "all"
+            }
+        },
+        "onlyWithPhotos": {
+            "id": "onlyWithPhotos",
+            "labels": {
+                "default": "Photos"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyPriceReduction": {
+            "id": "onlyPriceReduction",
+            "labels": {
+                "default": "Price Reduction"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalPetsAllowed": {
+            "id": "onlyRentalPetsAllowed",
+            "shortId": "pet",
+            "labels": {
+                "default": "Pets Allowed"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalLargeDogsAllowed": {
+            "id": "onlyRentalLargeDogsAllowed",
+            "shortId": "ldog",
+            "labels": {
+                "default": "Allows large dogs"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalSmallDogsAllowed": {
+            "id": "onlyRentalSmallDogsAllowed",
+            "shortId": "sdog",
+            "labels": {
+                "default": "Allows small dogs"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalCatsAllowed": {
+            "id": "onlyRentalCatsAllowed",
+            "shortId": "cat",
+            "labels": {
+                "default": "Allows cats"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalIncomeRestrictedHousingType": {
+            "id": "onlyRentalIncomeRestrictedHousingType",
+            "shortId": "inct",
+            "labels": {
+                "default": "Income restricted"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalStudentHousingType": {
+            "id": "onlyRentalStudentHousingType",
+            "shortId": "stut",
+            "labels": {
+                "default": "Student Housing"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalSeniorHousingType": {
+            "id": "onlyRentalSeniorHousingType",
+            "shortId": "sent",
+            "labels": {
+                "default": "Senior Housing"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalDisabledHousingType": {
+            "id": "onlyRentalDisabledHousingType",
+            "shortId": "dist",
+            "labels": {
+                "default": "Disabled Housing"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalMilitaryHousingType": {
+            "id": "onlyRentalMilitaryHousingType",
+            "shortId": "milt",
+            "labels": {
+                "default": "Military Housing"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalParkingAvailable": {
+            "id": "onlyRentalParkingAvailable",
+            "shortId": "parka",
+            "labels": {
+                "default": "On-site Parking"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalInUnitLaundry": {
+            "id": "onlyRentalInUnitLaundry",
+            "shortId": "lau",
+            "labels": {
+                "default": "In-unit Laundry"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalAcceptsApplications": {
+            "id": "onlyRentalAcceptsApplications",
+            "shortId": "app",
+            "labels": {
+                "default": "Accepts Zillow Applications"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalIncomeRestricted": {
+            "id": "onlyRentalIncomeRestricted",
+            "shortId": "inc",
+            "labels": {
+                "default": "Income restricted"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalHousingConnector": {
+            "id": "onlyRentalHousingConnector",
+            "shortId": "hc",
+            "labels": {
+                "default": "Accepts Housing Connector",
+                "tracking": "Housing Connector"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalInstantTourAvailable": {
+            "id": "onlyRentalInstantTourAvailable",
+            "shortId": "ita",
+            "labels": {
+                "default": "Instant Tour Available"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalShortTermLease": {
+            "id": "onlyRentalShortTermLease",
+            "shortId": "stl",
+            "labels": {
+                "default": "Short term lease available"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalFurnished": {
+            "id": "onlyRentalFurnished",
+            "shortId": "fur",
+            "labels": {
+                "default": "Furnished"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalOutdoorSpace": {
+            "id": "onlyRentalOutdoorSpace",
+            "shortId": "os",
+            "labels": {
+                "default": "Outdoor space"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "highSpeedInternetAvailable": {
+            "id": "highSpeedInternetAvailable",
+            "shortId": "hsia",
+            "labels": {
+                "default": "High speed internet"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalControlledAccess": {
+            "id": "onlyRentalControlledAccess",
+            "shortId": "ca",
+            "labels": {
+                "default": "Controlled access"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalNoPets": {
+            "id": "onlyRentalNoPets",
+            "shortId": "np",
+            "labels": {
+                "default": "No pets"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "elevatorAccessAvailable": {
+            "id": "elevatorAccessAvailable",
+            "shortId": "eaa",
+            "labels": {
+                "default": "Elevator"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isForSaleByAgent": {
+            "id": "isForSaleByAgent",
+            "shortId": "fsba",
+            "labels": {
+                "default": "Agent listed"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isForSaleByOwner": {
+            "id": "isForSaleByOwner",
+            "shortId": "fsbo",
+            "labels": {
+                "default": "Owner posted"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isNewConstruction": {
+            "id": "isNewConstruction",
+            "shortId": "nc",
+            "labels": {
+                "default": "New construction"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isForSaleForeclosure": {
+            "id": "isForSaleForeclosure",
+            "shortId": "fore",
+            "labels": {
+                "default": "Foreclosures"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isComingSoon": {
+            "id": "isComingSoon",
+            "shortId": "cmsn",
+            "labels": {
+                "default": "Coming soon"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isAuction": {
+            "id": "isAuction",
+            "shortId": "auc",
+            "labels": {
+                "default": "Auctions"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isPreMarketForeclosure": {
+            "id": "isPreMarketForeclosure",
+            "shortId": "pmf",
+            "labels": {
+                "default": "Foreclosed"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isPreMarketPreForeclosure": {
+            "id": "isPreMarketPreForeclosure",
+            "shortId": "pf",
+            "labels": {
+                "default": "Pre-foreclosures"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isForRent": {
+            "id": "isForRent",
+            "shortId": "fr",
+            "labels": {
+                "default": "For Rent"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isRecentlySold": {
+            "id": "isRecentlySold",
+            "shortId": "rs",
+            "labels": {
+                "default": "Sold",
+                "long": "Recently Sold"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isAllHomes": {
+            "id": "isAllHomes",
+            "shortId": "ah",
+            "labels": {
+                "default": "Off Market"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isOpenHousesOnly": {
+            "id": "isOpenHousesOnly",
+            "shortId": "open",
+            "labels": {
+                "default": "Must have open house",
+                "tracking": "Open House"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isZillowOwnedOnly": {
+            "id": "isZillowOwnedOnly",
+            "shortId": "zo",
+            "labels": {
+                "default": "",
+                "tracking": "Zillow Owned"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isPendingListingsSelected": {
+            "id": "isPendingListingsSelected",
+            "shortId": "pnd",
+            "labels": {
+                "default": "Pending & under contract"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isAcceptingBackupOffersSelected": {
+            "id": "isAcceptingBackupOffersSelected",
+            "shortId": "abo",
+            "labels": {
+                "default": "Accepting backup offers"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isSingleFamily": {
+            "id": "isSingleFamily",
+            "shortId": "sf",
+            "labels": {
+                "default": "Houses"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isCondo": {
+            "id": "isCondo",
+            "shortId": "con",
+            "labels": {
+                "default": "Condos/Co-ops"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isApartmentOrCondo": {
+            "id": "isApartmentOrCondo",
+            "shortId": "apco",
+            "labels": {
+                "default": "Apartments/Condos/Co-ops"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isMultiFamily": {
+            "id": "isMultiFamily",
+            "shortId": "mf",
+            "labels": {
+                "default": "Multi-family"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isApartment": {
+            "id": "isApartment",
+            "shortId": "apa",
+            "labels": {
+                "default": "Apartments"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isManufactured": {
+            "id": "isManufactured",
+            "shortId": "manu",
+            "labels": {
+                "default": "Manufactured"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isLotLand": {
+            "id": "isLotLand",
+            "shortId": "land",
+            "labels": {
+                "default": "Lots/Land"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isTownhouse": {
+            "id": "isTownhouse",
+            "shortId": "tow",
+            "labels": {
+                "default": "Townhomes"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "isRoomForRent": {
+            "id": "isRoomForRent",
+            "shortId": "r4r",
+            "labels": {
+                "default": "Room"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isEntirePlaceForRent": {
+            "id": "isEntirePlaceForRent",
+            "shortId": "r4re",
+            "labels": {
+                "default": "Entire place"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": true
+            }
+        },
+        "hasDisabledAccess": {
+            "id": "hasDisabledAccess",
+            "shortId": "disac",
+            "labels": {
+                "default": "Disabled Access"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "hasHardwoodFloor": {
+            "id": "hasHardwoodFloor",
+            "shortId": "hrdwd",
+            "labels": {
+                "default": "Hardwood Floors"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "areUtilitiesIncluded": {
+            "id": "areUtilitiesIncluded",
+            "shortId": "uti",
+            "labels": {
+                "default": "Utilities Included"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isCityView": {
+            "id": "isCityView",
+            "shortId": "cityv",
+            "labels": {
+                "default": "City"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isMountainView": {
+            "id": "isMountainView",
+            "shortId": "mouv",
+            "labels": {
+                "default": "Mountain"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isParkView": {
+            "id": "isParkView",
+            "shortId": "parkv",
+            "labels": {
+                "default": "Park"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isWaterView": {
+            "id": "isWaterView",
+            "shortId": "watv",
+            "labels": {
+                "default": "Water"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "SEOTypedIdField": {
+            "id": "SEOTypedIdField",
+            "shortId": "seo",
+            "labels": {
+                "default": "SEO"
+            },
+            "defaultValue": {
+                "value": null,
+                "field": null,
+                "id": null
+            }
+        },
+        "parkingSpots": {
+            "id": "parkingSpots",
+            "shortId": "parks",
+            "type": "Range",
+            "labels": {
+                "default": "Parking spots"
+            },
+            "defaultValue": {
+                "min": null
+            },
+            "suggestedEnums": {
+                "Any": null,
+                "1+": 1,
+                "2+": 2,
+                "3+": 3,
+                "4+": 4
+            }
+        },
+        "hasGarage": {
+            "id": "hasGarage",
+            "shortId": "gar",
+            "labels": {
+                "default": "Must have garage",
+                "tracking": "Garage"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "hasAirConditioning": {
+            "id": "hasAirConditioning",
+            "shortId": "ac",
+            "labels": {
+                "default": "Must have A/C",
+                "tracking": "AC"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "hasPool": {
+            "id": "hasPool",
+            "shortId": "pool",
+            "labels": {
+                "default": "Must have pool",
+                "tracking": "Pool"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isWaterfront": {
+            "id": "isWaterfront",
+            "shortId": "wat",
+            "labels": {
+                "default": "Waterfront"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isBasementFinished": {
+            "id": "isBasementFinished",
+            "shortId": "basf",
+            "labels": {
+                "default": "Finished"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "isBasementUnfinished": {
+            "id": "isBasementUnfinished",
+            "shortId": "basu",
+            "labels": {
+                "default": "Unfinished"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "is3dHome": {
+            "id": "is3dHome",
+            "shortId": "3d",
+            "labels": {
+                "default": "Must have 3D Tour",
+                "tracking": "3D Home"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalFeaturedMultiFamilyBuilding": {
+            "id": "onlyRentalFeaturedMultiFamilyBuilding",
+            "shortId": "fmfb",
+            "labels": {
+                "default": "Apartment Community"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            }
+        },
+        "onlyRentalRequestedAvailabilityDate": {
+            "id": "onlyRentalRequestedAvailabilityDate",
+            "shortId": "rad",
+            "labels": {
+                "default": "Move-in Date"
+            },
+            "type": "String",
+            "defaultValue": {
+                "value": ""
+            },
+            "exposedPillEnabled": true
+        },
+        "onlyRentalExcludeNullAvailabilityDates": {
+            "id": "onlyRentalExcludeNullAvailabilityDates",
+            "shortId": "enad",
+            "labels": {
+                "default": "Hide listings with no date provided"
+            },
+            "type": "Boolean",
+            "defaultValue": {
+                "value": false
+            },
+            "exposedPillEnabled": true
+        },
+        "ageRestricted55Plus": {
+            "id": "ageRestricted55Plus",
+            "shortId": "55plus",
+            "labels": {
+                "default": "Hide 55+ communities"
+            },
+            "type": "Enum",
+            "defaultValue": {
+                "value": "i"
+            },
+            "allowedValues": {
+                "i": "Include 55+ communities",
+                "e": "Exclude 55+ communities",
+                "o": "Show only 55+ communities"
+            }
+        },
+        "commuteDestination": {
+            "id": "commuteDestination",
+            "shortId": "comDest",
+            "labels": {
+                "default": "Commute Time"
+            },
+            "type": "String",
+            "defaultValue": {
+                "value": ""
+            }
+        },
+        "commuteMode": {
+            "id": "commuteMode",
+            "shortId": "comMode",
+            "labels": {
+                "default": "Travel Mode"
+            },
+            "type": "Enum",
+            "defaultValue": {
+                "value": "driving"
+            },
+            "allowedValues": {
+                "Drive": "driving",
+                "Transit": "transit",
+                "Walk": "walking",
+                "Bike": "biking"
+            }
+        },
+        "commuteTimeOfDay": {
+            "id": "commuteTimeOfDay",
+            "shortId": "comTime",
+            "labels": {
+                "default": "Time of Day"
+            },
+            "type": "Enum",
+            "defaultValue": {
+                "value": "now"
+            },
+            "allowedValues": {
+                "Now": "now",
+                "Rush hour": "rushHour",
+                "Off-peak": "offPeak"
+            }
+        },
+        "commuteMaxTime": {
+            "id": "commuteMaxTime",
+            "shortId": "comMax",
+            "labels": {
+                "default": "Max. Travel Time"
+            },
+            "type": "Enum",
+            "defaultValue": {
+                "value": null
+            },
+            "allowedValues": {
+                "Any": null,
+                "60min": 60,
+                "45min": 45,
+                "30min": 30,
+                "15min": 15
+            }
+        },
+        "monthlyCostPayment": {
+            "id": "monthlyCostPayment",
+            "shortId": "mcp",
+            "labels": {
+                "default": "Monthly Payment",
+                "valueFormatter": {
+                    "none": "Any",
+                    "min": "${{min}}+",
+                    "max": "Up to ${{max}}",
+                    "minMax": "${{min}}-${{max}}",
+                    "identicalMinMax": "${{min}}",
+                    "numberFormatter": "0,0",
+                    "inputFormatter": "0.[0]a"
+                }
+            },
+            "type": "Range",
+            "defaultValue": {
+                "min": null,
+                "max": null
+            },
+            "suggestedEnums": [{
+                "label": "$50",
+                "value": 50
+            }, {
+                "label": "$100",
+                "value": 100
+            }, {
+                "label": "$150",
+                "value": 150
+            }, {
+                "label": "$200",
+                "value": 200
+            }, {
+                "label": "$250",
+                "value": 250
+            }, {
+                "label": "$300",
+                "value": 300
+            }, {
+                "label": "$350",
+                "value": 350
+            }, {
+                "label": "$400",
+                "value": 400
+            }, {
+                "label": "$450",
+                "value": 450
+            }, {
+                "label": "$500",
+                "value": 500
+            }, {
+                "label": "$550",
+                "value": 550
+            }, {
+                "label": "$600",
+                "value": 600
+            }, {
+                "label": "$650",
+                "value": 650
+            }, {
+                "label": "$700",
+                "value": 700
+            }, {
+                "label": "$750",
+                "value": 750
+            }, {
+                "label": "$800",
+                "value": 800
+            }, {
+                "label": "$850",
+                "value": 850
+            }, {
+                "label": "$900",
+                "value": 900
+            }, {
+                "label": "$950",
+                "value": 950
+            }, {
+                "label": "$1,000",
+                "value": 1000
+            }, {
+                "label": "$1,050",
+                "value": 1050
+            }, {
+                "label": "$1,100",
+                "value": 1100
+            }, {
+                "label": "$1,150",
+                "value": 1150
+            }, {
+                "label": "$1,200",
+                "value": 1200
+            }, {
+                "label": "$1,250",
+                "value": 1250
+            }, {
+                "label": "$1,300",
+                "value": 1300
+            }, {
+                "label": "$1,350",
+                "value": 1350
+            }, {
+                "label": "$1,400",
+                "value": 1400
+            }, {
+                "label": "$1,450",
+                "value": 1450
+            }, {
+                "label": "$1,500",
+                "value": 1500
+            }, {
+                "label": "$1,550",
+                "value": 1550
+            }, {
+                "label": "$1,600",
+                "value": 1600
+            }, {
+                "label": "$1,650",
+                "value": 1650
+            }, {
+                "label": "$1,700",
+                "value": 1700
+            }, {
+                "label": "$1,750",
+                "value": 1750
+            }, {
+                "label": "$1,800",
+                "value": 1800
+            }, {
+                "label": "$1,850",
+                "value": 1850
+            }, {
+                "label": "$1,900",
+                "value": 1900
+            }, {
+                "label": "$1,950",
+                "value": 1950
+            }, {
+                "label": "$2,000",
+                "value": 2000
+            }, {
+                "label": "$2,050",
+                "value": 2050
+            }, {
+                "label": "$2,100",
+                "value": 2100
+            }, {
+                "label": "$2,150",
+                "value": 2150
+            }, {
+                "label": "$2,200",
+                "value": 2200
+            }, {
+                "label": "$2,250",
+                "value": 2250
+            }, {
+                "label": "$2,300",
+                "value": 2300
+            }, {
+                "label": "$2,350",
+                "value": 2350
+            }, {
+                "label": "$2,400",
+                "value": 2400
+            }, {
+                "label": "$2,450",
+                "value": 2450
+            }, {
+                "label": "$2,500",
+                "value": 2500
+            }, {
+                "label": "$2,625",
+                "value": 2625
+            }, {
+                "label": "$2,750",
+                "value": 2750
+            }, {
+                "label": "$2,875",
+                "value": 2875
+            }, {
+                "label": "$3,000",
+                "value": 3000
+            }, {
+                "label": "$3,125",
+                "value": 3125
+            }, {
+                "label": "$3,250",
+                "value": 3250
+            }, {
+                "label": "$3,375",
+                "value": 3375
+            }, {
+                "label": "$3,500",
+                "value": 3500
+            }, {
+                "label": "$3,625",
+                "value": 3625
+            }, {
+                "label": "$3,750",
+                "value": 3750
+            }, {
+                "label": "$3,875",
+                "value": 3875
+            }, {
+                "label": "$4,000",
+                "value": 4000
+            }, {
+                "label": "$4,125",
+                "value": 4125
+            }, {
+                "label": "$4,250",
+                "value": 4250
+            }, {
+                "label": "$4,375",
+                "value": 4375
+            }, {
+                "label": "$4,500",
+                "value": 4500
+            }, {
+                "label": "$4,625",
+                "value": 4625
+            }, {
+                "label": "$4,750",
+                "value": 4750
+            }, {
+                "label": "$4,875",
+                "value": 4875
+            }, {
+                "label": "$5,000",
+                "value": 5000
+            }, {
+                "label": "$6,250",
+                "value": 6250
+            }, {
+                "label": "$7,500",
+                "value": 7500
+            }, {
+                "label": "$8,750",
+                "value": 8750
+            }, {
+                "label": "$10,000",
+                "value": 10000
+            }, {
+                "label": "$11,250",
+                "value": 11250
+            }, {
+                "label": "$12,500",
+                "value": 12500
+            }, {
+                "label": "$13,750",
+                "value": 13750
+            }, {
+                "label": "$15,000",
+                "value": 15000
+            }, {
+                "label": "$16,250",
+                "value": 16250
+            }, {
+                "label": "$17,500",
+                "value": 17500
+            }, {
+                "label": "$18,750",
+                "value": 18750
+            }, {
+                "label": "$20,000",
+                "value": 20000
+            }, {
+                "label": "$21,250",
+                "value": 21250
+            }, {
+                "label": "$22,500",
+                "value": 22500
+            }, {
+                "label": "$23,750",
+                "value": 23750
+            }, {
+                "label": "$25,000",
+                "value": 25000
+            }, {
+                "label": "$27,500",
+                "value": 27500
+            }, {
+                "label": "$30,000",
+                "value": 30000
+            }, {
+                "label": "$32,500",
+                "value": 32500
+            }, {
+                "label": "$35,000",
+                "value": 35000
+            }, {
+                "label": "$37,500",
+                "value": 37500
+            }, {
+                "label": "$40,000",
+                "value": 40000
+            }, {
+                "label": "$42,500",
+                "value": 42500
+            }, {
+                "label": "$45,000",
+                "value": 45000
+            }, {
+                "label": "$47,500",
+                "value": 47500
+            }, {
+                "label": "$50,000",
+                "value": 50000
+            }, {
+                "label": "$60,000",
+                "value": 60000
+            }, {
+                "label": "$70,000",
+                "value": 70000
+            }, {
+                "label": "$80,000",
+                "value": 80000
+            }, {
+                "label": "$90,000",
+                "value": 90000
+            }, {
+                "label": "$100,000",
+                "value": 100000
+            }]
+        },
+        "monthlyCostDownPayment": {
+            "id": "monthlyCostDownPayment",
+            "shortId": "mcdp",
+            "labels": {
+                "default": "Down Payment"
+            },
+            "type": "Enum",
+            "defaultValue": {
+                "value": null
+            },
+            "allowedValues": {
+                "No Down Payment": null,
+                "$1,000": 1000,
+                "$2,000": 2000,
+                "$3,000": 3000,
+                "$4,000": 4000,
+                "$5,000": 5000,
+                "$6,000": 6000,
+                "$7,000": 7000,
+                "$8,000": 8000,
+                "$9,000": 9000,
+                "$10,000": 10000,
+                "$11,000": 11000,
+                "$12,000": 12000,
+                "$13,000": 13000,
+                "$14,000": 14000,
+                "$15,000": 15000,
+                "$16,000": 16000,
+                "$17,000": 17000,
+                "$18,000": 18000,
+                "$19,000": 19000,
+                "$20,000": 20000,
+                "$25,000": 25000,
+                "$30,000": 30000,
+                "$35,000": 35000,
+                "$40,000": 40000,
+                "$45,000": 45000,
+                "$50,000": 50000,
+                "$55,000": 55000,
+                "$60,000": 60000,
+                "$65,000": 65000,
+                "$70,000": 70000,
+                "$75,000": 75000,
+                "$80,000": 80000,
+                "$85,000": 85000,
+                "$90,000": 90000,
+                "$95,000": 95000,
+                "$100,000": 100000,
+                "$110,000": 110000,
+                "$120,000": 120000,
+                "$130,000": 130000,
+                "$140,000": 140000,
+                "$150,000": 150000,
+                "$160,000": 160000,
+                "$170,000": 170000,
+                "$180,000": 180000,
+                "$190,000": 190000,
+                "$200,000": 200000,
+                "$210,000": 210000,
+                "$220,000": 220000,
+                "$230,000": 230000,
+                "$240,000": 240000,
+                "$250,000": 250000,
+                "$260,000": 260000,
+                "$270,000": 270000,
+                "$280,000": 280000,
+                "$290,000": 290000,
+                "$300,000": 300000,
+                "$350,000": 350000,
+                "$400,000": 400000,
+                "$450,000": 450000,
+                "$500,000": 500000,
+                "$550,000": 550000,
+                "$600,000": 600000,
+                "$650,000": 650000,
+                "$700,000": 700000,
+                "$750,000": 750000,
+                "$800,000": 800000,
+                "$850,000": 850000,
+                "$900,000": 900000,
+                "$950,000": 950000,
+                "$1,000,000": 1000000,
+                "$1,250,000": 1250000,
+                "$1,500,000": 1500000,
+                "$1,750,000": 1750000,
+                "$2,000,000": 2000000,
+                "$2,250,000": 2250000,
+                "$2,500,000": 2500000,
+                "$2,750,000": 2750000,
+                "$3,000,000": 3000000,
+                "$3,250,000": 3250000,
+                "$3,500,000": 3500000,
+                "$3,750,000": 3750000,
+                "$4,000,000": 4000000,
+                "$4,250,000": 4250000,
+                "$4,500,000": 4500000,
+                "$4,750,000": 4750000,
+                "$5,000,000": 5000000,
+                "$5,250,000": 5250000,
+                "$5,500,000": 5500000,
+                "$5,750,000": 5750000,
+                "$6,000,000": 6000000,
+                "$6,250,000": 6250000,
+                "$6,500,000": 6500000,
+                "$6,750,000": 6750000,
+                "$7,000,000": 7000000,
+                "$7,250,000": 7250000,
+                "$7,500,000": 7500000,
+                "$7,750,000": 7750000,
+                "$8,000,000": 8000000,
+                "$8,250,000": 8250000,
+                "$8,500,000": 8500000,
+                "$8,750,000": 8750000,
+                "$9,000,000": 9000000,
+                "$9,250,000": 9250000,
+                "$9,500,000": 9500000,
+                "$9,750,000": 9750000,
+                "$10,000,000+": 10000000
+            }
+        },
+        "monthlyCostLoanTerm": {
+            "id": "monthlyCostLoanTerm",
+            "shortId": "mclt",
+            "type": "Integer",
+            "defaultValue": {
+                "value": null
+            }
+        },
+        "monthlyCostInterestRate": {
+            "id": "monthlyCostInterestRate",
+            "shortId": "mcir",
+            "type": "Float",
+            "defaultValue": {
+                "value": null
+            }
+        },
+        "monthlyCostCreditScore": {
+            "id": "monthlyCostCreditScore",
+            "shortId": "mccs",
+            "type": "Enum",
+            "defaultValue": {
+                "value": null
+            },
+            "labels": {
+                "default": "Credit Score"
+            },
+            "allowedValues": {
+                "No Selection": null,
+                "720 & above": "cs720plus",
+                "660 - 719": "cs660_719",
+                "620 - 659": "cs620_659",
+                "580 - 619": "cs580_619",
+                "579 or below": "cs579below"
+            }
+        }
+    },
+    "defaultFilterState": {
+        "price": {
+            "min": null,
+            "max": null
+        },
+        "monthlyPayment": {
+            "min": null,
+            "max": null
+        },
+        "beds": {
+            "min": null,
+            "max": null
+        },
+        "singleStory": {
+            "value": false
+        },
+        "baths": {
+            "min": null,
+            "max": null
+        },
+        "sqft": {
+            "min": null,
+            "max": null
+        },
+        "lotSize": {
+            "min": null,
+            "max": null,
+            "units": "sqft"
+        },
+        "built": {
+            "min": null,
+            "max": null
+        },
+        "hoa": {
+            "min": null,
+            "max": null
+        },
+        "includeHomesWithNoHoaData": {
+            "value": true
+        },
+        "doz": {
+            "value": "any"
+        },
+        "sortSelection": {
+            "value": "priorityscorecandidate"
+        },
+        "keywords": {
+            "value": ""
+        },
+        "includeSchoolsSelection": {
+            "highSchool": null,
+            "middleSchool": null,
+            "elementarySchool": null
+        },
+        "isElementarySchool": {
+            "value": true
+        },
+        "isMiddleSchool": {
+            "value": true
+        },
+        "isHighSchool": {
+            "value": true
+        },
+        "isPublicSchool": {
+            "value": true
+        },
+        "isPrivateSchool": {
+            "value": true
+        },
+        "isCharterSchool": {
+            "value": true
+        },
+        "greatSchoolsRating": {
+            "min": 1
+        },
+        "includeUnratedSchools": {
+            "value": true
+        },
+        "enableSchools": {
+            "value": false
+        },
+        "dataSourceSelection": {
+            "value": "all"
+        },
+        "onlyWithPhotos": {
+            "value": false
+        },
+        "onlyPriceReduction": {
+            "value": false
+        },
+        "onlyRentalPetsAllowed": {
+            "value": false
+        },
+        "onlyRentalLargeDogsAllowed": {
+            "value": false
+        },
+        "onlyRentalSmallDogsAllowed": {
+            "value": false
+        },
+        "onlyRentalCatsAllowed": {
+            "value": false
+        },
+        "onlyRentalIncomeRestrictedHousingType": {
+            "value": false
+        },
+        "onlyRentalStudentHousingType": {
+            "value": false
+        },
+        "onlyRentalSeniorHousingType": {
+            "value": false
+        },
+        "onlyRentalDisabledHousingType": {
+            "value": false
+        },
+        "onlyRentalMilitaryHousingType": {
+            "value": false
+        },
+        "onlyRentalParkingAvailable": {
+            "value": false
+        },
+        "onlyRentalInUnitLaundry": {
+            "value": false
+        },
+        "onlyRentalAcceptsApplications": {
+            "value": false
+        },
+        "onlyRentalIncomeRestricted": {
+            "value": false
+        },
+        "onlyRentalHousingConnector": {
+            "value": false
+        },
+        "onlyRentalInstantTourAvailable": {
+            "value": false
+        },
+        "onlyRentalShortTermLease": {
+            "value": false
+        },
+        "onlyRentalFurnished": {
+            "value": false
+        },
+        "onlyRentalOutdoorSpace": {
+            "value": false
+        },
+        "highSpeedInternetAvailable": {
+            "value": false
+        },
+        "onlyRentalControlledAccess": {
+            "value": false
+        },
+        "onlyRentalNoPets": {
+            "value": false
+        },
+        "elevatorAccessAvailable": {
+            "value": false
+        },
+        "isForSaleByAgent": {
+            "value": true
+        },
+        "isForSaleByOwner": {
+            "value": true
+        },
+        "isNewConstruction": {
+            "value": true
+        },
+        "isForSaleForeclosure": {
+            "value": true
+        },
+        "isComingSoon": {
+            "value": true
+        },
+        "isAuction": {
+            "value": true
+        },
+        "isPreMarketForeclosure": {
+            "value": false
+        },
+        "isPreMarketPreForeclosure": {
+            "value": false
+        },
+        "isForRent": {
+            "value": false
+        },
+        "isRecentlySold": {
+            "value": false
+        },
+        "isAllHomes": {
+            "value": false
+        },
+        "isOpenHousesOnly": {
+            "value": false
+        },
+        "isZillowOwnedOnly": {
+            "value": false
+        },
+        "isPendingListingsSelected": {
+            "value": false
+        },
+        "isAcceptingBackupOffersSelected": {
+            "value": false
+        },
+        "isSingleFamily": {
+            "value": true
+        },
+        "isCondo": {
+            "value": true
+        },
+        "isApartmentOrCondo": {
+            "value": true
+        },
+        "isMultiFamily": {
+            "value": true
+        },
+        "isApartment": {
+            "value": true
+        },
+        "isManufactured": {
+            "value": true
+        },
+        "isLotLand": {
+            "value": true
+        },
+        "isTownhouse": {
+            "value": true
+        },
+        "isRoomForRent": {
+            "value": false
+        },
+        "isEntirePlaceForRent": {
+            "value": true
+        },
+        "hasDisabledAccess": {
+            "value": false
+        },
+        "hasHardwoodFloor": {
+            "value": false
+        },
+        "areUtilitiesIncluded": {
+            "value": false
+        },
+        "isCityView": {
+            "value": false
+        },
+        "isMountainView": {
+            "value": false
+        },
+        "isParkView": {
+            "value": false
+        },
+        "isWaterView": {
+            "value": false
+        },
+        "SEOTypedIdField": {
+            "value": null,
+            "field": null,
+            "id": null
+        },
+        "parkingSpots": {
+            "min": null
+        },
+        "hasGarage": {
+            "value": false
+        },
+        "hasAirConditioning": {
+            "value": false
+        },
+        "hasPool": {
+            "value": false
+        },
+        "isWaterfront": {
+            "value": false
+        },
+        "isBasementFinished": {
+            "value": false
+        },
+        "isBasementUnfinished": {
+            "value": false
+        },
+        "is3dHome": {
+            "value": false
+        },
+        "onlyRentalFeaturedMultiFamilyBuilding": {
+            "value": false
+        },
+        "onlyRentalRequestedAvailabilityDate": {
+            "value": ""
+        },
+        "onlyRentalExcludeNullAvailabilityDates": {
+            "value": false
+        },
+        "ageRestricted55Plus": {
+            "value": "i"
+        },
+        "commuteDestination": {
+            "value": ""
+        },
+        "commuteMode": {
+            "value": "driving"
+        },
+        "commuteTimeOfDay": {
+            "value": "now"
+        },
+        "commuteMaxTime": {
+            "value": null
+        },
+        "monthlyCostPayment": {
+            "min": null,
+            "max": null
+        },
+        "monthlyCostDownPayment": {
+            "value": null
+        },
+        "monthlyCostLoanTerm": {
+            "value": null
+        },
+        "monthlyCostInterestRate": {
+            "value": null
+        },
+        "monthlyCostCreditScore": {
+            "value": null
+        }
+    },
+    "defaultQueryState": {
+        "filterState": {},
+        "dataSource": "core",
+        "isMapVisible": false,
+        "isListVisible": true,
+        "mapBounds": {
+            "west": 0,
+            "south": 0,
+            "east": 0,
+            "north": 0,
+            "zoom": 10
+        },
+        "mapZoom": 10,
+        "pagination": {
+            "currentPage": 1
+        },
+        "usersSearchTerm": null,
+        "regionSelection": null,
+        "schoolId": null,
+        "districtId": null,
+        "customRegionId": null,
+        "savedSearchEnrollmentId": null,
+        "nearMe": null,
+        "category": "cat1",
+        "debugRequest": {},
+        "commuteLat": null,
+        "commuteLng": null,
+        "listPriceActive": true
+    },
+    "searchPageConstants": {
+        "monthlyInterestRate": 0.004959167,
+        "isMobile": false,
+        "isTablet": false,
+        "searchMapGoogleAPIKey": "AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc",
+        "mapComboUrl": "https://www.zillowstatic.com",
+        "debugEnabled": false,
+        "keystoneTargetUrl": "https://cs.zg-api.com/event",
+        "categoryOneTitle": "Agent listings",
+        "categoryTwoTitle": "Other listings",
+        "gtm": {
+            "gtmContainerID": "GTM-P6HT97",
+            "isGtmEnabled": true,
+            "gtmInitialData": [{
+                "isTablet": false,
+                "isPhone": false,
+                "isMobile": false,
+                "isMobileApp": false
+            }]
+        },
+        "staticMapUrls": {
+            "3": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=3&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=_9iHTZsXSnvLtHtRKj5pWxQWV80=",
+            "4": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=4&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=GZ1-ukmjv57HyggxYn5C43vJxjY=",
+            "5": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=5&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=llzSfXXzl4cglUflYIBeunLOrNk=",
+            "6": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=6&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=6c_fJ_gbQkVxVjWvHaT6BQsokKQ=",
+            "7": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=7&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=NSnjZsqhD2KpKNKT-J70aggGiU8=",
+            "8": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=8&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=WvlYWDOld8cdsfhG1NhtmHdkmKo=",
+            "9": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=9&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=1GsECLj2v0oI2SrfuYsLWOdYfiA=",
+            "10": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=10&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=NWKeP49I0NDMImPMCKVfLiGi_d4=",
+            "11": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=11&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=mkcM__PlKR-OzJnDuwGVRYefE0k=",
+            "12": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=12&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=JRLyIwv-fxomlEJ707POE9Ri6dk=",
+            "13": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=13&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=OQrMRBjMl8Gk9JBODBgIiX3EgXQ=",
+            "14": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=14&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=1pXJADLLHuinMpksp0XPlzZgZDw=",
+            "15": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=15&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=qvdPc6Tbxoouwvf60K6zaaZxdHg=",
+            "16": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=16&size=905x720&maptype=roadmap&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=3c7ctNo4DHNx6EGN-feX3qUo-qw=",
+            "17": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=17&size=905x720&maptype=satellite&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=pwFb3WAQTnT_XjBxWGF72BImNdM=",
+            "18": "https://maps.googleapis.com/maps/api/staticmap?center=42.246807,-88.1997&zoom=18&size=905x720&maptype=satellite&key=AIzaSyC1dhrSOF7uvGpaCanRaa9sT7MIakZBGlc&style=feature:all%7Celement:labels%7Cvisibility:off&signature=g1mkEZ-Dri873ioe_EUli7AKklM="
+        }
+    },
+    "user": {
+        "isLoggedIn": false,
+        "hasHousingConnectorPermission": false,
+        "savedHomesCount": 0,
+        "personalizedSearchTraceID": "66d224873abf6a37fceee02d1fa72d54",
+        "guid": "86fce1d3-f926-4d72-adea-f90b80cf36f5",
+        "zuid": "",
+        "isBot": false,
+        "email": "",
+        "displayName": ""
+    },
+    "mapState": {
+        "customRegionPolygonWkt": null,
+        "schoolPolygonWkt": null,
+        "isCurrentLocationSearch": false,
+        "userPosition": {
+            "lat": null,
+            "lon": null
+        }
+    },
+    "regionState": {
+        "regionInfo": [{
+            "regionId": 33488,
+            "regionType": 6,
+            "regionName": "Port Barrington",
+            "displayName": "Port Barrington IL",
+            "isPointRegion": false
+        }],
+        "regionBounds": {
+            "north": 42.263155,
+            "south": 42.226697,
+            "east": -88.171754,
+            "west": -88.212168
+        }
+    },
+    "searchPageSeoObject": {
+        "baseUrl": "/port-barrington-il/",
+        "windowTitle": "Port Barrington IL Real Estate - Port Barrington IL Homes For Sale | Zillow",
+        "metaDescription": "Zillow has 0 homes for sale in Port Barrington IL. View listing photos, review sales history, and use our detailed real estate filters to find the perfect place.",
+        "robotsTagContent": "NOINDEX, NOFOLLOW"
+    },
+    "abTrials": {
+        "ACQ_Banner_Suppression": "CONTROL",
+        "ACQ_MOBILE_UPSELL_DISMISS_KEY": "APP_UPSELL_DISMISS_080620",
+        "ACQ_Search_Filters_Upsell": "CONTROL",
+        "ACQ_SigninSRP_Module": "Variant_Module_A",
+        "ACQ_TOP_Holdout": "Control",
+        "ACT_FILTER_ON_LAND": "CONTROL",
+        "ADS_Tagless": "Casale_On",
+        "ADT_PROGRESSIVE_MESSAGE": "CONTROL",
+        "ADT_TOP_SLOT_SRP": "CONTROL",
+        "Activation_Enabled": "ENABLED",
+        "Activation_GA_Metrics_Enabled": "ENABLED",
+        "Activation_NewLane_Metrics_Enabled": "DISABLED",
+        "Activation_SRP_Upsell": "OFF",
+        "DESKTOP_COMMUTE_FILTER_MVP": "CONTROL",
+        "DXP_DEFERRED_RENDER_MODE": "CONTROL",
+        "DXP_FLEX_FIELD_UPDATE": "ON",
+        "DXP_CUSTOM_REGION_PREXIT": "CONTROL",
+        "DXP_MAP_CONTROLS": "CONTROL",
+        "DXP_MAP_POI_CONTROLS": "CONTROL",
+        "DXP_MONTHLY_COST_FILTER": "ON",
+        "DXP_NC_COMMUNITY_MAP_CARDS": "CONTROL",
+        "DXP_PROPERTY_CARD_ACTIONS": "TOUR_ONLY",
+        "DXP_FLYBAR_MAPI": "ON",
+        "DXP_MAP_POGO_DISABLED": "CONTROL",
+        "DXP_CLIMATE_LAYER": "CONTROL",
+        "FS_PRS_SP_WEB": "FS_SP_RECS_ON",
+        "HDP_DESKTOP_LAYOUT_TOPNAV": "CONTROL",
+        "LEGO_MAP_ICONOGRAPHY": "CONTROL",
+        "LEGO_PRE_QUALIFICATION_V1": "CONTROL",
+        "LEGO_RENTALS_INLINE_FILTER_SUGGESTIONS": "CONTROL",
+        "LEGO_SRP_LIST_CARD_CTA": "CONTROL",
+        "LEGO_SRP_LIST_CARD_TOUR_CTA_ALL_BDP": "CONTROL",
+        "MIGHTY_MONTH_2022_HOLDOUT": "MIGHTY_MONTH_ON",
+        "MTT_SRP_TOP_SLOT_HOLDOUT": "ON",
+        "MTT_SRP_TOP_SLOT_ONSITE_MESSAGING": "PORTFOLIO_INTEGRATION_CTRL",
+        "ONSITE_MESSAGE_VALVE": "OMP_ON",
+        "PERS_GRS": "CONTROL",
+        "RC_INSTANT_TOUR_IMPROVE_V2": "CONTROL",
+        "RC_INSTANT_TOUR_IMPROVE_V3": "TEST",
+        "RC_RENTER_PROFILE_VOUCHER": "VOUCHER",
+        "REALTIME_PERS_MODEL_PRE": "CONTROL_3",
+        "RE_BDP_ListCard_Availability": "CONTROL",
+        "RE_BDP_ListCard_PriceFormat": "CONTROL",
+        "RE_BDP_ListCard_PricevsBed": "TREATMENT_A",
+        "RE_Badging_SpecialOffers": "TEST",
+        "RE_BuildToRentMapDots": "TEST",
+        "RE_CONDOS_URL_FILTER": "CONTROL",
+        "RE_CONFIRMATION_PAGE_V2": "HIGHER_RECS",
+        "RE_CONTACT_FORM": "NEW_MESSAGE_BOX",
+        "RE_CTA_BUTTONS": "CONTROL",
+        "RE_Enable_Saving_BDPs": "CONTROL",
+        "RE_FILTER_HIERARCHY_WEB": "CONTROL",
+        "RE_FR_BDP_LISTCARD_V1": "CONTROL",
+        "RE_FR_Photo_Carousel": "TEST",
+        "RE_GuidedSearchFiltersPOC": "CONTROL",
+        "RE_HDP_REDIRECT": "TEST",
+        "RE_HIDE_BLANK_LISTCARDS": "ON",
+        "RE_HomeInsights_Badges": "CONTROL",
+        "RE_JanusBrainSort": "TEST_ALL_STATES",
+        "RE_Move_In_Date_Filter": "TEST",
+        "RE_NoPrice": "TEST",
+        "RE_R4R_SRP": "ON",
+        "RE_R4R_SRP_FilterPill": "CONTROL",
+        "RE_RENTER_PROFILE_ENABLE_CLEAR_DATA": "CONTROL",
+        "RE_RP_NO_DELAY": "CONTROL",
+        "RE_RelaxedMapResults_V2": "ON",
+        "RE_RentalHomeDetailsService": "CONTROL",
+        "RE_RentalsHomesForYouSort": "CONTROL",
+        "RE_Rentals_Badging_v1": "CONTROL",
+        "RE_SECOND_BOOST": "SLOT_4",
+        "RE_SpecialtyHousingFilters": "CONTROL",
+        "RE_SPECIAL_HOUSING_FILTERS_TEST": "CONTROL",
+        "RE_SRP_ApartmentFilters": "CONTROL",
+        "RE_SRP_ListAvailabilityCount": "TEST",
+        "RE_SRP_UPDATE_LIST_GROUP_CLAUSE": "CONTROL",
+        "RE_SearchByBuildingName": "TEST",
+        "RE_Search_Refinement_Filters": "CONTROL",
+        "RE_UNIQUE_BDP_LIST_CARD": "CONTROL",
+        "RE_VALIDATE_EMAIL_AND_PHONE": "VALIDATE",
+        "RE_WEB_SRP_ZILLOWAPPLICATIONSBADGE": "TREATMENT_4",
+        "RE_Web_PersonalizedSort": "CONTROL",
+        "RE_Web_PersonalizedSort_Geo": "CONTROL",
+        "RE_prioritize_app_enabled_listings": "CONTROL",
+        "RE_janus_brain_availability_date_candidate": "MODEL_1",
+        "RG_MARKET_TRENDS_WIDGET_RENTAL_SRP": "CONTROL",
+        "RMX_3RD_PARTY_P1": "ON",
+        "RUM_VIA_PRE_ENDPOINT": "TREATMENT_OFF",
+        "SPT_DETAIL_PAGE_VARIANT_DETECTION": "CONTROL",
+        "SP_BUILDING_PAGE": "VIA_SHOPPER_PLATFORM",
+        "SP_COMMUNITY_PAGE": "VIA_SHOPPER_PLATFORM",
+        "SP_FOR_RENT_PAGE": "VIA_SHOPPER_PLATFORM",
+        "SP_FOR_SALE_PAGE": "VIA_SHOPPER_PLATFORM",
+        "SP_OFF_MARKET_PAGE": "VIA_SHOPPER_PLATFORM",
+        "SP_PAID_BUILDER_PAGE": "VIA_SHOPPER_PLATFORM",
+        "SP_ZO_HDP_PAGE": "CONTROL",
+        "SRP_MST_ADS_WEB_PREBID": "CONTROL",
+        "SRP_NO_RESULTS_COPY_TEXT": "TEST",
+        "ST_SHOWCASE_DETAILS_PAGE": "ON",
+        "SXP_CWV_CLS_AD_COLLAPSE": "CONTROL",
+        "SXP_DD_RUM": "CONTROL",
+        "SXP_Exclude_Referer": "TEST",
+        "SXP_Search_Refinement_Filters": "CONTROL",
+        "SXP_HEADER_TAG_WRAPPER": "ON",
+        "SXP_MAP_LIST_NAV": "CONTROL",
+        "SXP_MCF_CREDIT_SCORE": "CONTROL",
+        "SXP_MCF_FINANCIAL_RESUME_DOWNPAYMENT": "CONTROL",
+        "SXP_NATURAL_LANGUAGE_SEARCH": "DELAYED_SEMANTIC_AC",
+        "SXP_NATURAL_LANGUAGE_SEARCH_PHASE2": "CONTROL",
+        "SXP_PREXIT_DISTRICTS_REQUESTS": "CONTROL",
+        "SXP_PREXIT_SCHOOLS_REQUESTS": "CONTROL",
+        "SXP_PREXIT_SQS_REQUESTS": "CONTROL",
+        "VARIANTS_BDP_768_PLUS": "CONTROL",
+        "VL_BDP_NEW_TAB": "CONTROL",
+        "VL_BDP_SSR_QUERY": "CONTROL_CACHED",
+        "TR_FS_SRP_FOOTER_ENRCHMNT_V2": "ON",
+        "FR_SRP_FOOTER_REGION_BIO": "CONTROL",
+        "WEB_CLIMATE_MVP": "CONTROL"
+    },
+    "cat1": {
+        "searchResults": {},
+        "searchList": {
+            "expansionDistance": 0,
+            "staticBaseUrl": null,
+            "zeroResultsFilters": null,
+            "pagination": null,
+            "adsConfig": {
+                "navAdSlot": "zillow/search_results/buy_general/search_1",
+                "displayAdSlot": "zillow/search_results/buy_general/b_right_p1",
+                "targets": {
+                    "guid": "86fce1d3-f926-4d72-adea-f90b80cf36f5",
+                    "vers": "constellation_dynamic,srp_ad_target_refactor",
+                    "premieragent": "no",
+                    "state": "IL",
+                    "dma": "78",
+                    "cnty": "Lake",
+                    "city": "Port_Barrington",
+                    "mlat": "42.246807",
+                    "mlong": "-88.1997",
+                    "listtp": "buy_general",
+                    "searchtp": "city"
+                },
+                "needsUpdate": true
+            },
+            "totalResultCount": 0,
+            "resultsPerPage": 41,
+            "totalPages": 0,
+            "limitSearchResultsCount": null,
+            "listResultsTitle": "Port Barrington IL Real Estate & Homes For Sale",
+            "resultContexts": null,
+            "pageRules": null,
+            "gdpUrl": "https://www.zillow.com/graphql/",
+            "zgGraphUrl": "/zg-graph",
+            "shareConfig": {
+                "captchaKey": "6Lf2nvMSAAAAAMQ5p6WlAfDEixMdOQgJsij-3_ud",
+                "csrfToken": "UkzzG8nDBRumBABxJcZ24WE2yzDR69bW"
+            }
+        }
+    },
+    "categoryTotals": {
+        "cat1": {
+            "totalResultCount": 13
+        },
+        "cat2": {
+            "totalResultCount": 1
+        }
+    },
+    "autocompleteConfig": {
+        "centroid": {
+            "lat": 42.246807,
+            "lon": -88.1997
+        },
+        "initSearchTerm": "Port Barrington, IL",
+        "shouldShowSavedHomes": false,
+        "shouldShowSavedSearches": false,
+        "abKey": "86fce1d3-f926-4d72-adea-f90b80cf36f5",
+        "clientId": "static-search-page",
+        "recentSearchLocalStorageKey": "recentSearchesEnhanced",
+        "address": {
+            "enabled": true,
+            "url": "https://aac.qa.zillow.net"
+        },
+        "region": {
+            "enabled": true,
+            "url": "https://ac.zillowstatic.com/",
+            "truliaUrl": "https://www.zillowstatic.com/autocomplete/v2/"
+        },
+        "regionAddress": {
+            "enabled": true,
+            "url": "https://www.zillowstatic.com/autocomplete/v3/"
+        }
+    },
+    "footerLinksContents": {
+        "region_info": {
+            "region_id": 33488,
+            "region_type": 6,
+            "region_name": "Port Barrington",
+            "region_name_for_display": "Port Barrington IL"
+        },
+        "canonical_url": "/port-barrington-il/",
+        "base_url": "https://www.zillow.com",
+        "ab_trials": [],
+        "contents": [{
+            "template": "BREADCRUMBS",
+            "title": "For Sale",
+            "rows": [{
+                "text": "Illinois",
+                "path": "/il/"
+            }, {
+                "text": "Lake County",
+                "path": "/lake-county-il/"
+            }, {
+                "text": "Port Barrington"
+            }]
+        }, {
+            "template": "FS_HOME_VALUES",
+            "title": "Port Barrington Market Overview",
+            "image": "https://www.zillowstatic.com/bedrock/app/uploads/sites/36/2024/04/home_values_traffic.jpg",
+            "avg_home_values": "$409,926.59",
+            "one_year_change": "8.58%",
+            "median_sale_to_list_ratio": "-",
+            "pct_sold_below_list": "-",
+            "home_value_link": {
+                "text": "Port Barrington Home Values",
+                "path": "/home-values/33488/port-barrington-il/"
+            }
+        }, {
+            "template": "FS_MARKET_TEMPERATURE",
+            "title": "Is Port Barrington a Buyer's Or Seller's Market?",
+            "market_temp_label": "seller"
+        }, {
+            "template": "NESTED_SECTION",
+            "title": "Find a Home You'll Love",
+            "icon": null,
+            "rows": [
+                [{
+                    "template": "SINGLE_SECTION",
+                    "title": "Choose Homes by Amenity",
+                    "icon": "hammer",
+                    "rows": [
+                        [{
+                            "text": "Port Barrington Luxury Homes for Sale",
+                            "path": "/port-barrington-il/luxury-homes/"
+                        }],
+                        [{
+                            "text": "Port Barrington Waterfront Homes for Sale",
+                            "path": "/port-barrington-il/waterfront/"
+                        }]
+                    ],
+                    "expanded": true
+                }],
+                [{
+                    "template": "SINGLE_SECTION",
+                    "title": "Select Property Type",
+                    "icon": "rent",
+                    "rows": [
+                        [{
+                            "text": "Port Barrington Single Family Homes for Sale",
+                            "path": "/port-barrington-il/houses/"
+                        }],
+                        [{
+                            "text": "Port Barrington Condos for Sale",
+                            "path": "/port-barrington-il/condos/"
+                        }],
+                        [{
+                            "text": "Port Barrington Bank Owned Homes for Sale",
+                            "path": "/port-barrington-il/bank-owned/"
+                        }],
+                        [{
+                            "text": "Port Barrington Short Sales Homes for Sale",
+                            "path": "/port-barrington-il/short-sale/"
+                        }],
+                        [{
+                            "text": "Port Barrington Townhomes for Sale",
+                            "path": "/port-barrington-il/townhomes/"
+                        }],
+                        [{
+                            "text": "Port Barrington Duplexes & Triplexes for Sale",
+                            "path": "/port-barrington-il/duplex/"
+                        }],
+                        [{
+                            "text": "Port Barrington Land for Sale",
+                            "path": "/port-barrington-il/land/"
+                        }]
+                    ],
+                    "expanded": true
+                }],
+                [{
+                    "template": "SINGLE_SECTION",
+                    "title": "Popular Searches in Port Barrington IL",
+                    "icon": "searchHeart",
+                    "rows": [
+                        [{
+                            "text": "Newest Port Barrington Real Estate Listings",
+                            "path": "/port-barrington-il/newest/"
+                        }],
+                        [{
+                            "text": "Port Barrington Housing Market",
+                            "path": "/home-values/33488/port-barrington-il/"
+                        }],
+                        [{
+                            "text": "Lake County IL Zip Codes",
+                            "path": "/browse/homes/il/lake-county/"
+                        }]
+                    ],
+                    "expanded": true
+                }]
+            ],
+            "expanded": null
+        }, {
+            "template": "NESTED_SECTION",
+            "title": "Explore Nearby & Average Home Values",
+            "icon": null,
+            "rows": [
+                [{
+                    "template": "SINGLE_SECTION",
+                    "title": "Nearby Port Barrington City Homes",
+                    "icon": "compare",
+                    "rows": [
+                        [{
+                            "text": "Crystal Lake Homes for Sale",
+                            "path": "/crystal-lake-il/"
+                        }, {
+                            "text": "$357,280"
+                        }],
+                        [{
+                            "text": "Cary Homes for Sale",
+                            "path": "/cary-il/"
+                        }, {
+                            "text": "$350,887"
+                        }],
+                        [{
+                            "text": "Lake Zurich Homes for Sale",
+                            "path": "/lake-zurich-il/"
+                        }, {
+                            "text": "$455,303"
+                        }],
+                        [{
+                            "text": "Barrington Hills Homes for Sale",
+                            "path": "/barrington-hills-il/"
+                        }, {
+                            "text": "$987,874"
+                        }],
+                        [{
+                            "text": "Barrington Homes for Sale",
+                            "path": "/barrington-il/"
+                        }, {
+                            "text": "$574,294"
+                        }],
+                        [{
+                            "text": "Wauconda Homes for Sale",
+                            "path": "/wauconda-il/"
+                        }, {
+                            "text": "$313,603"
+                        }],
+                        [{
+                            "text": "Island Lake Homes for Sale",
+                            "path": "/island-lake-il/"
+                        }, {
+                            "text": "$276,431"
+                        }],
+                        [{
+                            "text": "Hawthorn Woods Homes for Sale",
+                            "path": "/hawthorn-woods-il/"
+                        }, {
+                            "text": "$673,694"
+                        }],
+                        [{
+                            "text": "Deer Park Homes for Sale",
+                            "path": "/deer-park-il/"
+                        }, {
+                            "text": "$703,401"
+                        }],
+                        [{
+                            "text": "Lake Barrington Homes for Sale",
+                            "path": "/lake-barrington-il/"
+                        }, {
+                            "text": "$466,686"
+                        }],
+                        [{
+                            "text": "Fox River Grove Homes for Sale",
+                            "path": "/fox-river-grove-il/"
+                        }, {
+                            "text": "$338,120"
+                        }],
+                        [{
+                            "text": "North Barrington Homes for Sale",
+                            "path": "/north-barrington-il/"
+                        }, {
+                            "text": "$769,554"
+                        }],
+                        [{
+                            "text": "Lakemoor Homes for Sale",
+                            "path": "/lakemoor-il/"
+                        }, {
+                            "text": "$265,423"
+                        }],
+                        [{
+                            "text": "Volo Homes for Sale",
+                            "path": "/volo-il/"
+                        }, {
+                            "text": "$347,307"
+                        }],
+                        [{
+                            "text": "Port Barrington Homes for Sale"
+                        }, {
+                            "text": "$409,926"
+                        }],
+                        [{
+                            "text": "Tower Lakes Homes for Sale",
+                            "path": "/tower-lakes-il/"
+                        }, {
+                            "text": "$602,947"
+                        }],
+                        [{
+                            "text": "Oakwood Hills Homes for Sale",
+                            "path": "/oakwood-hills-il/"
+                        }, {
+                            "text": "$324,361"
+                        }],
+                        [{
+                            "text": "Forest Lake Homes for Sale",
+                            "path": "/forest-lake-il/"
+                        }, {
+                            "text": "$421,928"
+                        }],
+                        [{
+                            "text": "Trout Valley Homes for Sale",
+                            "path": "/trout-valley-il/"
+                        }, {
+                            "text": "$533,210"
+                        }],
+                        [{
+                            "text": "Holiday Hills Homes for Sale",
+                            "path": "/holiday-hills-il/"
+                        }, {
+                            "text": "$251,646"
+                        }]
+                    ],
+                    "expanded": true
+                }],
+                [{
+                    "template": "SINGLE_SECTION",
+                    "title": "Port Barrington Neighborhood Homes",
+                    "icon": "park",
+                    "rows": [
+                        [{
+                            "text": "Northeastern Elgin Homes for Sale",
+                            "path": "/northeastern-elgin-elgin-il/"
+                        }, {
+                            "text": "$275,788"
+                        }],
+                        [{
+                            "text": "Southwest Elgin Homes for Sale",
+                            "path": "/southwest-elgin-elgin-il/"
+                        }, {
+                            "text": "$260,130"
+                        }],
+                        [{
+                            "text": "South Of Bode Homes for Sale",
+                            "path": "/south-of-bode-hoffman-estates-il/"
+                        }, {
+                            "text": "$345,097"
+                        }],
+                        [{
+                            "text": "Venetian Village Homes for Sale",
+                            "path": "/venetian-village-lake-villa-il/"
+                        }, {
+                            "text": "$253,228"
+                        }],
+                        [{
+                            "text": "Cobblers Crossing Homes for Sale",
+                            "path": "/cobblers-crossing-elgin-il/"
+                        }, {
+                            "text": "$296,912"
+                        }],
+                        [{
+                            "text": "Highlands Homes for Sale",
+                            "path": "/highlands-hoffman-estates-il/"
+                        }, {
+                            "text": "$364,164"
+                        }],
+                        [{
+                            "text": "Grant Park Homes for Sale",
+                            "path": "/grant-park-elgin-il/"
+                        }, {
+                            "text": "$277,030"
+                        }],
+                        [{
+                            "text": "North Country Knolls Homes for Sale",
+                            "path": "/north-country-knolls-elgin-il/"
+                        }, {
+                            "text": "$374,613"
+                        }],
+                        [{
+                            "text": "Valley Creek Homes for Sale",
+                            "path": "/valley-creek-elgin-il/"
+                        }, {
+                            "text": "$331,012"
+                        }],
+                        [{
+                            "text": "Gifford Park Homes for Sale",
+                            "path": "/gifford-park-elgin-il/"
+                        }, {
+                            "text": "$273,355"
+                        }],
+                        [{
+                            "text": "Green Oaks Homes for Sale",
+                            "path": "/green-oaks-libertyville-il/"
+                        }, {
+                            "text": "$707,645"
+                        }],
+                        [{
+                            "text": "Highpoint Homes for Sale",
+                            "path": "/highpoint-hoffman-estates-il/"
+                        }, {
+                            "text": "$392,007"
+                        }],
+                        [{
+                            "text": "Near West Elgin Homes for Sale",
+                            "path": "/near-west-elgin-elgin-il/"
+                        }, {
+                            "text": "$260,922"
+                        }],
+                        [{
+                            "text": "Summit Park Homes for Sale",
+                            "path": "/summit-park-elgin-il/"
+                        }, {
+                            "text": "$250,293"
+                        }],
+                        [{
+                            "text": "Century Oaks Homes for Sale",
+                            "path": "/century-oaks-elgin-il/"
+                        }, {
+                            "text": "$319,800"
+                        }],
+                        [{
+                            "text": "Lords Park Homes for Sale",
+                            "path": "/lords-park-elgin-il/"
+                        }, {
+                            "text": "$275,685"
+                        }],
+                        [{
+                            "text": "Winston Knolls Homes for Sale",
+                            "path": "/winston-knolls-hoffman-estates-il/"
+                        }, {
+                            "text": "$434,193"
+                        }],
+                        [{
+                            "text": "Downtown Elgin Homes for Sale",
+                            "path": "/downtown-elgin-elgin-il/"
+                        }, {
+                            "text": "$273,935"
+                        }],
+                        [{
+                            "text": "Poplar Hills Homes for Sale",
+                            "path": "/poplar-hills-hoffman-estates-il/"
+                        }, {
+                            "text": "$473,131"
+                        }],
+                        [{
+                            "text": "Eagle Heights Homes for Sale",
+                            "path": "/eagle-heights-elgin-il/"
+                        }, {
+                            "text": "$324,307"
+                        }]
+                    ],
+                    "expanded": true
+                }],
+                [{
+                    "template": "SINGLE_SECTION",
+                    "title": "Port Barrington Homes by Zip Code",
+                    "icon": "homeTour",
+                    "rows": [
+                        [{
+                            "text": "60073 Homes for Sale",
+                            "path": "/round-lake-beach-il-60073/"
+                        }, {
+                            "text": "$255,768"
+                        }],
+                        [{
+                            "text": "60010 Homes for Sale",
+                            "path": "/hoffman-estates-il-60010/"
+                        }, {
+                            "text": "$652,591"
+                        }],
+                        [{
+                            "text": "60014 Homes for Sale",
+                            "path": "/crystal-lake-il-60014/"
+                        }, {
+                            "text": "$342,865"
+                        }],
+                        [{
+                            "text": "60047 Homes for Sale",
+                            "path": "/lake-zurich-il-60047/"
+                        }, {
+                            "text": "$594,183"
+                        }],
+                        [{
+                            "text": "60030 Homes for Sale",
+                            "path": "/grayslake-il-60030/"
+                        }, {
+                            "text": "$321,614"
+                        }],
+                        [{
+                            "text": "60060 Homes for Sale",
+                            "path": "/mundelein-il-60060/"
+                        }, {
+                            "text": "$352,142"
+                        }],
+                        [{
+                            "text": "60110 Homes for Sale",
+                            "path": "/carpentersville-il-60110/"
+                        }, {
+                            "text": "$262,657"
+                        }],
+                        [{
+                            "text": "60102 Homes for Sale",
+                            "path": "/algonquin-il-60102/"
+                        }, {
+                            "text": "$386,108"
+                        }],
+                        [{
+                            "text": "60050 Homes for Sale",
+                            "path": "/mchenry-il-60050/"
+                        }, {
+                            "text": "$284,763"
+                        }],
+                        [{
+                            "text": "60156 Homes for Sale",
+                            "path": "/lake-in-the-hills-il-60156/"
+                        }, {
+                            "text": "$353,344"
+                        }],
+                        [{
+                            "text": "60013 Homes for Sale",
+                            "path": "/cary-il-60013/"
+                        }, {
+                            "text": "$351,891"
+                        }],
+                        [{
+                            "text": "60051 Homes for Sale",
+                            "path": "/mchenry-il-60051/"
+                        }, {
+                            "text": "$301,230"
+                        }],
+                        [{
+                            "text": "60084 Homes for Sale",
+                            "path": "/wauconda-il-60084/"
+                        }, {
+                            "text": "$329,615"
+                        }],
+                        [{
+                            "text": "60012 Homes for Sale",
+                            "path": "/crystal-lake-il-60012/"
+                        }, {
+                            "text": "$451,745"
+                        }],
+                        [{
+                            "text": "60041 Homes for Sale",
+                            "path": "/fox-lake-il-60041/"
+                        }, {
+                            "text": "$280,955"
+                        }],
+                        [{
+                            "text": "60042 Homes for Sale",
+                            "path": "/island-lake-il-60042/"
+                        }, {
+                            "text": "$276,248"
+                        }],
+                        [{
+                            "text": "60020 Homes for Sale",
+                            "path": "/fox-lake-il-60020/"
+                        }, {
+                            "text": "$245,262"
+                        }],
+                        [{
+                            "text": "60021 Homes for Sale",
+                            "path": "/fox-river-grove-il-60021/"
+                        }, {
+                            "text": "$338,373"
+                        }]
+                    ],
+                    "expanded": true
+                }]
+            ],
+            "expanded": null
+        }, {
+            "template": "SINGLE_SECTION",
+            "title": "Estimate Your Home Sale Proceeds",
+            "icon": "calculator",
+            "rows": [
+                [{
+                    "text": "Home Sale Calculator",
+                    "path": "/home-sale-calculator/"
+                }]
+            ],
+            "expanded": true
+        }, {
+            "template": "SINGLE_SECTION",
+            "title": "Have You Considered Renting?",
+            "icon": "keyTag",
+            "rows": [
+                [{
+                    "text": "Port Barrington Apartments for Rent",
+                    "path": "/port-barrington-il/apartments/"
+                }],
+                [{
+                    "text": "Port Barrington Luxury Apartments for Rent",
+                    "path": "/port-barrington-il/luxury-apartments/"
+                }],
+                [{
+                    "text": "Port Barrington Townhomes for Rent",
+                    "path": "/port-barrington-il/rent-townhomes/"
+                }]
+            ],
+            "expanded": true
+        }]
+    }
+}

@@ -11,7 +11,7 @@ from flask_assets import Environment, Bundle
 from src.api import Realtor
 from src.api import Zillow
 from src.api import Redfin
-from src.api import send_request
+from src.api import _send_request
 from src.api import readjson
 from src import paths
 
@@ -32,22 +32,9 @@ def index():
     zillow = Zillow()
     redfin = Redfin()
 
-    # url = "https://zm.zillow.com/api/public/v2/mobile-search/homes/search"
-    # headers = zillow.request._mobile_headers()
-    # payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-regionSearch.json"))
-    
-    # url = "https://www.zillow.com/zg-graph"
-    # headers = zillow.request._mobile_headers_alt()
-    # payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-Autocomplete.json"))
-    
-    data = zillow.query_understanding("Springfield, IL")
-    item = data[0]
-    data = zillow.region_search(region_id=item["region_id"], region_type_id=item["region_type_id"], coordinates=item["polygon"])
+    data = zillow.region_search("Cary, IL", "city", has_pool=True)
 
-    # data = redfin.search()
-    # data = redfin.map_search((42.221805, -88.23305500000001))
-    # data = redfin.region_search(18063, "zipcode")
-    # data = redfin.query_region("640 Stevens St")
+    # data = zillow.autocomplete_results("Cary, IL")
 
     return data
 
