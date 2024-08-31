@@ -30,7 +30,7 @@
         }
     },
     "wants": {
-        "cat1": ["listResults", "mapResults", "regionResults"],
+        "cat1": ["listResults", "regionResults"],
         "cat2": ["total"]
     },
     "requestId": 4,

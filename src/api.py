@@ -41,6 +41,7 @@ class Realtor:
     def __init__(self) -> None:
         pass
 
+
     def map_search(
             self,
             coordinates:tuple[float],
@@ -82,9 +83,9 @@ class Realtor:
         return data
 
 
-    def zipcode_search(
+    def query_search(
             self,
-            zipcode,
+            query_string,
             primary=True, 
             pending=False, 
             contingent=False,
@@ -93,8 +94,8 @@ class Realtor:
             sort_type:Literal["relevant"]=None
         ):
 
-        req = self.request.zipcode_search(
-            zipcode, 
+        req = self.request.query_search(
+            query_string=query_string, 
             primary=primary, 
             pending=pending, 
             contingent=contingent,
@@ -127,7 +128,7 @@ class Realtor:
 
         city = f"{city}, {state}"
 
-        req = self.request.zipcode_search(
+        req = self.request.query_search(
             city, 
             primary=primary, 
             pending=pending, 
@@ -361,8 +362,8 @@ class Realtor:
 
 
         @staticmethod
-        def zipcode_search(
-                zipcode, 
+        def query_search(
+                query_string, 
                 primary:bool=True,
                 pending:bool=False,
                 contingent:bool=False,
@@ -374,12 +375,14 @@ class Realtor:
             
             params = {"client_id": "rdc-search-for-sale-search", "schema": "vesta"}
 
-            payload = readjson(paths.GRAPHQL_DIR.joinpath(f"realtor-ConsumerSearchQuery.json"))
-            payload["query"] = readfile(paths.GRAPHQL_DIR.joinpath(f"realtor-ConsumerSearchQuery.gql"))
+            payload = _read_payload("realtor-ConsumerSearchQuery.json")
+            payload["query"] = _read_gql("realtor-ConsumerSearchQuery.gql")
+            # payload = readjson(paths.GRAPHQL_DIR.joinpath(f"realtor-ConsumerSearchQuery.json"))
+            # payload["query"] = readfile(paths.GRAPHQL_DIR.joinpath(f"realtor-ConsumerSearchQuery.gql"))
 
-            zipcode = str(zipcode).strip()
-            payload["variables"]["query"]["search_location"] = {"location": zipcode}
-            payload["variables"]["geoSupportedSlug"] = zipcode
+            query_string = str(query_string).strip()
+            payload["variables"]["query"]["search_location"] = {"location": query_string}
+            payload["variables"]["geoSupportedSlug"] = query_string
             
             payload["variables"]["query"]["primary"] = primary
             payload["variables"]["query"]["pending"] = pending
@@ -801,7 +804,7 @@ class Zillow:
                     coordinates = result["polygon"]
                     break
 
-            req = self.request.region_lookup2(
+            req = self.request.region_lookup(
                 region_id,
                 region_type, 
                 coordinates=coordinates,
@@ -841,7 +844,7 @@ class Zillow:
 
 
     def region_lookup(self, region_id, region_type:Literal["city", "zipcode", "neighborhood", "address"], coordinates:list[tuple[float, float]]):
-        req = self.request.region_lookup(
+        req = self.request.region_lookup_old(
             region_id=region_id,
             region_type=region_type,
             coordinates=coordinates
@@ -989,65 +992,99 @@ class Zillow:
             has_finished_basement:bool|None=None,
             has_unfinished_basement:bool|None=None,
             has_garage:bool|None=None,
-            age_55plus_only:bool|None=None,
+            hide_55plus:bool|None=None,
             single_story_only:bool|None=None,
             has_ac:bool|None=None,
             has_pool:bool|None=None,
             doz:Literal["1","7","14","30","90","6m","12m","24m","36m"]|None=None,
-            limit:int|None=None,
             page:int|None=None,
+            limit:int|None=None,
             sort_order:Literal["globalrelevanceex", "days", "beds", "baths", "lot", "paymentd", "paymenta", "featured", "size", "zest", "zesta", "pricea", "priced", "mostrecentchange", "listingstatus"]|None=None,
         
             ) -> httpx.Request:
 
-            url = "https://zm.zillow.com/api/public/v2/mobile-search/homes/search"
-
             radius_mi = int(radius_mi) if radius_mi != None else 5
-            price_min = int(price_min) if price_min != None else None
-            price_max = int(price_max) if price_max != None else None
-            limit = int(limit) if limit != None else 100
-
-            if (price_min, price_max) == (None, None):
-                price_max = 500000000
-
             bbox = get_bounding_box(coordinates[0], coordinates[1], radius=radius_mi)
             
-            payload = _read_payload("zillow-MapSearch.json")
+            url = "https://www.zillow.com/async-create-search-page-state"
+            
+            headers = Zillow.request._desktop_headers()
 
-            price_min = int(price_min) if price_min != None else 0
-            price_max = int(price_max) if price_max != None else 500000000
+            payload = _read_payload("zillow-searchQueryState.json")
 
-            limit = int(limit) if limit != None else 100
-            page = int(page) if page != None else 1
+            payload["searchQueryState"].pop("regionSelection")
 
-            num_beds_min = int(num_beds_min) if num_beds_min != None else 1
-            num_beds_max = int(num_beds_max) if num_beds_max != None else 5
-
-            num_baths_min = float(num_baths_min) if num_baths_min != None else 0
-
-            if int(num_baths_min) == 0:
-                payload.pop("bathroomsRange")
-            else:
-                if ".0" in str(num_baths_min):
-                    num_baths_min = int(num_baths_min)
-                payload["bathroomsRange"]["min"] = num_baths_min
-
-            payload["paging"]["pageNumber"] = page
-            payload["paging"]["pageSize"] = limit
-            payload["bedroomsRange"]["min"] = num_beds_min
-            payload["bedroomsRange"]["max"] = num_beds_max
-            payload["priceRange"]["min"] = price_min
-            payload["priceRange"]["max"] = price_max
-            payload["regionParameters"]["boundaries"] = {
+            payload["searchQueryState"]["mapBounds"] = {
                 "northLatitude": bbox["north"],
                 "southLatitude": bbox["south"],
                 "eastLongitude": bbox["east"],
                 "westLongitude": bbox["west"],
             }
 
-            headers = Zillow.request._mobile_headers()
+            if price_min != None or price_max != None:
+                payload["searchQueryState"]["filterState"]["price"] = {}
+                if price_min != None:
+                    payload["searchQueryState"]["filterState"]["price"]["min"] = int(price_min)
+                if price_max != None:
+                    payload["searchQueryState"]["filterState"]["price"]["max"] = int(price_max)
 
-            req = httpx.Request("POST", url, headers=headers, json=payload)
+            if num_beds_min != None or num_beds_max != None:
+                payload["searchQueryState"]["filterState"]["beds"] = {}
+                if num_beds_min != None:
+                    payload["searchQueryState"]["filterState"]["beds"]["min"] = int(num_beds_min)
+                if num_beds_max != None:
+                    payload["searchQueryState"]["filterState"]["beds"]["max"] = int(num_beds_max)
+
+            if num_baths_min != None or num_baths_max != None:
+                payload["searchQueryState"]["filterState"]["baths"] = {}
+                if num_baths_min != None:
+                    num_baths_min = float(num_baths_min) if ".5" in str(num_baths_min) else int(num_baths_min)
+                    payload["searchQueryState"]["filterState"]["baths"]["min"] = num_baths_min
+                if num_baths_max != None:
+                    num_baths_max = float(num_baths_max) if ".5" in str(num_baths_max) else int(num_baths_max)
+                    payload["searchQueryState"]["filterState"]["baths"]["max"] = num_baths_max
+            
+            if year_built_min != None or year_built_max != None:
+                payload["searchQueryState"]["filterState"]["built"] = {}
+                if year_built_min != None:
+                    payload["searchQueryState"]["filterState"]["built"]["min"] = int(year_built_min)
+                if year_built_max != None:
+                    payload["searchQueryState"]["filterState"]["built"]["max"] = int(year_built_max)
+            
+            if doz != None:
+                payload["searchQueryState"]["filterState"]["doz"] = {"value": str(doz)}
+
+            if include_pending_listings == True:
+                payload["searchQueryState"]["filterState"]["isPendingListingsSelected"] = {"value": True}
+            if include_accepting_offers == True:
+                payload["searchQueryState"]["filterState"]["isAcceptingBackupOffersSelected"] = {"value": True}
+            if open_houses_only == True:
+                payload["searchQueryState"]["filterState"]["isOpenHousesOnly"] = {"value": True}
+            if has_3d_tour_only == True:
+                payload["searchQueryState"]["filterState"]["is3dHome"] = {"value": True}
+            if has_finished_basement == True:
+                payload["searchQueryState"]["filterState"]["isBasementFinished"] = {"value": True}
+            if has_unfinished_basement == True:
+                payload["searchQueryState"]["filterState"]["isBasementUnfinished"] = {"value": True}
+            if has_garage == True:
+                payload["searchQueryState"]["filterState"]["hasGarage"] = {"value": True}
+            if hide_55plus == True:
+                payload["searchQueryState"]["filterState"]["ageRestricted55Plus"] = {"value": "e"}
+            if single_story_only == True:
+                payload["searchQueryState"]["filterState"]["singleStory"] = {"value": True}
+            if has_ac == True:
+                payload["searchQueryState"]["filterState"]["hasAirConditioning"] = {"value": True}
+            if has_pool == True:
+                payload["searchQueryState"]["filterState"]["hasPool"] = {"value": True}
+
+
+            sort_order = sort_order if sort_order != None else "globalrelevanceex"
+            payload["searchQueryState"]["filterState"]["sortSelection"] = {"value": sort_order}
+
+            page = int(page) if page != None else 1
+            payload["searchQueryState"]["pagination"]["currentPage"] = page
+
+            req = httpx.Request("PUT", url, headers=headers, json=payload)
 
             return req
         
@@ -1191,7 +1228,7 @@ class Zillow:
 
 
         @staticmethod
-        def region_lookup(region_id, region_type:str, coordinates:list[tuple[float, float]]):
+        def region_lookup_old(region_id, region_type:str, coordinates:list[tuple[float, float]]):
             url = "https://zm.zillow.com/api/public/v2/mobile-search/homes/search"
             
             headers = Zillow.request._mobile_headers()
@@ -1216,7 +1253,7 @@ class Zillow:
         
 
         @staticmethod
-        def region_lookup2(
+        def region_lookup(
             region_id, 
             region_type:str, 
             coordinates:list[tuple[float, float]],
@@ -1240,8 +1277,8 @@ class Zillow:
             has_ac:bool|None=None,
             has_pool:bool|None=None,
             doz:None|Literal["1","7","14","30","90","6m","12m","24m","36m"]=None,
-            limit:None|int=None,
             page:None|int=None,
+            limit:None|int=None,
             sort_order:None|Literal["globalrelevanceex", "days", "beds", "baths", "lot", "paymentd", "paymenta", "featured", "size", "zest", "zesta", "pricea", "priced", "mostrecentchange", "listingstatus"]=None,
 
             ):
@@ -1296,7 +1333,7 @@ class Zillow:
                     payload["searchQueryState"]["filterState"]["built"]["max"] = int(year_built_max)
             
             if doz != None:
-                payload["searchQueryState"]["filterState"]["doz"] = str(doz)
+                payload["searchQueryState"]["filterState"]["doz"] = {"value": str(doz)}
 
             if include_pending_listings == True:
                 payload["searchQueryState"]["filterState"]["isPendingListingsSelected"] = {"value": True}
@@ -1323,6 +1360,9 @@ class Zillow:
 
             sort_order = sort_order if sort_order != None else "globalrelevanceex"
             payload["searchQueryState"]["filterState"]["sortSelection"] = {"value": sort_order}
+
+            page = int(page) if page != None else 1
+            payload["searchQueryState"]["pagination"]["currentPage"] = page
 
             req = httpx.Request("PUT", url, headers=headers, json=payload)
 

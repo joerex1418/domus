@@ -31,10 +31,12 @@ def inject_dict_for_all_templates():
 def index():
     zillow = Zillow()
     redfin = Redfin()
+    realtor = Realtor()
 
-    data = zillow.region_search("Cary, IL", "city", has_pool=True)
-
-    # data = zillow.autocomplete_results("Cary, IL")
+    # data = zillow.region_search("Cary, IL", "city")
+    # data = realtor.city_search("Cary", "IL")
+    # data = zillow.property_details(4657878)
+    data = realtor.query_search("47 Southgate Crse")
 
     return data
 
