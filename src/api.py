@@ -622,8 +622,74 @@ class Zillow:
     def __init__(self):
         pass
 
-
     def map_search(
+            self, 
+            coordinates:tuple[float, float], 
+            radius_mi:int=None, 
+            price_min:int|None=None,
+            price_max:int|None=None,
+            num_beds_min:int|None=None,
+            num_beds_max:int|None=None,
+            num_baths_min:int|float|None=None,
+            num_baths_max:int|float|None=None,
+            include_pending_listings:bool|None=None,
+            include_accepting_offers:bool|None=None,
+            open_houses_only:bool|None=None,
+            has_3d_tour_only:bool|None=None,
+            year_built_min:int|None=None,
+            year_built_max:int|None=None,
+            has_finished_basement:bool|None=None,
+            has_unfinished_basement:bool|None=None,
+            has_garage:bool|None=None,
+            age_55plus_only:bool|None=None,
+            single_story_only:bool|None=None,
+            has_ac:bool|None=None,
+            has_pool:bool|None=None,
+            doz:Literal["1","7","14","30","90","6m","12m","24m","36m"]|None=None,
+            limit:int|None=None,
+            page:int|None=None,
+            sort_order:Literal["globalrelevanceex", "days", "beds", "baths", "lot", "paymentd", "paymenta", "featured", "size", "zest", "zesta", "pricea", "priced", "mostrecentchange", "listingstatus"]|None=None,
+            ):
+        
+        # TODO: add all the same parameters as region_search
+        # TODO: also involves re-configuring the request.map_search() method
+        
+        req = Zillow.request.map_search(
+            coordinates=coordinates,
+            radius_mi=radius_mi,
+            price_min=price_min,
+            price_max=price_max,
+            num_beds_min=num_beds_min,
+            num_beds_max=num_beds_max,
+            num_baths_min=num_baths_min,
+            num_baths_max=num_baths_max,
+            include_pending_listings=include_pending_listings,
+            include_accepting_offers=include_accepting_offers,
+            open_houses_only=open_houses_only,
+            has_3d_tour_only=has_3d_tour_only,
+            year_built_min=year_built_min,
+            year_built_max=year_built_max,
+            has_finished_basement=has_finished_basement,
+            has_unfinished_basement=has_unfinished_basement,
+            has_garage=has_garage,
+            hide_55plus=age_55plus_only,
+            single_story_only=single_story_only,
+            has_ac=has_ac,
+            has_pool=has_pool,
+            doz=doz,
+            limit=limit,
+            page=page,
+            sort_order=sort_order,
+        )
+        
+        with httpx.Client() as client:
+            r = client.send(req)
+
+        rawdata = orjson.loads(r.content)
+
+        return rawdata
+
+    def map_search1(
             self, 
             coordinates:tuple[float, float], 
             radius_mi:int=None, 
@@ -635,10 +701,11 @@ class Zillow:
             limit:Optional[int]=None,
             page:Optional[int]=None,
             ):
+        
         # TODO: add all the same parameters as region_search
         # TODO: also involves re-configuring the request.map_search() method
         
-        req = Zillow.request.map_search(
+        req = Zillow.request.map_search1(
             coordinates=coordinates,
             radius_mi=radius_mi,
             price_min=price_range_min,
@@ -905,6 +972,88 @@ class Zillow:
     class request:
         @staticmethod
         def map_search(
+            coordinates:tuple[float, float], 
+            radius_mi:int=None, 
+            price_min:int|None=None,
+            price_max:int|None=None,
+            num_beds_min:int|None=None,
+            num_beds_max:int|None=None,
+            num_baths_min:int|float|None=None,
+            num_baths_max:int|float|None=None,
+            include_pending_listings:bool|None=None,
+            include_accepting_offers:bool|None=None,
+            open_houses_only:bool|None=None,
+            has_3d_tour_only:bool|None=None,
+            year_built_min:int|None=None,
+            year_built_max:int|None=None,
+            has_finished_basement:bool|None=None,
+            has_unfinished_basement:bool|None=None,
+            has_garage:bool|None=None,
+            age_55plus_only:bool|None=None,
+            single_story_only:bool|None=None,
+            has_ac:bool|None=None,
+            has_pool:bool|None=None,
+            doz:Literal["1","7","14","30","90","6m","12m","24m","36m"]|None=None,
+            limit:int|None=None,
+            page:int|None=None,
+            sort_order:Literal["globalrelevanceex", "days", "beds", "baths", "lot", "paymentd", "paymenta", "featured", "size", "zest", "zesta", "pricea", "priced", "mostrecentchange", "listingstatus"]|None=None,
+        
+            ) -> httpx.Request:
+
+            url = "https://zm.zillow.com/api/public/v2/mobile-search/homes/search"
+
+            radius_mi = int(radius_mi) if radius_mi != None else 5
+            price_min = int(price_min) if price_min != None else None
+            price_max = int(price_max) if price_max != None else None
+            limit = int(limit) if limit != None else 100
+
+            if (price_min, price_max) == (None, None):
+                price_max = 500000000
+
+            bbox = get_bounding_box(coordinates[0], coordinates[1], radius=radius_mi)
+            
+            payload = _read_payload("zillow-MapSearch.json")
+
+            price_min = int(price_min) if price_min != None else 0
+            price_max = int(price_max) if price_max != None else 500000000
+
+            limit = int(limit) if limit != None else 100
+            page = int(page) if page != None else 1
+
+            num_beds_min = int(num_beds_min) if num_beds_min != None else 1
+            num_beds_max = int(num_beds_max) if num_beds_max != None else 5
+
+            num_baths_min = float(num_baths_min) if num_baths_min != None else 0
+
+            if int(num_baths_min) == 0:
+                payload.pop("bathroomsRange")
+            else:
+                if ".0" in str(num_baths_min):
+                    num_baths_min = int(num_baths_min)
+                payload["bathroomsRange"]["min"] = num_baths_min
+
+            payload["paging"]["pageNumber"] = page
+            payload["paging"]["pageSize"] = limit
+            payload["bedroomsRange"]["min"] = num_beds_min
+            payload["bedroomsRange"]["max"] = num_beds_max
+            payload["priceRange"]["min"] = price_min
+            payload["priceRange"]["max"] = price_max
+            payload["regionParameters"]["boundaries"] = {
+                "northLatitude": bbox["north"],
+                "southLatitude": bbox["south"],
+                "eastLongitude": bbox["east"],
+                "westLongitude": bbox["west"],
+            }
+
+            headers = Zillow.request._mobile_headers()
+
+            req = httpx.Request("POST", url, headers=headers, json=payload)
+
+            return req
+        
+
+        @staticmethod
+        def map_search1(
             coordinates:tuple[float, float], 
             radius_mi:int=None, 
             price_min:Optional[int]=None,
