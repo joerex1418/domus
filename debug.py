@@ -34,9 +34,9 @@ def index():
     realtor = Realtor()
 
     # data = zillow.region_search("Cary, IL", "city")
-    # data = realtor.city_search("Cary", "IL")
+    data = realtor.city_search("Cary", "IL")
     # data = zillow.property_details(4657878)
-    data = realtor.query_search("47 Southgate Crse")
+    # data = realtor.query_search("47 Southgate Crse")
 
     return data
 
