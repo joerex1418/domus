@@ -1,3 +1,5 @@
+import json
+
 import rich
 import httpx
 import orjson
@@ -8,12 +10,16 @@ from flask.templating import render_template
 from flask.helpers import url_for
 from flask_assets import Environment, Bundle
 
+from src import geo
+from src import paths
 from src.api import Realtor
 from src.api import Zillow
 from src.api import Redfin
-from src.api import _send_request
+from src.api import Homes
 from src.api import readjson
-from src import paths
+from src.api import readfile
+from src.api import _send_request
+from src.util import copy_data
 
 app = Flask(__name__)
 # app.config["JSON_SORT_KEYS"] = False
@@ -22,6 +28,8 @@ app = Flask(__name__)
 assets = Environment(app)
 scss = Bundle('style.scss',filters='pyscss',output='style.css')
 assets.register('style',scss)
+
+mapbox = geo.Mapbox(readfile("geoauth.txt"))
 
 @app.context_processor
 def inject_dict_for_all_templates():
@@ -32,11 +40,33 @@ def index():
     zillow = Zillow()
     redfin = Redfin()
     realtor = Realtor()
+    homes = Homes()
 
-    # data = zillow.region_search("Cary, IL", "city")
-    data = realtor.city_search("Cary", "IL")
-    # data = zillow.property_details(4657878)
-    # data = realtor.query_search("47 Southgate Crse")
+    # zipdata = geo.polygon_zipcode(60013)
+    # citydata = geo.polygon_city("Naperville", state="IL")
+
+    # r = _send_request(homes.request.context())
+    
+    # r = _send_request(homes.request.autocomplete("60540"))
+
+    # r = _send_request(homes.request.getpins())
+    r = _send_request(homes.request.getshape(26464, "postalcode"))
+    data = orjson.loads(r.content)
+    import polyline
+    return polyline.decode(data["lines"][0][0])
+    return data
+
+@app.route("/homes/search")
+def homessearch():
+    query = request.args.get("q", request.args.get("query"))
+    homes = Homes()
+
+    r = _send_request(homes.request.autocomplete(query))
+    
+    data = orjson.loads(r.content)
+
+    gdata = data.get("suggestions", {}).get("places", [{}])[0].get("g")
+    copy_data(gdata)
 
     return data
 
@@ -58,6 +88,24 @@ def redfin(anything):
 
     r = httpx.get(url, params=params, headers=headers)
     data = orjson.loads(r.content.replace(b"{}&&", b""))
+
+    return data
+
+@app.route("/geosearch")
+def geosearch():
+    # data = geo.search(query=request.args.get("query"))
+
+    start = [41.69579266, -88.1128678]  # Commonwealth Dr
+    dest1 = [41.77386435, -88.1595485]  # Stevens St
+    dest2 = [42.205556, -88.26480364]   # Pearson Rd
+
+    data = geo.distance_comparison(
+        start=start, start_name="131 S Commonwealth Dr",
+        destinations=[
+            {"coords": dest1, "name": "640 Stevens St"},
+            {"coords": dest2, "name": "940 Pearson Rd"},
+        ]
+    )
 
     return data
     

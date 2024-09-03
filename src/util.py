@@ -1,9 +1,13 @@
 import json
 from pathlib import Path
 
+from pyperclip import copy as pypcopy
 from haversine import Unit
 from haversine import Direction
 from haversine import inverse_haversine
+
+def copy_data(data:list|dict):
+    pypcopy(json.dumps(data))
 
 def savejson(obj, filepath):
     if isinstance(filepath, str):

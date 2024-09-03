@@ -2029,3 +2029,119 @@ class Redfin:
 
 
 
+class Homes:
+    def __init__(self):
+        pass
+
+    
+    class request:
+        @staticmethod
+        def context():
+            url = "https://www.homes.com/services/shared/context/"
+
+            params = {"pageName": "Home"}
+
+            headers = Homes.request._desktop_headers()
+
+            req = httpx.Request("POST", url, params=params, headers=headers)
+
+            return req
+
+        @staticmethod
+        def autocomplete(query:str):
+            url = "https://www.homes.com/routes/res/consumer/property/autocomplete/"
+
+            headers = Homes.request._desktop_headers()
+            headers["accept"] = "application/json"
+            headers["content-type"] = "application/json-patch+json"
+
+            payload = {
+                "term": str(query).strip(),
+                "transactionType": 1,
+                # "location": {"ln": -84.388, "lt": 33.749},
+                "limitResult": False, 
+                "includeAgent": False,
+                "includeSchools": True, 
+                "placeOnlySearch": False,
+            }
+
+            req = httpx.Request("POST", url, json=payload, headers=headers)
+
+            """
+            bb -> bounding box
+            br -> bottom right
+            l  -> coordinates dictionary?
+            g  -> geography
+            tl -> top left
+            k  -> key
+            v  -> *not sure yet but it seems to only be numeric. could be an id?
+            a  -> about?
+            d  -> display
+            s  -> subtype?
+            u  -> url
+
+            listingStatuses:
+                5 -> coming soon 
+                7 -> for sale
+                1 -> under contract
+                6 -> pending
+            listingTypes:
+                1  -> re-sale
+                2  -> new construction
+                64 -> pre-foreclosure
+                8  -> foreclosure 
+                4  -> short sale 
+                16 -> auction
+            dom: (days on market) -> 
+                    Numbers code to a specific value. 
+                    They're not intuitive. Gotta reverse-engineer. 
+
+            """
+
+            return req
+        
+        @staticmethod
+        def getpins():
+            url = "https://www.homes.com/routes/res/native/v20/property/getpins"
+
+            headers = Homes.request._desktop_headers()
+            # headers["accept"] = "application/json"
+            headers["accept"] = "*/*"
+            headers["content-type"] = "application/json"
+            headers["user-agent"] = "Homes/native/iOS/Phone/15.2.1 (18.0-iPhone14,2-20240809)"
+
+            payload = _read_payload("homes-getpins.json")
+
+            req = httpx.Request("POST", url, json=payload, headers=headers)
+
+            return req
+        
+        @staticmethod
+        def getshape(v_value:int, _type:Literal["city", "postalcode"], /):
+            url = f"https://shapes.homes.com/shapes/{_type}/{v_value}/high"
+
+            headers = Homes.request._desktop_headers()
+            headers["accept"] = "application/json, text/plain, */*"
+            headers["host"] = "shapes.homes.com"
+
+            req = httpx.Request("GET", url, headers=headers)
+
+            return req
+
+
+        @staticmethod
+        def _desktop_headers():
+            return {
+                "accept": "*/*",
+                "accept-encoding": "gzip, deflate, br, zstd",
+                "accept-language": "en-US,en;q=0.5",
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:130.0) Gecko/20100101 Firefox/130.0",
+                "host": "www.homes.com",
+                "referer": "https://www.homes.com/",
+            }
+        
+        @staticmethod
+        def _get_geography_from_autocomplete(data:list|dict):
+            g = data.get("suggestions", {}).get("places")
+
+

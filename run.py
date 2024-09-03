@@ -3,7 +3,7 @@ import json
 import rich
 import httpx
 
-from src import osm
+from src import geo
 from src.api import Realtor
 from src.api import Zillow
 from src.api import Redfin
@@ -18,6 +18,8 @@ redfin = Redfin()
 
 
 
-data = osm.search(postalcode="60540", country="usa")
+# data = osm.search(postalcode="60540", country="usa")
 
-savejson(data, "geotemp.json")
+data = geo.polygon_city("Naperville", "IL")
+# data = osm.polygon_zipcode(60540)
+savejson(data, "polycity.json")

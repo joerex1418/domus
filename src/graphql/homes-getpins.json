@@ -1,0 +1,40 @@
+{
+    "geography": {"k": {"key": "5ze315ww5dzzt"}, "d": "Cary, IL", "t": 2, "a": {"countryCode": "US", "state": "IL", "city": "Cary"}, "l": {"lt": 42.21531, "ln": -88.25108}, "bb": {"br": {"lt": 42.19017, "ln": -88.21107}, "tl": {"lt": 42.24045, "ln": -88.29108}}, "v": 27203},
+    "boundedGeo": 0,
+    "filters": {
+      "minBaths": 2,
+      "minBeds": 3,
+      "maxBeds": 5,
+      "amenityType": [
+  53
+      ],
+      "listingType": [
+  1,
+  64,
+  8,
+  4,
+  16
+      ],
+      "transaction": 1,
+      "sortType": 0,
+      "listingStatus": [
+  5,
+  7
+      ],
+      "maxPrice": 475000,
+      "maxBaths": 5,
+      "minPrice": 225000
+    },
+    "mapCriteria": {
+      "boundingBox": {
+        "tl": {
+          "ln": -88.206109999999995,
+          "lt": 41.79307
+        },
+        "br": {
+          "ln": -88.064070000000001,
+          "lt": 41.732700000000001
+        }
+      }
+    }
+  }
