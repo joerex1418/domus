@@ -19,6 +19,21 @@ from .constants import RF_REGION_TYPE_MAP
 from .constants import RF_FINANCING_TYPE_MAP
 from .constants import RF_REGION_TYPE_REVERSE_MAP
 from .constants import ZI_REGION_TYPE_MAP
+from .constants import HM_LOT_SIZE
+from .constants import HM_SORT_TYPE
+from .constants import HM_AMENITY_VIEW
+from .constants import HM_PROPERTY_TYPE
+from .constants import HM_DAYS_ON_MARKET
+from .constants import HM_LISTING_TYPE_MAP
+from .constants import HM_LISTING_STATUS_MAP
+from .constants import HM_AMENITY_OUTDOOR
+from .constants import HM_AMENITY_INTERIOR
+from .constants import HM_AMENITY_FLOORING
+from .constants import HM_AMENITY_COMMUNITY
+from .constants import HM_AMENITY_UTILITIES
+from .constants import HM_AMENITY_RECREATION
+from .constants import HM_AMENITY_LOT_DETAILS
+from .constants import HM_AMENTITY_ARCHITSTYLE
 
 _Polygon = list[tuple[float, float]]
 _MultiPolygon = list[list[tuple[float, float]]]
@@ -67,16 +82,6 @@ class Realtor:
             r = client.send(req)
         
         rawdata = r.json()
-
-        # rawdata = self._search(
-        #     coordinates=coordinates, 
-        #     radius_mi=radius_mi, 
-            # primary=primary, 
-            # pending=pending, 
-            # contingent=contingent,
-            # limit=limit,
-            # sort_type=sort_type,
-        #     )
 
         data = self._compact_search_data(rawdata)
 
@@ -2029,6 +2034,80 @@ class Redfin:
 
 
 
+_ListingStatus = Literal["for_sale", "under_contract", "pending", "coming_soon"]
+_ListingType = Literal["resale", "new_construction", "short_sale", "foreclosure", "auction", "pre_foreclosure"]
+
+_PropertyType = Literal[
+    "house", 
+    "townhouse", 
+    "condo", 
+    "co_op", 
+    "lot_land", 
+    "manufactured", 
+    "multifamily", 
+    "other"
+]
+_LotSize = Literal[
+    "3000sqft", 
+    "5000sqft", 
+    "7000sqft", 
+    "0.25acres", 
+    "0.5acres", 
+    "0.75acres", 
+    "1acre", 
+    "1.5acres", 
+    "2acres", 
+    "2.5acres", 
+    "3acres", 
+    "4acres", 
+    "5acres", 
+    "10acres", 
+    "15acres"
+]
+_DaysOnMarket = Literal[
+    "any",
+    "new_listings",
+    "-3d",
+    "-7d",
+    "-1m",
+    "7d+",
+    "14d+",
+    "1m+",
+    "3m+",
+    "6m+",
+    "1y+",
+]
+_ArchitStyle = Literal[
+    "mid_century_modern", 
+    "modern_contemporary", 
+    "ranch_style", 
+    "spanish_mediterranean", 
+    "farmhouse", 
+    "colonial", 
+    "craftsman", 
+    "victorian"
+]
+_ViewType = Literal[
+    "mountains_hills",
+    "woods",
+    "water",
+    "city",
+    "other",
+]
+_SortType = Literal[
+    "recommended",
+    "newest",
+    "price_lth",
+    "price_htl",
+    "price_reduced_date",
+    "sqft",
+    "price_sqft",
+    "open_house",
+    "num_beds",
+    "num_baths",
+]
+_SqFt = Literal[500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000, 9000, 10000]
+
 class Homes:
     def __init__(self):
         pass
@@ -2067,50 +2146,229 @@ class Homes:
 
             req = httpx.Request("POST", url, json=payload, headers=headers)
 
-            """
-            bb -> bounding box
-            br -> bottom right
-            l  -> coordinates dictionary?
-            g  -> geography
-            tl -> top left
-            k  -> key
-            v  -> *not sure yet but it seems to only be numeric. could be an id?
-            a  -> about?
-            d  -> display
-            s  -> subtype?
-            u  -> url
-
-            listingStatuses:
-                5 -> coming soon 
-                7 -> for sale
-                1 -> under contract
-                6 -> pending
-            listingTypes:
-                1  -> re-sale
-                2  -> new construction
-                64 -> pre-foreclosure
-                8  -> foreclosure 
-                4  -> short sale 
-                16 -> auction
-            dom: (days on market) -> 
-                    Numbers code to a specific value. 
-                    They're not intuitive. Gotta reverse-engineer. 
-
-            """
-
             return req
         
         @staticmethod
-        def getpins():
+        def getpins(
+            geography:dict,
+            property_type:list[_PropertyType]|_PropertyType|None=None, 
+            listing_type:list[_ListingType]|_ListingType|None=None,
+            listing_status:list[_ListingStatus]|_ListingStatus|None=None, *,
+            sort_type:_SortType|None=None,
+            price_min:int|None=None,
+            price_max:int|None=None,
+            sqft_min:_SqFt|None=None,
+            sqft_max:_SqFt|None=None,
+            price_sqft_min:int|None=None,
+            price_sqft_max:int|None=None,
+            num_beds_min:Literal[0,1,2,3,4,5]|None=None,
+            num_beds_max:Literal[0,1,2,3,4,5]|None=None,
+            num_baths_min:Literal[1,2,3,4,5]|None=None,
+            num_baths_max:Literal[1,2,3,4,5]|None=None,
+            num_stories_min:Literal[1,2,3]|None=None,
+            num_stories_max:Literal[1,2,3]|None=None,
+            lot_size_min:_LotSize|None=None,
+            lot_size_max:_LotSize|None=None,
+            monthly_hoa_max:int|None=None,
+            no_hoa:bool|None=None,
+            days_on_market:_DaysOnMarket|None=None,
+            architecture_styles:list[_ArchitStyle]|_ArchitStyle|None=None,
+            view_types:list[_ViewType]|_ViewType|None=None,
+            garage_parking:bool|None=None,
+            exclude_senior_living:bool|None=False,
+            hardwood_floor:bool|None=None,
+            stone_floor:bool|None=None,
+            marble_floor:bool|None=None,
+            mainfloor_bedroom:bool|None=None,
+            elevator:bool|None=None,
+            inlaw_suite:bool|None=None,
+            upgraded_counters:bool|None=None,
+            kitchen_island:bool|None=None,
+            guest_house:bool|None=None,
+            walk_in_closet:bool|None=None,
+            dishwasher:bool|None=None,
+            fireplace:bool|None=None,
+            high_ceilings:bool|None=None,
+            furnished:bool|None=None,
+            skylights:bool|None=None,
+            laundry_in_unit:bool|None=None,
+            laundry_room:bool|None=None,
+            ev_charging:bool|None=None,
+            basement:bool|None=None,
+            attic:bool|None=None,
+            pet_friendly_unit:bool|None=None,
+            ada_friendly:bool|None=None,
+            eco_friendly:bool|None=None,
+            corner_lot:bool|None=None,
+            yard:bool|None=None,
+            deck:bool|None=None,
+            porch:bool|None=None,
+            balcony:bool|None=None,
+            patio:bool|None=None,
+            culdesac:bool|None=None,
+            sports_court:bool|None=None,
+            private_pool:bool|None=None,
+            private_spa:bool|None=None,
+            tennis_court:bool|None=None,
+            rooftop_deck:bool|None=None,
+            waterfront:bool|None=None,
+            boat_dock:bool|None=None,
+            central_ac:bool|None=None,
+            central_heat:bool|None=None,
+            solar:bool|None=None,
+            high_speed_internet:bool|None=None,
+            gated_community:bool|None=None,
+            valet:bool|None=None,
+            doorman:bool|None=None,
+            concierge:bool|None=None,
+            clubhouse:bool|None=None,
+            sauna:bool|None=None,
+            storage:bool|None=None,
+            laundry_facilities:bool|None=None,
+            pet_friendly:bool|None=None,
+            security:bool|None=None,
+            parking_garage:bool|None=None,
+            senior_living:bool|None=None,
+            community_pool:bool|None=None,
+            spa:bool|None=None,
+            bike_storage:bool|None=None,
+            golf_course:bool|None=None,
+            fitness_center:bool|None=None,
+            community_tennis_court:bool|None=None,
+            community_boat_dock:bool|None=None,
+            beach_access:bool|None=None,
+            horse_facilities:bool|None=None,
+            ski_accessible:bool|None=None,
+            **kwargs
+        ):
             url = "https://www.homes.com/routes/res/native/v20/property/getpins"
 
             headers = Homes.request._desktop_headers()
-            # headers["accept"] = "application/json"
             headers["accept"] = "*/*"
             headers["content-type"] = "application/json"
             headers["user-agent"] = "Homes/native/iOS/Phone/15.2.1 (18.0-iPhone14,2-20240809)"
 
             payload = _read_payload("homes-getpins.json")
+            payload["geography"] = geography
+            
+            filters = payload["filters"]
+            
+            # Property Type(s)
+            if property_type != None:
+                property_type = property_type if isinstance(property_type, list) else [property_type]
+                filters["propertyTypes"].extend([HM_PROPERTY_TYPE.get(s) for s in property_type if s in HM_PROPERTY_TYPE])
+            
+            # Listing Type(s)
+            if listing_type != None:
+                listing_type = listing_type if isinstance(listing_type, list) else [listing_type]
+                filters["listingType"].extend([HM_LISTING_TYPE_MAP.get(s) for s in listing_type if s in HM_LISTING_TYPE_MAP])
+
+            # Listing Status(es)
+            if listing_status != None:
+                listing_status = listing_status if isinstance(listing_status, list) else [listing_status]
+                filters["listingStatus"].extend([HM_LISTING_STATUS_MAP.get(s) for s in listing_status if s in HM_LISTING_STATUS_MAP])
+            else:
+                filters["listingStatus"] = [5, 7]
+
+            # Architecture Styles
+            if architecture_styles != None:
+                architecture_styles = architecture_styles if isinstance(architecture_styles, list) else [architecture_styles]
+                filters["amenityType"].extend([HM_AMENTITY_ARCHITSTYLE.get(s) for s in architecture_styles if s in HM_AMENTITY_ARCHITSTYLE])
+
+            # View Types
+            if view_types != None:
+                view_types = view_types if isinstance(view_types, list) else [view_types]
+                filters["amenityType"].extend([HM_AMENITY_VIEW.get(s) for s in view_types if s in HM_AMENITY_VIEW])
+            
+            # Sort Type
+            filters["sortType"] = HM_SORT_TYPE.get(sort_type, 0)
+
+            # Price (Min/Max)
+            if isinstance(price_min, int) or str(price_min).isdigit():
+                filters["minPrice"] = int(price_min)
+            if isinstance(price_max, int) or str(price_max).isdigit():
+                filters["maxPrice"] = int(price_max)
+
+            # Price per SqFt (Min/Max)
+            if isinstance(price_sqft_min, int) or str(price_sqft_min).isdigit():
+                filters["minPricePerSqFt"] = int(price_sqft_min)
+            if isinstance(price_sqft_max, int) or str(price_sqft_max).isdigit():
+                filters["maxPricePerSqFt"] = int(price_sqft_max)
+
+            # SqFt (Min/Max)
+            if isinstance(sqft_min, int) or str(sqft_min).isdigit():
+                filters["minSquareFeet"] = int(sqft_min)
+            if isinstance(sqft_max, int) or str(sqft_max).isdigit():
+                filters["maxSquareFeet"] = int(sqft_max)
+            
+            # Lot Size (Min/Max)
+            if lot_size_min in HM_LOT_SIZE:
+                filters["lotSizeAcresMinimum"] = HM_LOT_SIZE[lot_size_min]
+            if lot_size_max in HM_LOT_SIZE:
+                filters["lotSizeAcresMaximum"] = HM_LOT_SIZE[lot_size_max]
+
+            # HOA
+            if isinstance(monthly_hoa_max, int) or str(monthly_hoa_max).isdigit():
+                filters["maxMonthlyHoaFee"] = int(monthly_hoa_max)
+            if no_hoa == True:
+                filters["noHoa"] = True
+
+            # Days on market
+            filters["dom"] = HM_DAYS_ON_MARKET.get(str(days_on_market), 0)
+
+            # Beds (Min/Max)
+            if isinstance(num_beds_min, int) or str(num_beds_min).isdigit():
+                filters["minBeds"] = int(num_beds_min)
+            if isinstance(num_beds_max, int) or str(num_beds_max).isdigit():
+                filters["maxBeds"] = int(num_beds_max)
+            
+            # Baths (Min/Max)
+            if isinstance(num_baths_min, int) or str(num_baths_min).isdigit():
+                filters["minBaths"] = int(num_baths_min)
+            if isinstance(num_baths_max, int) or str(num_baths_max).isdigit():
+                filters["maxBaths"] = int(num_baths_max)
+
+            # Stories (Min/Max)
+            if isinstance(num_stories_min, int) or str(num_stories_min).isdigit():
+                filters["minStories"] = int(num_stories_min)
+            if isinstance(num_stories_max, int) or str(num_stories_max).isdigit():
+                filters["maxStories"] = int(num_stories_max)
+
+            # Garage Parking
+            if garage_parking == True:
+                filters["amenityType"].append(1)
+            # Senior Living
+            if exclude_senior_living == True:
+                filters["amenityType"].append(53)
+            
+            # Upgraded counters
+            if upgraded_counters == True:
+                filters["amenityType"].append(HM_AMENITY_INTERIOR["upgraded_counters"])
+
+            # Kitchen Island
+            if kitchen_island == True:
+                filters["amenityType"].append(HM_AMENITY_INTERIOR["kitchen_island"])
+            
+            # Walk-in closet
+            if walk_in_closet == True:
+                filters["amenityType"].append(HM_AMENITY_INTERIOR["walk_in_closet"])
+
+            # Fireplace
+            if fireplace == True:
+                filters["amenityType"].append(HM_AMENITY_INTERIOR["fireplace"])
+            
+            # High Ceilings
+            if high_ceilings == True:
+                filters["amenityType"].append(HM_AMENITY_INTERIOR["high_ceilings"])
+            
+            # Skylights
+            if skylights == True:
+                filters["amenityType"].append(HM_AMENITY_INTERIOR["skylights"])
+
+            # Basement
+            if basement == True:
+                filters["amenityType"].append(HM_AMENITY_INTERIOR["basement"])
+            
 
             req = httpx.Request("POST", url, json=payload, headers=headers)
 
@@ -2128,7 +2386,6 @@ class Homes:
 
             return req
 
-
         @staticmethod
         def _desktop_headers():
             return {
@@ -2143,5 +2400,22 @@ class Homes:
         @staticmethod
         def _get_geography_from_autocomplete(data:list|dict):
             g = data.get("suggestions", {}).get("places")
+
+        @staticmethod
+        def _map_criteria():
+            """
+            "mapCriteria": {
+                "boundingBox": {
+                "tl": {
+                    "ln": -88.206109999999995,
+                    "lt": 41.79307
+                },
+                "br": {
+                    "ln": -88.064070000000001,
+                    "lt": 41.732700000000001
+                }
+                }
+            }
+            """
 
 

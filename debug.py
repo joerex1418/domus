@@ -3,6 +3,7 @@ import json
 import rich
 import httpx
 import orjson
+import polyline
 from flask import request
 from flask.app import Flask
 from flask.json import jsonify
@@ -45,15 +46,16 @@ def index():
     # zipdata = geo.polygon_zipcode(60013)
     # citydata = geo.polygon_city("Naperville", state="IL")
 
-    # r = _send_request(homes.request.context())
+    # r = _send_request(homes.request.getshape(26464, "postalcode"))
     
-    # r = _send_request(homes.request.autocomplete("60540"))
+    r = _send_request(homes.request.autocomplete("60540"))
 
-    # r = _send_request(homes.request.getpins())
-    r = _send_request(homes.request.getshape(26464, "postalcode"))
     data = orjson.loads(r.content)
-    import polyline
-    return polyline.decode(data["lines"][0][0])
+    g = data["suggestions"].get("places", [{}])[0].get("g")
+    r = _send_request(homes.request.getpins(g))
+    data = orjson.loads(r.content)
+    
+    # return polyline.decode(data["lines"][0][0])
     return data
 
 @app.route("/homes/search")
