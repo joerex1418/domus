@@ -160,7 +160,7 @@ HM_AMENITY_OUTDOOR = {
 HM_AMENITY_LOT_DETAILS = {
     "corner_lot": 24,
     "waterfront": 17,
-    "cul_de_sac": 25,
+    "culdesac": 25,
     "yard": 74
 }
 

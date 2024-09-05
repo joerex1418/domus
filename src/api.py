@@ -2112,7 +2112,209 @@ class Homes:
     def __init__(self):
         pass
 
-    
+
+    def autocomplete(self, query:str):
+        req = self.request.autocomplete(query)
+
+        r = _send_request(req)
+
+        data = orjson.loads(r.content)
+
+        return data
+
+
+    def getpins(self,
+            geography:dict,
+            property_type:list[_PropertyType]|_PropertyType|None=None, 
+            listing_type:list[_ListingType]|_ListingType|None=None,
+            listing_status:list[_ListingStatus]|_ListingStatus|None=None, *,
+            sort_type:_SortType|None=None,
+            price_min:int|None=None,
+            price_max:int|None=None,
+            sqft_min:_SqFt|None=None,
+            sqft_max:_SqFt|None=None,
+            price_sqft_min:int|None=None,
+            price_sqft_max:int|None=None,
+            num_beds_min:Literal[0,1,2,3,4,5]|None=None,
+            num_beds_max:Literal[0,1,2,3,4,5]|None=None,
+            num_baths_min:Literal[1,2,3,4,5]|None=None,
+            num_baths_max:Literal[1,2,3,4,5]|None=None,
+            num_stories_min:Literal[1,2,3]|None=None,
+            num_stories_max:Literal[1,2,3]|None=None,
+            lot_size_min:_LotSize|None=None,
+            lot_size_max:_LotSize|None=None,
+            monthly_hoa_max:int|None=None,
+            no_hoa:bool|None=None,
+            days_on_market:_DaysOnMarket|None=None,
+            architecture_styles:list[_ArchitStyle]|_ArchitStyle|None=None,
+            view_types:list[_ViewType]|_ViewType|None=None,
+            garage_parking:bool|None=None,
+            exclude_senior_living:bool|None=False,
+            hardwood_floor:bool|None=None,
+            stone_floor:bool|None=None,
+            marble_floor:bool|None=None,
+            mainfloor_bedroom:bool|None=None,
+            elevator:bool|None=None,
+            inlaw_suite:bool|None=None,
+            upgraded_counters:bool|None=None,
+            kitchen_island:bool|None=None,
+            guest_house:bool|None=None,
+            walk_in_closet:bool|None=None,
+            dishwasher:bool|None=None,
+            fireplace:bool|None=None,
+            high_ceilings:bool|None=None,
+            furnished:bool|None=None,
+            skylights:bool|None=None,
+            laundry_in_unit:bool|None=None,
+            laundry_room:bool|None=None,
+            ev_charging:bool|None=None,
+            basement:bool|None=None,
+            attic:bool|None=None,
+            pet_friendly_unit:bool|None=None,
+            ada_friendly:bool|None=None,
+            eco_friendly:bool|None=None,
+            corner_lot:bool|None=None,
+            yard:bool|None=None,
+            deck:bool|None=None,
+            porch:bool|None=None,
+            balcony:bool|None=None,
+            patio:bool|None=None,
+            culdesac:bool|None=None,
+            sports_court:bool|None=None,
+            private_pool:bool|None=None,
+            private_spa:bool|None=None,
+            tennis_court:bool|None=None,
+            rooftop_deck:bool|None=None,
+            waterfront:bool|None=None,
+            boat_dock:bool|None=None,
+            central_ac:bool|None=None,
+            central_heat:bool|None=None,
+            solar:bool|None=None,
+            high_speed_internet:bool|None=None,
+            gated_community:bool|None=None,
+            valet:bool|None=None,
+            doorman:bool|None=None,
+            concierge:bool|None=None,
+            clubhouse:bool|None=None,
+            sauna:bool|None=None,
+            storage:bool|None=None,
+            laundry_facilities:bool|None=None,
+            pet_friendly:bool|None=None,
+            security:bool|None=None,
+            parking_garage:bool|None=None,
+            senior_living:bool|None=None,
+            community_pool:bool|None=None,
+            spa:bool|None=None,
+            bike_storage:bool|None=None,
+            golf_course:bool|None=None,
+            fitness_center:bool|None=None,
+            community_tennis_court:bool|None=None,
+            community_boat_dock:bool|None=None,
+            beach_access:bool|None=None,
+            horse_facilities:bool|None=None,
+            ski_accessible:bool|None=None,
+            **kwargs
+    ):
+        req = self.request.getpins(
+            geography=geography,
+            property_type=property_type,
+            listing_type=listing_type,
+            listing_status=listing_status,
+            sort_type=sort_type,
+            price_min=price_min,
+            price_max=price_max,
+            sqft_min=sqft_min,
+            sqft_max=sqft_max,
+            price_sqft_min=price_sqft_min,
+            price_sqft_max=price_sqft_max,
+            num_beds_min=num_beds_min,
+            num_beds_max=num_beds_max,
+            num_baths_min=num_baths_min,
+            num_baths_max=num_baths_max,
+            num_stories_min=num_stories_min,
+            num_stories_max=num_stories_max,
+            lot_size_min=lot_size_min,
+            lot_size_max=lot_size_max,
+            monthly_hoa_max=monthly_hoa_max,
+            no_hoa=no_hoa,
+            days_on_market=days_on_market,
+            architecture_styles=architecture_styles,
+            view_types=view_types,
+            garage_parking=garage_parking,
+            exclude_senior_living=exclude_senior_living,
+            hardwood_floor=hardwood_floor,
+            stone_floor=stone_floor,
+            marble_floor=marble_floor,
+            mainfloor_bedroom=mainfloor_bedroom,
+            elevator=elevator,
+            inlaw_suite=inlaw_suite,
+            upgraded_counters=upgraded_counters,
+            kitchen_island=kitchen_island,
+            guest_house=guest_house,
+            walk_in_closet=walk_in_closet,
+            dishwasher=dishwasher,
+            fireplace=fireplace,
+            high_ceilings=high_ceilings,
+            furnished=furnished,
+            skylights=skylights,
+            laundry_in_unit=laundry_in_unit,
+            laundry_room=laundry_room,
+            ev_charging=ev_charging,
+            basement=basement,
+            attic=attic,
+            pet_friendly_unit=pet_friendly_unit,
+            ada_friendly=ada_friendly,
+            eco_friendly=eco_friendly,
+            corner_lot=corner_lot,
+            yard=yard,
+            deck=deck,
+            porch=porch,
+            balcony=balcony,
+            patio=patio,
+            culdesac=culdesac,
+            sports_court=sports_court,
+            private_pool=private_pool,
+            private_spa=private_spa,
+            tennis_court=tennis_court,
+            rooftop_deck=rooftop_deck,
+            waterfront=waterfront,
+            boat_dock=boat_dock,
+            central_ac=central_ac,
+            central_heat=central_heat,
+            solar=solar,
+            high_speed_internet=high_speed_internet,
+            gated_community=gated_community,
+            valet=valet,
+            doorman=doorman,
+            concierge=concierge,
+            clubhouse=clubhouse,
+            sauna=sauna,
+            storage=storage,
+            laundry_facilities=laundry_facilities,
+            pet_friendly=pet_friendly,
+            security=security,
+            parking_garage=parking_garage,
+            senior_living=senior_living,
+            community_pool=community_pool,
+            spa=spa,
+            bike_storage=bike_storage,
+            golf_course=golf_course,
+            fitness_center=fitness_center,
+            community_tennis_court=community_tennis_court,
+            community_boat_dock=community_boat_dock,
+            beach_access=beach_access,
+            horse_facilities=horse_facilities,
+            ski_accessible=ski_accessible,
+            **kwargs
+        )
+
+        r = _send_request(req)
+
+        data = orjson.loads(r.content)
+
+        return data
+
+
     class request:
         @staticmethod
         def context():
@@ -2126,6 +2328,7 @@ class Homes:
 
             return req
 
+        
         @staticmethod
         def autocomplete(query:str):
             url = "https://www.homes.com/routes/res/consumer/property/autocomplete/"
@@ -2147,6 +2350,7 @@ class Homes:
             req = httpx.Request("POST", url, json=payload, headers=headers)
 
             return req
+        
         
         @staticmethod
         def getpins(
@@ -2368,12 +2572,134 @@ class Homes:
             # Basement
             if basement == True:
                 filters["amenityType"].append(HM_AMENITY_INTERIOR["basement"])
+
+            # Attic
+            if attic == True:
+                filters["amenityType"].append(HM_AMENITY_INTERIOR["attic"])
+
+            # Elevator
+            if elevator == True:
+                filters["amenityType"].append(HM_AMENITY_INTERIOR["elevator"])
             
+            # Hardwood Floor
+            if hardwood_floor == True:
+                filters["amentityType"].append(HM_AMENITY_FLOORING["hardwood"])
+            
+            # Stone Floor
+            if stone_floor == True:
+                filters["amentityType"].append(HM_AMENITY_FLOORING["stone"])
+            
+            # Marble Floor
+            if marble_floor == True:
+                filters["amentityType"].append(HM_AMENITY_FLOORING["marble"])
+
+            # Deck
+            if deck == True:
+                filters["amenityType"].append(HM_AMENITY_OUTDOOR["deck"])
+
+            # Rooftop Deck
+            if rooftop_deck == True:
+                filters["amenityType"].append(HM_AMENITY_OUTDOOR["rooftop_deck"])
+
+            # Porch
+            if porch == True:
+                filters["amenityType"].append(HM_AMENITY_OUTDOOR["porch"])
+            
+            # Patio
+            if patio == True:
+                filters["amenityType"].append(HM_AMENITY_OUTDOOR["patio"])
+
+            # Balcony
+            if balcony == True:
+                filters["amenityType"].append(HM_AMENITY_OUTDOOR["balcony"])
+
+            # Private Pool
+            if private_pool == True:
+                filters["amenityType"].append(HM_AMENITY_OUTDOOR["private_pool"])
+
+            # Private Spa
+            if private_spa == True:
+                filters["amenityType"].append(HM_AMENITY_OUTDOOR["private_spa"])
+
+            # Sports Court
+            if sports_court == True:
+                filters["amenityType"].append(HM_AMENITY_OUTDOOR["sports_court"])
+
+            # Tennis Court
+            if tennis_court == True:
+                filters["amenityType"].append(HM_AMENITY_OUTDOOR["tennis_court"])
+
+            # Boat dock
+            if boat_dock == True:
+                filters["amenityType"].append(HM_AMENITY_OUTDOOR["boat_dock"])
+
+            # Central AC
+            if central_ac == True:
+                filters["amentityType"].append(HM_AMENITY_UTILITIES["central_ac"])
+
+            # Central Heat
+            if central_heat == True:
+                filters["amentityType"].append(HM_AMENITY_UTILITIES["central_heat"])
+
+            # Solar
+            if solar == True:
+                filters["amentityType"].append(HM_AMENITY_UTILITIES["solar"])
+
+            # High Speed Internet
+            if high_speed_internet == True:
+                filters["amentityType"].append(HM_AMENITY_UTILITIES["high_speed_internet"])
+
+            # Corner Lot
+            if corner_lot == True:
+                filters["amentityType"].append(HM_AMENITY_LOT_DETAILS["corner_lot"])
+
+            # Waterfront
+            if waterfront == True:
+                filters["amentityType"].append(HM_AMENITY_LOT_DETAILS["waterfront"])
+
+            # Cul-de-sac
+            if culdesac == True:
+                filters["amentityType"].append(HM_AMENITY_LOT_DETAILS["culdesac"])
+
+            # Yard
+            if yard == True:
+                filters["amenityType"].append(HM_AMENITY_LOT_DETAILS["yard"])
 
             req = httpx.Request("POST", url, json=payload, headers=headers)
 
             return req
         
+
+        @staticmethod
+        def getplacards(listing_keys:list[str]):
+            listing_keys = listing_keys if isinstance(listing_keys, list) else [listing_keys]
+
+            url = "https://www.homes.com/routes/res/native/v20/property/getplacardsbylisting"
+
+            headers = Homes.request._desktop_headers()
+            headers["user-agent"] = "Homes/native/iOS/Phone/15.2.1 (18.0-iPhone14,2-20240809.2)"
+            headers["accept-encoding"] = "gzip, deflate, br"
+
+            listing_key_objects = [{"key": lk} for lk in listing_keys]
+
+            payload = {"listingKeys": listing_key_objects, "listingAction": 0}
+
+            req = httpx.Request("POST", url, json=payload, headers=headers)
+
+            return req
+
+
+        @staticmethod
+        def property_details(property_key:str):
+            url = f"https://www.homes.com/routes/res/native/v20/property/detail/{property_key}"
+
+            headers = Homes.request._mobile_headers()
+
+            req = httpx.Request("GET", url, headers=headers)
+
+            return req
+
+
         @staticmethod
         def getshape(v_value:int, _type:Literal["city", "postalcode"], /):
             url = f"https://shapes.homes.com/shapes/{_type}/{v_value}/high"
@@ -2386,6 +2712,7 @@ class Homes:
 
             return req
 
+
         @staticmethod
         def _desktop_headers():
             return {
@@ -2397,6 +2724,19 @@ class Homes:
                 "referer": "https://www.homes.com/",
             }
         
+
+        @staticmethod
+        def _mobile_headers():
+            return {
+                "accept": "*/*",
+                "accept-encoding": "gzip, deflate, br",
+                "accept-language": "en-US,en;q=0.5",
+                "user-agent": "Homes/native/iOS/Phone/15.2.1 (18.0-iPhone14,2-20240809.2)",
+                "host": "www.homes.com",
+                "referer": "https://www.homes.com/",
+            }
+        
+
         @staticmethod
         def _get_geography_from_autocomplete(data:list|dict):
             g = data.get("suggestions", {}).get("places")

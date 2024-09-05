@@ -20,6 +20,7 @@ from src.api import Homes
 from src.api import readjson
 from src.api import readfile
 from src.api import _send_request
+from src.domus import Domus
 from src.util import copy_data
 
 app = Flask(__name__)
@@ -36,6 +37,7 @@ mapbox = geo.Mapbox(readfile("geoauth.txt"))
 def inject_dict_for_all_templates():
     return {}
 
+
 @app.route("/")
 def index():
     zillow = Zillow()
@@ -43,19 +45,22 @@ def index():
     realtor = Realtor()
     homes = Homes()
 
+    domus = Domus()
+
     # zipdata = geo.polygon_zipcode(60013)
     # citydata = geo.polygon_city("Naperville", state="IL")
 
     # r = _send_request(homes.request.getshape(26464, "postalcode"))
-    
-    r = _send_request(homes.request.autocomplete("60540"))
-
-    data = orjson.loads(r.content)
-    g = data["suggestions"].get("places", [{}])[0].get("g")
-    r = _send_request(homes.request.getpins(g))
-    data = orjson.loads(r.content)
-    
     # return polyline.decode(data["lines"][0][0])
+    
+
+    # r = _send_request(homes.request.autocomplete("60540"))
+    # data = orjson.loads(r.content)
+
+    g = domus.query_location("Hoffman Estates, IL")
+    
+    data = domus.search_by_location(g)
+
     return data
 
 @app.route("/homes/search")
