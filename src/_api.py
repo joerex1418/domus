@@ -10,45 +10,41 @@ import orjson
 from dateutil.relativedelta import relativedelta
 
 from . import paths
-from .util import readjson
-from .util import readfile
-from .util import get_bounding_box
-from .constants import RF_UIPT_MAP
-from .constants import RF_POOL_TYPE_MAP
-from .constants import RF_REGION_TYPE_MAP
-from .constants import RF_FINANCING_TYPE_MAP
-from .constants import RF_REGION_TYPE_REVERSE_MAP
-from .constants import ZI_REGION_TYPE_MAP
-from .constants import HM_LOT_SIZE
-from .constants import HM_SORT_TYPE
-from .constants import HM_AMENITY_VIEW
-from .constants import HM_PROPERTY_TYPE
-from .constants import HM_DAYS_ON_MARKET
-from .constants import HM_LISTING_TYPE_MAP
-from .constants import HM_LISTING_STATUS_MAP
-from .constants import HM_AMENITY_OUTDOOR
-from .constants import HM_AMENITY_INTERIOR
-from .constants import HM_AMENITY_FLOORING
-from .constants import HM_AMENITY_COMMUNITY
-from .constants import HM_AMENITY_UTILITIES
-from .constants import HM_AMENITY_RECREATION
-from .constants import HM_AMENITY_LOT_DETAILS
-from .constants import HM_AMENTITY_ARCHITSTYLE
+from ._util import readjson
+from ._util import readfile
+from ._util import get_bounding_box
+from ._http import send_request
+from ._constants import RF_UIPT_MAP
+from ._constants import RF_POOL_TYPE_MAP
+from ._constants import RF_REGION_TYPE_MAP
+from ._constants import RF_FINANCING_TYPE_MAP
+from ._constants import RF_REGION_TYPE_REVERSE_MAP
+from ._constants import ZI_REGION_TYPE_MAP
+from ._constants import HM_LOT_SIZE
+from ._constants import HM_SORT_TYPE
+from ._constants import HM_AMENITY_VIEW
+from ._constants import HM_PROPERTY_TYPE
+from ._constants import HM_DAYS_ON_MARKET
+from ._constants import HM_LISTING_TYPE_MAP
+from ._constants import HM_LISTING_STATUS_MAP
+from ._constants import HM_AMENITY_OUTDOOR
+from ._constants import HM_AMENITY_INTERIOR
+from ._constants import HM_AMENITY_FLOORING
+from ._constants import HM_AMENITY_COMMUNITY
+from ._constants import HM_AMENITY_UTILITIES
+from ._constants import HM_AMENITY_RECREATION
+from ._constants import HM_AMENITY_LOT_DETAILS
+from ._constants import HM_AMENTITY_ARCHITSTYLE
 
 _Polygon = list[tuple[float, float]]
 _MultiPolygon = list[list[tuple[float, float]]]
 
 
-def _send_request(req:httpx.Request) -> httpx.Response:
-    with httpx.Client() as client:
-        r = client.send(req)
-    return r
-
-def _read_gql(s):
-    return readfile(paths.GRAPHQL_DIR.joinpath(s))
+def _read_graphql(s):
+    return readfile(paths.QUERY_DIR.joinpath(s))
 
 def _read_payload(s):
-    return readjson(paths.GRAPHQL_DIR.joinpath(s))
+    return readjson(paths.QUERY_DIR.joinpath(s))
 
 
 
@@ -287,8 +283,8 @@ class Realtor:
             
             params = {"client_id": "rdc-search-for-sale-search", "schema": "vesta"}
 
-            payload = readjson(paths.GRAPHQL_DIR.joinpath(f"realtor-ConsumerSearchQuery.json"))
-            payload["query"] = readfile(paths.GRAPHQL_DIR.joinpath(f"realtor-ConsumerSearchQuery.gql"))
+            payload = readjson(paths.QUERY_DIR.joinpath(f"realtor-ConsumerSearchQuery.json"))
+            payload["query"] = readfile(paths.QUERY_DIR.joinpath(f"realtor-ConsumerSearchQuery.gql"))
 
             bbox = get_bounding_box(float(coordinates[0]), float(coordinates[1]), radius=radius_mi)
             payload["variables"]["query"]["boundary"] = {
@@ -339,8 +335,8 @@ class Realtor:
 
             operation_name = "ConsumerSearchQuery"
 
-            payload = readjson(paths.GRAPHQL_DIR.joinpath(f"realtor-{operation_name}.json"))
-            payload["query"] = readfile(paths.GRAPHQL_DIR.joinpath(f"realtor-{operation_name}.gql"))
+            payload = readjson(paths.QUERY_DIR.joinpath(f"realtor-{operation_name}.json"))
+            payload["query"] = readfile(paths.QUERY_DIR.joinpath(f"realtor-{operation_name}.gql"))
 
             # bbox = get_bounding_box(float(coordinates[0]), float(coordinates[1]), radius=radius_mi)
             payload["variables"]["query"]["boundary"] = {
@@ -381,7 +377,7 @@ class Realtor:
             params = {"client_id": "rdc-search-for-sale-search", "schema": "vesta"}
 
             payload = _read_payload("realtor-ConsumerSearchQuery.json")
-            payload["query"] = _read_gql("realtor-ConsumerSearchQuery.gql")
+            payload["query"] = _read_graphql("realtor-ConsumerSearchQuery.gql")
             # payload = readjson(paths.GRAPHQL_DIR.joinpath(f"realtor-ConsumerSearchQuery.json"))
             # payload["query"] = readfile(paths.GRAPHQL_DIR.joinpath(f"realtor-ConsumerSearchQuery.gql"))
 
@@ -419,8 +415,8 @@ class Realtor:
             
             params = {"client_id": "rdc-search-for-sale-search", "schema": "vesta"}
 
-            payload = readjson(paths.GRAPHQL_DIR.joinpath(f"realtor-ConsumerSearchQuery.json"))
-            payload["query"] = readfile(paths.GRAPHQL_DIR.joinpath(f"realtor-ConsumerSearchQuery.gql"))
+            payload = readjson(paths.QUERY_DIR.joinpath(f"realtor-ConsumerSearchQuery.json"))
+            payload["query"] = readfile(paths.QUERY_DIR.joinpath(f"realtor-ConsumerSearchQuery.gql"))
             
             payload["variables"]["query"]["search_location"] = {"location": city}
             payload["variables"]["geoSupportedSlug"] = city
@@ -475,8 +471,8 @@ class Realtor:
         def property_and_tax_history(property_id):
             url = "https://www.realtor.com/api/v1/rdc_search_srp"
             
-            payload = readjson(paths.GRAPHQL_DIR.joinpath(f"realtor-PropertyAndTaxHistory.json"))
-            payload["query"] = readfile(paths.GRAPHQL_DIR.joinpath(f"realtor-PropertyAndTaxHistory.gql"))
+            payload = readjson(paths.QUERY_DIR.joinpath(f"realtor-PropertyAndTaxHistory.json"))
+            payload["query"] = readfile(paths.QUERY_DIR.joinpath(f"realtor-PropertyAndTaxHistory.gql"))
             payload["variables"]["propertyId"] = property_id
 
             
@@ -758,7 +754,7 @@ class Zillow:
             page=page,
         )
 
-        r = _send_request(req)
+        r = send_request(req)
 
         rawdata = orjson.loads(r.content)
 
@@ -855,7 +851,7 @@ class Zillow:
             coordinates=coordinates
         )
 
-        r = _send_request(req)
+        r = send_request(req)
 
         rawdata = orjson.loads(r.content)
 
@@ -1238,7 +1234,7 @@ class Zillow:
             
             headers = Zillow.request._mobile_headers()
 
-            payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-regionQuery.json"))
+            payload = readjson(paths.QUERY_DIR.joinpath("zillow-regionQuery.json"))
             
             all_lat = [x[1] for x in coordinates]
             all_lon = [x[0] for x in coordinates]
@@ -1291,7 +1287,7 @@ class Zillow:
             
             headers = Zillow.request._desktop_headers()
 
-            payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-searchQueryState.json"))
+            payload = readjson(paths.QUERY_DIR.joinpath("zillow-searchQueryState.json"))
             
             all_lat = [x[1] for x in coordinates]
             all_lon = [x[0] for x in coordinates]
@@ -1389,9 +1385,9 @@ class Zillow:
 
             headers = Zillow.request._desktop_headers()
 
-            payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-getAutocompleteResults.json"))
+            payload = readjson(paths.QUERY_DIR.joinpath("zillow-getAutocompleteResults.json"))
 
-            payload["query"] = readfile(paths.GRAPHQL_DIR.joinpath("zillow-getAutocompleteResults.gql"))
+            payload["query"] = readfile(paths.QUERY_DIR.joinpath("zillow-getAutocompleteResults.gql"))
             payload["variables"]["query"] = query_string
 
             req = httpx.Request("POST", url, params=params, headers=headers, json=payload)
@@ -1466,7 +1462,7 @@ class Zillow:
         def query_understanding(query:str) -> httpx.Request:
             url = "https://www.zillow.com/zg-graph"
 
-            payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-QueryUnderstanding.json"))
+            payload = readjson(paths.QUERY_DIR.joinpath("zillow-QueryUnderstanding.json"))
             payload["variables"]["query"] = query
 
             headers = Zillow.request._mobile_headers_alt()
@@ -1484,7 +1480,7 @@ class Zillow:
 
             headers = Zillow.request._desktop_headers()
 
-            payload = readjson(paths.GRAPHQL_DIR.joinpath("zillow-searchQueryState.json"))
+            payload = readjson(paths.QUERY_DIR.joinpath("zillow-searchQueryState.json"))
             payload["searchQueryState"]["usersSearchTerm"] = query
             payload["searchQueryState"]["pagination"]["currentPage"] = int(page)
             payload["searchQueryState"].pop("mapBounds")
@@ -1505,7 +1501,7 @@ class Zillow:
                 "operationName": "getAffordabilityEstimateFromPersonalizedPaymentChipMVP",
             }
 
-            query = _read_gql("zillow-AffordabilityEstimate.gql")
+            query = _read_graphql("zillow-AffordabilityEstimate.gql")
 
             payload = {
                 "operationName": "getAffordabilityEstimateFromPersonalizedPaymentChipMVP",
@@ -2116,7 +2112,7 @@ class Homes:
     def autocomplete(self, query:str):
         req = self.request.autocomplete(query)
 
-        r = _send_request(req)
+        r = send_request(req)
 
         data = orjson.loads(r.content)
 
@@ -2308,7 +2304,7 @@ class Homes:
             **kwargs
         )
 
-        r = _send_request(req)
+        r = send_request(req)
 
         data = orjson.loads(r.content)
 
@@ -2447,10 +2443,7 @@ class Homes:
         ):
             url = "https://www.homes.com/routes/res/native/v20/property/getpins"
 
-            headers = Homes.request._desktop_headers()
-            headers["accept"] = "*/*"
-            headers["content-type"] = "application/json"
-            headers["user-agent"] = "Homes/native/iOS/Phone/15.2.1 (18.0-iPhone14,2-20240809)"
+            headers = Homes.request._mobile_headers()
 
             payload = _read_payload("homes-getpins.json")
             payload["geography"] = geography

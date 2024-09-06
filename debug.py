@@ -13,15 +13,17 @@ from flask_assets import Environment, Bundle
 
 from src import geo
 from src import paths
-from src.api import Realtor
-from src.api import Zillow
-from src.api import Redfin
-from src.api import Homes
-from src.api import readjson
-from src.api import readfile
-from src.api import _send_request
-from src.domus import Domus
-from src.util import copy_data
+from src._api import Realtor
+from src._api import Zillow
+from src._api import Redfin
+from src._api import Homes
+from src._http import send_request
+from src._http import fetch_bulk
+from src._api import readjson
+from src._api import readfile
+from src._domus import Domus
+from src._util import copy_data
+
 
 app = Flask(__name__)
 # app.config["JSON_SORT_KEYS"] = False
@@ -47,28 +49,42 @@ def index():
 
     domus = Domus()
 
-    # zipdata = geo.polygon_zipcode(60013)
-    # citydata = geo.polygon_city("Naperville", state="IL")
+    q = request.args.get("q")
+    _type = request.args.get("type")
 
-    # r = _send_request(homes.request.getshape(26464, "postalcode"))
-    # return polyline.decode(data["lines"][0][0])
-    
+    # loc = domus.query_location(q)
+    # data = domus.search_geography(loc["g"])
+    # req = domus.api.request.getpins(loc["g"])
+    # r = _send_request(req)
 
-    # r = _send_request(homes.request.autocomplete("60540"))
     # data = orjson.loads(r.content)
+    # return domus.find_location(q, _type)
+    data = domus.query_search(q, price_max=500000)
+    data = domus.property_details(data[0]["propertyKey"]["key"])
 
-    g = domus.query_location("Hoffman Estates, IL")
+    start = [41.69579266, -88.1128678]  # Commonwealth Dr
+    dest1 = [41.77386435, -88.1595485]  # Stevens St
+    dest2 = [42.205556, -88.26480364]   # Pearson Rd
+
+    coords = data["propertyInfo"]["coordinate"]
+    coords = (coords["lt"], coords["ln"])
+    addr = data["propertyInfo"]["address"]["street"]
     
-    data = domus.search_by_location(g)
-
+    commute = geo.get_commutes(start=coords, start_name=addr, destinations=[{"coords": dest1, "name": "640 Stevens St"}])
+    
+    data["commute"] = commute
+    
     return data
+
+
+
 
 @app.route("/homes/search")
 def homessearch():
     query = request.args.get("q", request.args.get("query"))
     homes = Homes()
 
-    r = _send_request(homes.request.autocomplete(query))
+    r = send_request(homes.request.autocomplete(query))
     
     data = orjson.loads(r.content)
 
@@ -106,7 +122,7 @@ def geosearch():
     dest1 = [41.77386435, -88.1595485]  # Stevens St
     dest2 = [42.205556, -88.26480364]   # Pearson Rd
 
-    data = geo.distance_comparison(
+    data = geo.get_commutes(
         start=start, start_name="131 S Commonwealth Dr",
         destinations=[
             {"coords": dest1, "name": "640 Stevens St"},

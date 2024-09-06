@@ -1,13 +1,15 @@
 import json
 from pathlib import Path
 
-from pyperclip import copy as pypcopy
+from pyperclip import copy as pyperclip_copy
 from haversine import Unit
 from haversine import Direction
 from haversine import inverse_haversine
 
+
 def copy_data(data:list|dict):
-    pypcopy(json.dumps(data))
+    pyperclip_copy(json.dumps(data))
+
 
 def savejson(obj, filepath):
     if isinstance(filepath, str):
@@ -18,6 +20,14 @@ def savejson(obj, filepath):
     with filepath.open("w+") as fp:
         return json.dump(obj, fp)
 
+
+def savetxt(string: str, filepath):
+    filepath = Path(filepath).resolve()
+
+    with filepath.open("w+") as fp:
+        return fp.write(string)
+
+
 def readjson(jsonfile):
     if isinstance(jsonfile, str):
         jsonfile = jsonfile.removesuffix(".json") + ".json"
@@ -26,7 +36,8 @@ def readjson(jsonfile):
 
     with jsonfile.open("r") as fp:
         return json.load(fp)
-    
+
+
 def readfile(filepath):
     filepath = Path(filepath).resolve()
 
@@ -46,6 +57,7 @@ def get_bounding_box(latitude, longitude, radius, unit:Unit=Unit.MILES):
         "east": east_point[1],
         "west": west_point[1],
     }
+
 
 def string_to_polygon_tuples(polygon_str):
     if polygon_str.startswith("clipPolygon="):
@@ -69,6 +81,7 @@ def string_to_polygon_tuples(polygon_str):
             polygons.append(polygon)
     
     return polygons
+
 
 def polygon_tuples_to_string(polygons):
     polygon_strings = []

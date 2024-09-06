@@ -1,111 +1,14 @@
-import asyncio
 from typing import Literal
-from typing import overload as typ_overload
 
 import httpx
 import orjson
+
+from ._http import fetch_bulk
 
 
 OSM_BASE = "https://nominatim.openstreetmap.org/search"
 OSM_REVERSE_BASE = "https://nominatim.openstreetmap.org/reverse?lat=<value>&lon=<value>&<params>"
 TIGER_WEB = "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/PUMA_TAD_TAZ_UGA_ZCTA/MapServer/1/query"
-
-# ---------------------------- #
-# Logging
-# ---------------------------- #
-def log_response(r:httpx.Response):
-    if r.status_code in (401, 403):
-        colorize = color.red
-    elif r.status_code in (400, 404):
-        colorize = color.yellow
-    elif r.status_code == 429:
-        colorize = color.magenta
-    else:
-        colorize = color.bold
-    
-    print("{status_code} {urlhost}{urlpath}".format(
-        status_code = colorize(f"[{r.status_code}]"),
-        urlhost = color.dim(r.url.scheme + r.url.host),
-        urlpath = color.magenta(r.url.path)
-    ))
-
-
-class _color:
-    __slots__ = tuple()
-    def __init__(self) -> None:
-        pass
-    def bold(self,s: str):
-        return f"\033[1m{s}\033[0m"
-    
-    def dim(self,s: str):
-        return f"\033[2m{s}\033[0m"
-    
-    def underline(self,s: str):
-        return f"\033[4m{s}\033[0m"
-    
-    def italic(self,s: str):
-        return f"\033[3m{s}\033[0m"
-    
-    def yellow(self,s: str):
-        return f"\033[93m{s}\033[0m"
-    
-    def cyan(self,s: str):
-        return f"\033[96m{s}\033[0m"
-    
-    def magenta(self,s: str):
-        return f"\033[35m{s}\033[0m"
-    
-    def bright_magenta(self,s: str):
-        return f"\033[95m{s}\033[0m"
-    
-    def red(self,s: str):
-        return f"\033[31m{s}\033[0m"
-    
-    def bright_red(self,s: str):
-        return f"\033[91m{s}\033[0m"
-    
-    def green(self,s: str):
-        return f"\033[92m{s}\033[0m"
-    
-    def blue(self,s: str):
-        return f"\033[34m{s}\033[0m"
-    
-    def bright_yellow(self,s: str):
-        return f"\033[93m{s}\033[0m"
-
-color = _color()
-
-
-
-
-# ---------------------------- #
-# Async Functions
-# ---------------------------- #
-async def _fetch_request(client:httpx.AsyncClient, req:httpx.Request, **kwargs):
-    if kwargs.get("rebuild_with_client") == True:
-        req = client.build_request(req.method, req.url, headers=req.headers)
-    
-    r = await client.send(req)
-    
-    if r.status_code != 200:
-        log_response(r)
-
-        return r
-    
-    return r
-
-async def _fetch_bulk(request_list:list[httpx.Request], **kwargs):
-    limits = httpx.Limits(max_connections=500, max_keepalive_connections=500)
-    async with httpx.AsyncClient(limits=limits) as client:
-        tasks = (asyncio.create_task(_fetch_request(client, req, **kwargs)) for req in request_list)
-        responses = await asyncio.gather(*tasks)
-        return responses
-
-def fetch_bulk(request_list:list[httpx.Request], **kwargs) -> list[httpx.Response]:
-    if isinstance(request_list, httpx.Request):
-        request_list = [request_list]
-    return asyncio.run(_fetch_bulk(request_list, **kwargs))
-
 
 
 def search(*,
@@ -273,11 +176,12 @@ def directions(start_coords:tuple[float, float], end_coords:tuple[float, float],
     return data
 
 
-def distance_comparison(start: tuple[float, float], start_name: str, destinations: list[dict], **kwargs):
+def get_commutes(start: tuple[float, float], start_name: str, destinations: list[dict], **kwargs):
     """
     Compares the driving distance and duration from a starting location to multiple destinations using the OSRM API.
 
-    ## Parameters
+    Parameters
+    -----------
     
     start : tuple[float, float]
         A tuple containing the latitude and longitude of the starting location.
@@ -345,12 +249,7 @@ class Mapbox:
         self.token = token.strip()
 
     def directions(self, start_lat:float, start_lon:float, end_lat:float, end_lon:float, steps=False, **kwargs):
-        url = "https://api.mapbox.com/directions/v5/mapbox/driving/{},{};{},{}".format(
-            start_lon,
-            start_lat,
-            end_lon,
-            end_lat,
-        )
+        url = f"https://api.mapbox.com/directions/v5/mapbox/driving/{start_lon},{start_lat};{end_lon},{end_lat}"
 
         params = {
             "access_token": self.token,
