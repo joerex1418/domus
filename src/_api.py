@@ -118,7 +118,6 @@ class Realtor:
     def city_search(
             self,
             city, 
-            state,
             primary=True, 
             pending=False, 
             contingent=False,
@@ -127,9 +126,7 @@ class Realtor:
             sort_type:Literal["relevant"]=None
         ):
 
-        city = f"{city}, {state}"
-
-        req = self.request.query_search(
+        req = Realtor.request.query_search(
             city, 
             primary=primary, 
             pending=pending, 
@@ -378,8 +375,6 @@ class Realtor:
 
             payload = _read_payload("realtor-ConsumerSearchQuery.json")
             payload["query"] = _read_graphql("realtor-ConsumerSearchQuery.gql")
-            # payload = readjson(paths.GRAPHQL_DIR.joinpath(f"realtor-ConsumerSearchQuery.json"))
-            # payload["query"] = readfile(paths.GRAPHQL_DIR.joinpath(f"realtor-ConsumerSearchQuery.gql"))
 
             query_string = str(query_string).strip()
             payload["variables"]["query"]["search_location"] = {"location": query_string}
@@ -464,9 +459,6 @@ class Realtor:
             return req
 
 
-
-
-
         @staticmethod
         def property_and_tax_history(property_id):
             url = "https://www.realtor.com/api/v1/rdc_search_srp"
@@ -514,6 +506,7 @@ class Realtor:
 
             return req
         
+
         @staticmethod
         def property_estimates(property_id, historicalYearsMin, historicalYearsMax, forecastedMonthsMax):
             url = "https://www.realtor.com/frontdoor/graphql"
@@ -620,6 +613,18 @@ class Realtor:
 
             return req
         
+
+        @staticmethod
+        def _compact_search_data(rawdata):
+            data = {
+                "count": rawdata["data"]["home_search"]["count"],
+                "total": rawdata["data"]["home_search"]["total"],
+                "mortgage_params": rawdata["data"]["home_search"]["mortgage_params"],
+                "properties": rawdata["data"]["home_search"]["properties"]
+            }
+
+            return data
+
 
 
 class Zillow:

@@ -57,22 +57,33 @@ def index():
     # req = domus.api.request.getpins(loc["g"])
     # r = _send_request(req)
 
-    # data = orjson.loads(r.content)
-    # return domus.find_location(q, _type)
-    data = domus.query_search(q, price_max=500000)
-    data = domus.property_details(data[0]["propertyKey"]["key"])
-
-    start = [41.69579266, -88.1128678]  # Commonwealth Dr
-    dest1 = [41.77386435, -88.1595485]  # Stevens St
-    dest2 = [42.205556, -88.26480364]   # Pearson Rd
-
-    coords = data["propertyInfo"]["coordinate"]
-    coords = (coords["lt"], coords["ln"])
-    addr = data["propertyInfo"]["address"]["street"]
     
-    commute = geo.get_commutes(start=coords, start_name=addr, destinations=[{"coords": dest1, "name": "640 Stevens St"}])
+
+    def _():
+        data = domus.query_search(q, price_max=500000)
+        data = domus.property_details(data[0]["propertyKey"]["key"])
+
+        start = [41.69579266, -88.1128678]  # Commonwealth Dr
+        dest1 = [41.77386435, -88.1595485]  # Stevens St
+        dest2 = [42.205556, -88.26480364]   # Pearson Rd
+
+        coords = data["propertyInfo"]["coordinate"]
+        coords = (coords["lt"], coords["ln"])
+        addr = data["propertyInfo"]["address"]["street"]
+        
+        # commute = geo.get_commutes(start=coords, start_name=addr, destinations=[{"coords": dest1, "name": "640 Stevens St"}])
+        
+        # data["commute"] = commute
+        return data
     
-    data["commute"] = commute
+    data = _()
+
+    def _():    
+        # data = realtor.city_search("Naperville", "IL")
+        req = realtor.request.city_search("Naperville, IL")
+        r = send_request(req)
+        data = realtor.request._compact_search_data(r.json())
+    
     
     return data
 

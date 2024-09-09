@@ -5,6 +5,9 @@ import orjson
 
 from ._api import Homes
 from ._http import send_request
+from ._util import readjson
+from .paths import QUERY_DIR
+from .paths import JSON_DIR
 from .geo import get_commutes
 
 
@@ -144,6 +147,8 @@ class Domus:
 
         client.close()
 
+        normalized_data = readjson(JSON_DIR.joinpath("property_details.json"))
+
         return data
 
     
@@ -151,4 +156,4 @@ class Domus:
         """
         Add a destination to commute tracker
         """
-        self.commute_destinations.append
+        self.commute_destinations.append((lat, lon))

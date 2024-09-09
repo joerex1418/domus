@@ -1,0 +1,29 @@
+{
+    "agent": {
+        "agency_name": null,
+        "agency_phone": null, // CTN vs Destination number with Homes API
+        "email": null,
+        "name": null,
+        "key": null,
+        "role": null,
+        "domain_url": null,
+        "bio": null,
+        "phone": null,
+        "mls_key_agent": null,
+        "mls_key_agency": null,
+        "mls_key_office": null,
+        "office_email": null,
+        "office_phone": null
+    },
+    "amenities": [],
+    "images": [],
+    "mls_info": null,
+    "neighborhood": {},
+    "address": {
+        "city": null
+    },
+    "price_history": [],
+    "views": null,
+    "dbid": null,
+    "dbname": null
+}
