@@ -13,27 +13,28 @@ from flask_assets import Environment, Bundle
 
 from src import geo
 from src import paths
-from src._api import Realtor
-from src._api import Zillow
-from src._api import Redfin
-from src._api import Homes
+from src._api import RealtorAPI
+from src._api import ZillowAPI
+from src._api import RedfinAPI
+from src._api import HomesAPI
 from src._http import send_request
 from src._http import fetch_bulk
 from src._api import readjson
 from src._api import readfile
-from src._domus import Domus
+from src._homes import Homes
 from src._util import copy_data
+from src._util import generate_uncommented_json
 
+generate_uncommented_json()
 
 app = Flask(__name__)
 # app.config["JSON_SORT_KEYS"] = False
-
 
 assets = Environment(app)
 scss = Bundle('style.scss',filters='pyscss',output='style.css')
 assets.register('style',scss)
 
-mapbox = geo.Mapbox(readfile("geoauth.txt"))
+# mapbox = geo.Mapbox(readfile("geoauth.txt"))
 
 @app.context_processor
 def inject_dict_for_all_templates():
@@ -42,26 +43,22 @@ def inject_dict_for_all_templates():
 
 @app.route("/")
 def index():
-    zillow = Zillow()
-    redfin = Redfin()
-    realtor = Realtor()
+    zillow = ZillowAPI()
+    redfin = RedfinAPI()
+    realtor = RealtorAPI()
+
     homes = Homes()
 
-    domus = Domus()
-
     q = request.args.get("q")
-    _type = request.args.get("type")
 
-    # loc = domus.query_location(q)
-    # data = domus.search_geography(loc["g"])
-    # req = domus.api.request.getpins(loc["g"])
-    # r = _send_request(req)
-
-    
+    try:
+        assert(q != None)
+    except AssertionError:
+        raise AssertionError("YOU DIDN'T GIMME A QUERY, DUM DUM!")
 
     def _():
-        data = domus.query_search(q, price_max=500000)
-        data = domus.property_details(data[0]["propertyKey"]["key"])
+        data = homes.query_search(q, price_max=500000)
+        data = homes.property_details(data[0]["propertyKey"]["key"])
 
         start = [41.69579266, -88.1128678]  # Commonwealth Dr
         dest1 = [41.77386435, -88.1595485]  # Stevens St
@@ -71,20 +68,33 @@ def index():
         coords = (coords["lt"], coords["ln"])
         addr = data["propertyInfo"]["address"]["street"]
         
-        # commute = geo.get_commutes(start=coords, start_name=addr, destinations=[{"coords": dest1, "name": "640 Stevens St"}])
+        commute = geo.get_commutes(start=coords, start_name=addr, destinations=[{"coords": dest1, "name": "640 Stevens St"}])
         
         # data["commute"] = commute
         return data
     
-    data = _()
+    # data = _()
 
-    def _():    
-        # data = realtor.city_search("Naperville", "IL")
-        req = realtor.request.city_search("Naperville, IL")
-        r = send_request(req)
-        data = realtor.request._compact_search_data(r.json())
+
+    homes_api = HomesAPI()
+
+    req = homes_api.request.autocomplete(q)
+    r = send_request(req)
+    data = orjson.loads(r.content)
     
-    
+    req = homes_api.request.getpins(data["suggestions"]["places"][0]["g"])
+    r = send_request(req)
+    data = orjson.loads(r.content)
+
+    listing_keys = [x["lk"]["key"] for x in data["pins"]]
+    req = homes_api.request.getplacards(listing_keys)
+    r = send_request(req)
+    data = orjson.loads(r.content)
+
+    req = homes_api.request.property_details("gg5xw61zef3ey")
+    r = send_request(req)
+    data = orjson.loads(r.content)
+
     return data
 
 
@@ -93,7 +103,7 @@ def index():
 @app.route("/homes/search")
 def homessearch():
     query = request.args.get("q", request.args.get("query"))
-    homes = Homes()
+    homes = HomesAPI()
 
     r = send_request(homes.request.autocomplete(query))
     

@@ -1,7 +1,7 @@
 {
     "primary_agent": {
         "agency_name": null,
-        "agency_phone": null, // CTN vs Destination number? (Homes.com)
+        "agency_phone": null,
         "email": null,
         "name": null,
         "key": null,

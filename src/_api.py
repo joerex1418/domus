@@ -14,6 +14,7 @@ from ._util import readjson
 from ._util import readfile
 from ._util import get_bounding_box
 from ._http import send_request
+from ._ptext import console
 from ._constants import RF_UIPT_MAP
 from ._constants import RF_POOL_TYPE_MAP
 from ._constants import RF_REGION_TYPE_MAP
@@ -48,7 +49,7 @@ def _read_payload(s):
 
 
 
-class Realtor:
+class RealtorAPI:
     def __init__(self) -> None:
         pass
 
@@ -126,7 +127,7 @@ class Realtor:
             sort_type:Literal["relevant"]=None
         ):
 
-        req = Realtor.request.query_search(
+        req = RealtorAPI.request.query_search(
             city, 
             primary=primary, 
             pending=pending, 
@@ -627,7 +628,7 @@ class Realtor:
 
 
 
-class Zillow:
+class ZillowAPI:
     def __init__(self):
         pass
 
@@ -663,7 +664,7 @@ class Zillow:
         # TODO: add all the same parameters as region_search
         # TODO: also involves re-configuring the request.map_search() method
         
-        req = Zillow.request.map_search(
+        req = ZillowAPI.request.map_search(
             coordinates=coordinates,
             radius_mi=radius_mi,
             price_min=price_min,
@@ -714,7 +715,7 @@ class Zillow:
         # TODO: add all the same parameters as region_search
         # TODO: also involves re-configuring the request.map_search() method
         
-        req = Zillow.request.map_search1(
+        req = ZillowAPI.request.map_search1(
             coordinates=coordinates,
             radius_mi=radius_mi,
             price_min=price_range_min,
@@ -875,7 +876,7 @@ class Zillow:
 
 
     def query_understanding(self, query:str):
-        req = Zillow.request.query_understanding(query)
+        req = ZillowAPI.request.query_understanding(query)
 
         with httpx.Client() as client:
             r = client.send(req)
@@ -888,7 +889,7 @@ class Zillow:
 
 
     def query_understanding2(self, query, page:int=1):
-        req = Zillow.request.query_understanding2(
+        req = ZillowAPI.request.query_understanding2(
             query=query,
             page=page
         )
@@ -902,7 +903,7 @@ class Zillow:
     
 
     def autocomplete(self, query_string:str):
-        req = Zillow.request.autocomplete_results(query_string)
+        req = ZillowAPI.request.autocomplete_results(query_string)
 
         with httpx.Client() as client:
             r = client.send(req)
@@ -1014,7 +1015,7 @@ class Zillow:
             
             url = "https://www.zillow.com/async-create-search-page-state"
             
-            headers = Zillow.request._desktop_headers()
+            headers = ZillowAPI.request._desktop_headers()
 
             payload = _read_payload("zillow-searchQueryState.json")
 
@@ -1153,7 +1154,7 @@ class Zillow:
                 "westLongitude": bbox["west"],
             }
 
-            headers = Zillow.request._mobile_headers()
+            headers = ZillowAPI.request._mobile_headers()
 
             req = httpx.Request("POST", url, headers=headers, json=payload)
 
@@ -1202,13 +1203,13 @@ class Zillow:
                     for c in poly:
                         all_lat.append(c[0])
                         all_lon.append(c[1])
-                clip_polygon_string = Zillow.request._polygon_tuples_to_string(multi_polygon)
+                clip_polygon_string = ZillowAPI.request._polygon_tuples_to_string(multi_polygon)
 
             elif polygon != None:
                 all_lat = [c[0] for c in polygon]
                 all_lon = [c[1] for c in polygon]
 
-                clip_polygon_string = Zillow.request._polygon_tuples_to_string(polygon)
+                clip_polygon_string = ZillowAPI.request._polygon_tuples_to_string(polygon)
 
 
             payload["paging"]["pageNumber"] = page
@@ -1226,7 +1227,7 @@ class Zillow:
                 "westLongitude": min(all_lon) - 0.1,
             }
 
-            headers = Zillow.request._mobile_headers()
+            headers = ZillowAPI.request._mobile_headers()
 
             req = httpx.Request("POST", url, headers=headers, json=payload)
 
@@ -1237,7 +1238,7 @@ class Zillow:
         def region_lookup_old(region_id, region_type:str, coordinates:list[tuple[float, float]]):
             url = "https://zm.zillow.com/api/public/v2/mobile-search/homes/search"
             
-            headers = Zillow.request._mobile_headers()
+            headers = ZillowAPI.request._mobile_headers()
 
             payload = readjson(paths.QUERY_DIR.joinpath("zillow-regionQuery.json"))
             
@@ -1290,7 +1291,7 @@ class Zillow:
             ):
             url = "https://www.zillow.com/async-create-search-page-state"
             
-            headers = Zillow.request._desktop_headers()
+            headers = ZillowAPI.request._desktop_headers()
 
             payload = readjson(paths.QUERY_DIR.joinpath("zillow-searchQueryState.json"))
             
@@ -1388,7 +1389,7 @@ class Zillow:
                 "operationName": "getAutocompleteResults",
             }
 
-            headers = Zillow.request._desktop_headers()
+            headers = ZillowAPI.request._desktop_headers()
 
             payload = readjson(paths.QUERY_DIR.joinpath("zillow-getAutocompleteResults.json"))
 
@@ -1419,7 +1420,7 @@ class Zillow:
                 "sortAscending": True
             }
 
-            headers = Zillow.request._mobile_headers()
+            headers = ZillowAPI.request._mobile_headers()
 
             req = httpx.Request("POST", url, headers=headers, json=payload)
 
@@ -1455,7 +1456,7 @@ class Zillow:
                 "extensions": json.dumps(_extensions, separators=(',', ':')),
             }
 
-            headers = Zillow.request._desktop_headers_alt()
+            headers = ZillowAPI.request._desktop_headers_alt()
             headers["referer"] = referer
 
             req = httpx.Request("GET", url, params=params, headers=headers)
@@ -1470,7 +1471,7 @@ class Zillow:
             payload = readjson(paths.QUERY_DIR.joinpath("zillow-QueryUnderstanding.json"))
             payload["variables"]["query"] = query
 
-            headers = Zillow.request._mobile_headers_alt()
+            headers = ZillowAPI.request._mobile_headers_alt()
 
             req = httpx.Request("POST", url, headers=headers, json=payload)
 
@@ -1483,7 +1484,7 @@ class Zillow:
 
             url = f"https://www.zillow.com/async-create-search-page-state"
 
-            headers = Zillow.request._desktop_headers()
+            headers = ZillowAPI.request._desktop_headers()
 
             payload = readjson(paths.QUERY_DIR.joinpath("zillow-searchQueryState.json"))
             payload["searchQueryState"]["usersSearchTerm"] = query
@@ -1514,7 +1515,7 @@ class Zillow:
                 "variables": {"zpid": int(zpid)}
             }
 
-            headers = Zillow.request._desktop_headers()
+            headers = ZillowAPI.request._desktop_headers()
 
             req = httpx.Request("POST", url, params=params, headers=headers, json=payload)
 
@@ -1611,7 +1612,7 @@ class Zillow:
 
 
 
-class Redfin:
+class RedfinAPI:
     def __init__(self) -> None:
         pass
     
@@ -1855,7 +1856,7 @@ class Redfin:
                 "rdfn_lst": rdfn_lst,
             }
 
-            headers = Redfin.request._headers()
+            headers = RedfinAPI.request._headers()
 
             req = httpx.Request("GET", url, params=params, headers=headers)
 
@@ -1927,7 +1928,7 @@ class Redfin:
                 "rdfn_lst": rdfn_lst,
             }
 
-            headers = Redfin.request._headers()
+            headers = RedfinAPI.request._headers()
 
             req = httpx.Request("GET", url, params=params, headers=headers)
 
@@ -1998,7 +1999,7 @@ class Redfin:
                 "rdfn_lst": rdfn_lst,
             }
 
-            headers = Redfin.request._headers()
+            headers = RedfinAPI.request._headers()
 
             req = httpx.Request("GET", url, params=params, headers=headers)
 
@@ -2015,7 +2016,7 @@ class Redfin:
                 "v": "1",
             }
 
-            headers = Redfin.request._headers()
+            headers = RedfinAPI.request._headers()
 
             req = httpx.Request("GET", url, params=params, headers=headers)
 
@@ -2109,7 +2110,7 @@ _SortType = Literal[
 ]
 _SqFt = Literal[500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000, 9000, 10000]
 
-class Homes:
+class HomesAPI:
     def __init__(self):
         pass
 
@@ -2323,7 +2324,7 @@ class Homes:
 
             params = {"pageName": "Home"}
 
-            headers = Homes.request._desktop_headers()
+            headers = HomesAPI.request._desktop_headers()
 
             req = httpx.Request("POST", url, params=params, headers=headers)
 
@@ -2334,9 +2335,11 @@ class Homes:
         def autocomplete(query:str):
             url = "https://www.homes.com/routes/res/consumer/property/autocomplete/"
 
-            headers = Homes.request._desktop_headers()
-            headers["accept"] = "application/json"
-            headers["content-type"] = "application/json-patch+json"
+            # headers = Homes.request._desktop_headers()
+            # headers["accept"] = "application/json"
+            # headers["content-type"] = "application/json-patch+json"
+
+            headers = HomesAPI.request._desktop_headers2()
 
             payload = {
                 "term": str(query).strip(),
@@ -2448,7 +2451,8 @@ class Homes:
         ):
             url = "https://www.homes.com/routes/res/native/v20/property/getpins"
 
-            headers = Homes.request._mobile_headers()
+            # headers = Homes.request._mobile_headers()     # both work
+            headers = HomesAPI.request._desktop_headers2()     # both work
 
             payload = _read_payload("homes-getpins.json")
             payload["geography"] = geography
@@ -2673,10 +2677,8 @@ class Homes:
             listing_keys = listing_keys if isinstance(listing_keys, list) else [listing_keys]
 
             url = "https://www.homes.com/routes/res/native/v20/property/getplacardsbylisting"
-
-            headers = Homes.request._desktop_headers()
-            headers["user-agent"] = "Homes/native/iOS/Phone/15.2.1 (18.0-iPhone14,2-20240809.2)"
-            headers["accept-encoding"] = "gzip, deflate, br"
+            # headers = Homes.request._mobile_headers() # both work
+            headers = HomesAPI.request._desktop_headers2() # both work
 
             listing_key_objects = [{"key": lk} for lk in listing_keys]
 
@@ -2691,7 +2693,7 @@ class Homes:
         def property_details(property_key:str):
             url = f"https://www.homes.com/routes/res/native/v20/property/detail/{property_key}"
 
-            headers = Homes.request._mobile_headers()
+            headers = HomesAPI.request._mobile_headers()
 
             req = httpx.Request("GET", url, headers=headers)
 
@@ -2702,7 +2704,7 @@ class Homes:
         def getshape(v_value:int, _type:Literal["city", "postalcode"], /):
             url = f"https://shapes.homes.com/shapes/{_type}/{v_value}/high"
 
-            headers = Homes.request._desktop_headers()
+            headers = HomesAPI.request._desktop_headers()
             headers["accept"] = "application/json, text/plain, */*"
             headers["host"] = "shapes.homes.com"
 
@@ -2722,6 +2724,19 @@ class Homes:
                 "referer": "https://www.homes.com/",
             }
         
+
+        @staticmethod
+        def _desktop_headers2():
+            return {
+                "accept": "application/json",
+                "accept-encoding": "gzip, deflate, br",
+                "accept-language": "en-US,en;q=0.5",
+                "content-type": "application/json-path+json",
+                "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+                "host": "www.homes.com",
+                "referer": "https://www.homes.com/",
+            }
+
 
         @staticmethod
         def _mobile_headers():

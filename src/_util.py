@@ -6,6 +6,7 @@ from haversine import Unit
 from haversine import Direction
 from haversine import inverse_haversine
 
+from .paths import JSON_DIR
 
 def copy_data(data:list|dict):
     pyperclip_copy(json.dumps(data))
@@ -98,3 +99,14 @@ def polygon_tuples_to_string(polygons):
     return f"clipPolygon={final_string}"
 
 
+def generate_uncommented_json():
+    import orjson
+    import commentjson
+    for jsonfile_c in JSON_DIR.iterdir():
+        if jsonfile_c.suffix.lower() == ".jsonc":
+            with jsonfile_c.open("r") as fp_c:
+                data = commentjson.load(fp_c)
+            
+            jsonfile = jsonfile_c.with_suffix(".json")
+            with jsonfile.open("w+") as fp:
+                json.dump(data, fp, indent=4)

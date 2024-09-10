@@ -3,7 +3,7 @@ from typing import Literal
 import httpx
 import orjson
 
-from ._api import Homes
+from ._api import HomesAPI
 from ._http import send_request
 from ._util import readjson
 from .paths import QUERY_DIR
@@ -11,7 +11,7 @@ from .paths import JSON_DIR
 from .geo import get_commutes
 
 
-class Domus:
+class Homes:
     def __init__(
             self, 
             favorite_locations: list[str] | None = None,
@@ -40,7 +40,7 @@ class Domus:
         else:
             self.commute_destinations = []
 
-        self.api = Homes()
+        self.api = HomesAPI()
 
 
     def find_location(self, query:str, _type:Literal["city", "zipcode"]|None=None, **kwargs) -> dict:
@@ -147,7 +147,7 @@ class Domus:
 
         client.close()
 
-        normalized_data = readjson(JSON_DIR.joinpath("property_details.json"))
+        # normalized_data = readjson(JSON_DIR.joinpath("property_details.json"))
 
         return data
 
