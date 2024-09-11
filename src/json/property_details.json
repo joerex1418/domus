@@ -20,7 +20,15 @@
     "mls_info": null,
     "neighborhood": {},
     "address": {
-        "city": null
+        "city": null,
+        "country_code": null,
+        "county": null,
+        "neighborhood": null,
+        "postal_code": null,
+        "state": null,
+        "street": null,
+        "lat": null,
+        "lon": null
     },
     "price_history": [],
     "views": null,

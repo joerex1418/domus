@@ -157,3 +157,17 @@ class Homes:
         Add a destination to commute tracker
         """
         self.commute_destinations.append((lat, lon))
+
+    def _property_amentities(self, property_details:dict):
+        amenities = []
+        for a_category in property_details["amenityCategories"]:
+
+            for a_sub in a_category["subCategories"]:
+                sub_amenitiy_list = a_sub.get("value", "").split(",")
+                sub_amenitiy_list = [x.strip() for x in sub_amenitiy_list]
+                amenities.append({
+                    "category": a_category["name"],
+                    "sub_category": a_sub["name"],
+                    "amenity_list": sub_amenitiy_list,
+                })
+        return amenities

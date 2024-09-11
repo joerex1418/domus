@@ -77,6 +77,9 @@ def index():
 
 
     homes_api = HomesAPI()
+    
+    full_data = {"property_details": None, "placard": None}
+
 
     req = homes_api.request.autocomplete(q)
     r = send_request(req)
@@ -90,12 +93,17 @@ def index():
     req = homes_api.request.getplacards(listing_keys)
     r = send_request(req)
     data = orjson.loads(r.content)
+    full_data["placard"] = data["placards"][0]
 
     req = homes_api.request.property_details("gg5xw61zef3ey")
     r = send_request(req)
     data = orjson.loads(r.content)
+    amenity_details = homes._property_amentities(data)
+    data["amenity_details"] = amenity_details
 
-    return data
+    full_data["property_details"] = data
+
+    return full_data
 
 
 
