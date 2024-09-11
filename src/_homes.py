@@ -100,11 +100,6 @@ class Homes:
         r = client.send(req_query_search)
         results_query_search = orjson.loads(r.content)
 
-        # if _type == "city":
-        #     _type = "City"
-        # elif _type == "zipcode":
-        #     _type = "Zip Code"
-
         loc = results_query_search.get("suggestions", {}).get("places", [None])[0]
         g = loc["g"]
 
@@ -159,15 +154,16 @@ class Homes:
         self.commute_destinations.append((lat, lon))
 
     def _property_amentities(self, property_details:dict):
-        amenities = []
+        amentity_data = []
         for a_category in property_details["amenityCategories"]:
-
             for a_sub in a_category["subCategories"]:
-                sub_amenitiy_list = a_sub.get("value", "").split(",")
-                sub_amenitiy_list = [x.strip() for x in sub_amenitiy_list]
-                amenities.append({
+                individual_amentities_str = a_sub.get("value")
+                individual_amentities = a_sub.get("value", "").split(",")
+                individual_amentities = [x.strip() for x in individual_amentities]
+                amentity_data.append({
                     "category": a_category["name"],
                     "sub_category": a_sub["name"],
-                    "amenity_list": sub_amenitiy_list,
+                    # "amenity_list": individual_amentities,
+                    "amentiy_string": individual_amentities_str,
                 })
-        return amenities
+        return amentity_data

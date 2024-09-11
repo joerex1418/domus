@@ -81,29 +81,31 @@ def index():
     full_data = {"property_details": None, "placard": None}
 
 
-    req = homes_api.request.autocomplete(q)
-    r = send_request(req)
-    data = orjson.loads(r.content)
+    # req = homes_api.request.autocomplete(q)
+    # r = send_request(req)
+    # data = orjson.loads(r.content)
     
-    req = homes_api.request.getpins(data["suggestions"]["places"][0]["g"])
-    r = send_request(req)
-    data = orjson.loads(r.content)
+    # req = homes_api.request.getpins(data["suggestions"]["places"][0]["g"])
+    # r = send_request(req)
+    # data = orjson.loads(r.content)
 
-    listing_keys = [x["lk"]["key"] for x in data["pins"]]
-    req = homes_api.request.getplacards(listing_keys)
-    r = send_request(req)
-    data = orjson.loads(r.content)
-    full_data["placard"] = data["placards"][0]
+    # listing_keys = [x["lk"]["key"] for x in data["pins"]]
+    # req = homes_api.request.getplacards(listing_keys)
+    # r = send_request(req)
+    # data = orjson.loads(r.content)
+    # full_data["placard"] = data["placards"][0]
 
-    req = homes_api.request.property_details("gg5xw61zef3ey")
-    r = send_request(req)
-    data = orjson.loads(r.content)
-    amenity_details = homes._property_amentities(data)
-    data["amenity_details"] = amenity_details
+    # req = homes_api.request.property_details("gg5xw61zef3ey")
+    # r = send_request(req)
+    # data = orjson.loads(r.content)
+    # amenity_details = homes._property_amentities(data)
+    # data["amenity_details"] = amenity_details
 
-    full_data["property_details"] = data
+    # full_data["property_details"] = data
 
-    return full_data
+    data = homes.query_search(q)
+
+    return data
 
 
 
