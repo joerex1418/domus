@@ -2451,8 +2451,8 @@ class HomesAPI:
         ):
             url = "https://www.homes.com/routes/res/native/v20/property/getpins"
 
-            # headers = Homes.request._mobile_headers()     # both work
-            headers = HomesAPI.request._desktop_headers2()     # both work
+            # headers = HomesAPI.request._mobile_headers()     # (only seems to work on windows??)
+            headers = HomesAPI.request._desktop_headers2()
 
             payload = _read_payload("homes-getpins.json")
             payload["geography"] = geography

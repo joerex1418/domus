@@ -68,8 +68,7 @@ def index():
         coords = (coords["lt"], coords["ln"])
         addr = data["propertyInfo"]["address"]["street"]
         
-        commute = geo.get_commutes(start=coords, start_name=addr, destinations=[{"coords": dest1, "name": "640 Stevens St"}])
-        
+        # commute = geo.get_commutes(start=coords, start_name=addr, destinations=[{"coords": dest1, "name": "640 Stevens St"}])
         # data["commute"] = commute
         return data
     
@@ -103,7 +102,11 @@ def index():
 
     # full_data["property_details"] = data
 
-    data = homes.query_search(q)
+    # data = homes.query_search(q)
+    # data = zillow.region_search(q, region_type="zipcode")
+    # data = realtor.query_search(q)
+    # data = redfin.query_region(q)
+    data = redfin.region_search(29501, "city")
 
     return data
 
