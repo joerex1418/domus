@@ -3,7 +3,7 @@ import json
 import rich
 import httpx
 
-from src import geo
+from src import _geo
 from src._api import RealtorAPI
 from src._api import ZillowAPI
 from src._api import RedfinAPI

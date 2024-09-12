@@ -1,25 +1,13 @@
 {
-    "primary_agent": {
-        "agency_name": null,
-        "agency_phone": null,
-        "email": null,
-        "office_email": null,
-        "name": null,
-        "key": null,
-        "role": null,
-        "url": null,
-        "phone": null,
-        "office_phone": null,
-        "bio": null
-    },
-    "amenities": [],
+    "agency_name": null,
+    "agency_phone": null,
+    "agent_name": null,
+    "agent_phone": null,
     "images": [],
     "mls_info": {},
     "neighborhood": {},
     "num_beds": null,
     "num_baths": null,
-    "has_garage": null,
-    "basement": null,
     "address": {
         "city": null,
         "country_code": null,
@@ -31,8 +19,8 @@
         "lat": null,
         "lon": null
     },
+    "price": null,
     "price_history": [],
-    "views": null,
     "db_listing_id": null,
     "db_property_id": null,
     "db_name": null

@@ -1,0 +1,28 @@
+{
+    "agency_name": null,
+    "agency_phone": null,
+    "agent_name": null,
+    "agent_phone": null,
+    "images": [], 
+    "mls_info": {}, // if it can be found. just leave as null if it can't be found
+    "neighborhood": {}, // neighborhood details 
+    "num_beds": null,
+    "num_baths": null,
+    "address": {
+        "city": null,
+        "country_code": null,
+        "county": null,
+        "neighborhood": null,
+        "postal_code": null,
+        "state": null,
+        "street": null,
+        "lat": null,
+        "lon": null
+    },
+    "price": null,
+    "price_history": [],
+
+    "db_listing_id": null, // the listing id from the particular DB (should be a string)
+    "db_property_id": null, // the property id from the particular DB (should be a string)
+    "db_name": null // the particular DB that this response is from (homes, realtor, redfin, or zillow)
+}

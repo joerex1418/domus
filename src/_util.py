@@ -1,12 +1,14 @@
 import json
 from pathlib import Path
+from collections import UserDict
 
+import orjson
 from pyperclip import copy as pyperclip_copy
-from haversine import Unit
-from haversine import Direction
-from haversine import inverse_haversine
 
 from .paths import JSON_DIR
+from .paths import QUERY_DIR
+
+
 
 def copy_data(data:list|dict):
     pyperclip_copy(json.dumps(data))
@@ -35,8 +37,12 @@ def readjson(jsonfile):
 
     jsonfile = Path(jsonfile).resolve()
 
-    with jsonfile.open("r") as fp:
-        return json.load(fp)
+    # with jsonfile.open("r") as fp:
+    #     return json.load(fp)
+
+    with jsonfile.open("rb") as fp:
+        return orjson.loads(fp.read())
+    
 
 
 def readfile(filepath):
@@ -46,61 +52,15 @@ def readfile(filepath):
         return fp.read()
     
 
-def get_bounding_box(latitude, longitude, radius, unit:Unit=Unit.MILES):
-    north_point = inverse_haversine((latitude, longitude), radius, Direction.NORTH, unit=unit)
-    south_point = inverse_haversine((latitude, longitude), radius, Direction.SOUTH, unit=unit)
-    east_point = inverse_haversine((latitude, longitude), radius, Direction.EAST, unit=unit)
-    west_point = inverse_haversine((latitude, longitude), radius, Direction.WEST, unit=unit)
-
-    return {
-        "north": north_point[0],
-        "south": south_point[0],
-        "east": east_point[1],
-        "west": west_point[1],
-    }
+def read_graphql(s):
+    return readfile(QUERY_DIR.joinpath(s))
 
 
-def string_to_polygon_tuples(polygon_str):
-    if polygon_str.startswith("clipPolygon="):
-        polygon_str = polygon_str.replace("clipPolygon=", "")
-    
-    polygon_groups = polygon_str.split(':')
-    
-    polygons = []
-    
-    for group in polygon_groups:
-        if group:
-            points = group.split('|')
-            
-            points = [point for point in points if point]
-            
-            try:
-                polygon = [tuple(map(float, point.split(','))) for point in points]
-            except ValueError as e:
-                raise e
-            
-            polygons.append(polygon)
-    
-    return polygons
-
-
-def polygon_tuples_to_string(polygons):
-    polygon_strings = []
-    
-    for polygon in polygons:
-        point_strings = [','.join(map(str, point)) for point in polygon]
-        
-        polygon_string = '|'.join(point_strings)
-        
-        polygon_strings.append(polygon_string + '|:')
-    
-    final_string = ''.join(polygon_strings)
-    
-    return f"clipPolygon={final_string}"
+def read_payload(s):
+    return readjson(QUERY_DIR.joinpath(s))
 
 
 def generate_uncommented_json():
-    import orjson
     import commentjson
     for jsonfile_c in JSON_DIR.iterdir():
         if jsonfile_c.suffix.lower() == ".jsonc":
@@ -110,3 +70,13 @@ def generate_uncommented_json():
             jsonfile = jsonfile_c.with_suffix(".json")
             with jsonfile.open("w+") as fp:
                 json.dump(data, fp, indent=4)
+
+def always_get(key, data: dict, default=None):
+    """
+    Always retrieve a value (event)
+    """
+    value = data.get(key, default)
+    # If the value is not a dict or is None, return the default
+    if value is None or not isinstance(value, dict):
+        return default
+    return value

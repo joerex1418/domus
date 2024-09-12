@@ -11,7 +11,7 @@ from flask.templating import render_template
 from flask.helpers import url_for
 from flask_assets import Environment, Bundle
 
-from src import geo
+from src import _geo
 from src import paths
 from src._api import RealtorAPI
 from src._api import ZillowAPI
@@ -21,11 +21,16 @@ from src._http import send_request
 from src._http import fetch_bulk
 from src._api import readjson
 from src._api import readfile
-from src._homes import Homes
 from src._util import copy_data
 from src._util import generate_uncommented_json
+from src._homes import Homes
+from src._redfin import Redfin
+from src._realtor import Realtor
+from src._zillow import Zillow
+
 
 generate_uncommented_json()
+
 
 app = Flask(__name__)
 # app.config["JSON_SORT_KEYS"] = False
@@ -43,72 +48,48 @@ def inject_dict_for_all_templates():
 
 @app.route("/")
 def index():
-    zillow = ZillowAPI()
-    redfin = RedfinAPI()
-    realtor = RealtorAPI()
-
-    homes = Homes()
+    zillow_api = ZillowAPI()
+    redfin_api = RedfinAPI()
+    realtor_api = RealtorAPI()
+    homes_api = HomesAPI()
 
     q = request.args.get("q")
+    
+    # return {}
 
     try:
         assert(q != None)
     except AssertionError:
         raise AssertionError("YOU DIDN'T GIMME A QUERY, DUM DUM!")
 
-    def _():
-        data = homes.query_search(q, price_max=500000)
-        data = homes.property_details(data[0]["propertyKey"]["key"])
-
-        start = [41.69579266, -88.1128678]  # Commonwealth Dr
-        dest1 = [41.77386435, -88.1595485]  # Stevens St
-        dest2 = [42.205556, -88.26480364]   # Pearson Rd
-
-        coords = data["propertyInfo"]["coordinate"]
-        coords = (coords["lt"], coords["ln"])
-        addr = data["propertyInfo"]["address"]["street"]
-        
-        # commute = geo.get_commutes(start=coords, start_name=addr, destinations=[{"coords": dest1, "name": "640 Stevens St"}])
-        # data["commute"] = commute
-        return data
-    
     # data = _()
 
 
-    homes_api = HomesAPI()
+    homes = Homes()
+    redfin = Redfin()
+    realtor = Realtor()
+    zillow = Zillow()
+
+    # homes_data = homes.query_search(q)
+    # with open("search_response-homes.json", "w+") as fp:
+    #     json.dump(homes_data, fp, indent=4)
+
+    # redfin_data = redfin.query_search(q)
+    # with open("search_response-redfin.json", "w+") as fp:
+    #     json.dump(redfin_data, fp, indent=4)
+
+    realtor_data = realtor.query_search(q)
+    # realtor_data = realtor.normalize.property_search(realtor_data)
+    # with open("search_response-realtor.json", "w+") as fp:
+    #     json.dump(realtor_data, fp, indent=4)
+
+    # zillow_data = zillow.query_search(q)
+    # with open("search_response-zillow.json", "w+") as fp:
+    #     json.dump(zillow_data, fp, indent=4)
     
-    full_data = {"property_details": None, "placard": None}
-
-
-    # req = homes_api.request.autocomplete(q)
-    # r = send_request(req)
-    # data = orjson.loads(r.content)
+    return realtor_data
     
-    # req = homes_api.request.getpins(data["suggestions"]["places"][0]["g"])
-    # r = send_request(req)
-    # data = orjson.loads(r.content)
-
-    # listing_keys = [x["lk"]["key"] for x in data["pins"]]
-    # req = homes_api.request.getplacards(listing_keys)
-    # r = send_request(req)
-    # data = orjson.loads(r.content)
-    # full_data["placard"] = data["placards"][0]
-
-    # req = homes_api.request.property_details("gg5xw61zef3ey")
-    # r = send_request(req)
-    # data = orjson.loads(r.content)
-    # amenity_details = homes._property_amentities(data)
-    # data["amenity_details"] = amenity_details
-
-    # full_data["property_details"] = data
-
-    # data = homes.query_search(q)
-    # data = zillow.region_search(q, region_type="zipcode")
-    # data = realtor.query_search(q)
-    # data = redfin.query_region(q)
-    data = redfin.region_search(29501, "city")
-
-    return data
+    # return {"homes": homes_data, "redfin": redfin_data, "realtor": realtor_data, "zillow": zillow_data}
 
 
 
@@ -128,7 +109,7 @@ def homessearch():
     return data
 
 @app.route("/rfapi/<path:anything>")
-def redfin(anything):
+def rfapi(anything):
     url = f"https://www.redfin.com/{request.path.replace('/rfapi/', '')}"
     print(url)
 
@@ -156,7 +137,7 @@ def geosearch():
     dest1 = [41.77386435, -88.1595485]  # Stevens St
     dest2 = [42.205556, -88.26480364]   # Pearson Rd
 
-    data = geo.get_commutes(
+    data = _geo.get_commutes(
         start=start, start_name="131 S Commonwealth Dr",
         destinations=[
             {"coords": dest1, "name": "640 Stevens St"},

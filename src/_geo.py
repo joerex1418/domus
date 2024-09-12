@@ -2,14 +2,15 @@ from typing import Literal
 
 import httpx
 import orjson
+from haversine import Unit
+from haversine import Direction
+from haversine import inverse_haversine
 
 from ._http import fetch_bulk
 
 
-OSM_BASE = "https://nominatim.openstreetmap.org/search"
-OSM_REVERSE_BASE = "https://nominatim.openstreetmap.org/reverse?lat=<value>&lon=<value>&<params>"
-TIGER_WEB = "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/PUMA_TAD_TAZ_UGA_ZCTA/MapServer/1/query"
-
+# OSM_REVERSE_BASE = "https://nominatim.openstreetmap.org/reverse?lat=<value>&lon=<value>&<params>"
+# TIGER_WEB = "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/PUMA_TAD_TAZ_UGA_ZCTA/MapServer/1/query"
 
 def search(*,
         query:str|None=None,
@@ -30,6 +31,7 @@ def search(*,
             "format": fmt,
             "limit": limit,
         }
+    
     else:
         params = {
             "street": street_address,
@@ -42,11 +44,11 @@ def search(*,
             "limit": limit,
         }
 
-    headers = {
-        "user-agent": "My-Simple-RealEstate-App"
-    }
+    url = "https://nominatim.openstreetmap.org/search"
 
-    req = httpx.Request("GET", OSM_BASE, params=params, headers=headers)
+    headers = {"user-agent": "Domus Python API"}
+
+    req = httpx.Request("GET", url, params=params, headers=headers)
     if kwargs.get("req_only") == True:
         return req
     
@@ -72,11 +74,13 @@ def polygon_city(city, state=None, county=None, **kwargs):
         "polygon_geojson": "1",
     }
 
+    url = "https://nominatim.openstreetmap.org/search"
+
     headers = {
         "user-agent": "My-Simple-RealEstate-App"
     }
 
-    req = httpx.Request("GET", OSM_BASE, params=params, headers=headers)
+    req = httpx.Request("GET", url, params=params, headers=headers)
     
     if kwargs.get("req_only") == True:
         return req
@@ -126,12 +130,14 @@ def polygon_zipcode(zcta, **kwargs):
         "f": "geojson"
     }
 
+    url = "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/PUMA_TAD_TAZ_UGA_ZCTA/MapServer/1/query"
+
     headers = {
         "user-agent": "My-Simple-RealEstate-App",
         "content-type": "application/x-www-form-urlencoded"
     }
 
-    req = httpx.Request("POST", TIGER_WEB, data=payload, headers=headers)
+    req = httpx.Request("POST", url, data=payload, headers=headers)
     
     if kwargs.get("req_only") == True:
         return req
@@ -239,6 +245,62 @@ def get_commutes(start: tuple[float, float], start_name: str, destinations: list
             data.append(route_data)
 
     return data
+
+
+def get_bounding_box(latitude, longitude, radius, unit:Unit=Unit.MILES):
+    north_point = inverse_haversine((latitude, longitude), radius, Direction.NORTH, unit=unit)
+    south_point = inverse_haversine((latitude, longitude), radius, Direction.SOUTH, unit=unit)
+    east_point = inverse_haversine((latitude, longitude), radius, Direction.EAST, unit=unit)
+    west_point = inverse_haversine((latitude, longitude), radius, Direction.WEST, unit=unit)
+
+    return {
+        "north": north_point[0],
+        "south": south_point[0],
+        "east": east_point[1],
+        "west": west_point[1],
+    }
+
+
+def string_to_polygon_tuples(polygon_str):
+    if polygon_str.startswith("clipPolygon="):
+        polygon_str = polygon_str.replace("clipPolygon=", "")
+    
+    polygon_groups = polygon_str.split(':')
+    
+    polygons = []
+    
+    for group in polygon_groups:
+        if group:
+            points = group.split('|')
+            
+            points = [point for point in points if point]
+            
+            try:
+                polygon = [tuple(map(float, point.split(','))) for point in points]
+            except ValueError as e:
+                raise e
+            
+            polygons.append(polygon)
+    
+    return polygons
+
+
+def polygon_tuples_to_string(polygons):
+    polygon_strings = []
+    
+    for polygon in polygons:
+        point_strings = [','.join(map(str, point)) for point in polygon]
+        
+        polygon_string = '|'.join(point_strings)
+        
+        polygon_strings.append(polygon_string + '|:')
+    
+    final_string = ''.join(polygon_strings)
+    
+    return f"clipPolygon={final_string}"
+
+
+
 
 
 class Mapbox:

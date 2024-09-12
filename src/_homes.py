@@ -8,7 +8,7 @@ from ._http import send_request
 from ._util import readjson
 from .paths import QUERY_DIR
 from .paths import JSON_DIR
-from .geo import get_commutes
+from ._geo import get_commutes
 
 
 class Homes:

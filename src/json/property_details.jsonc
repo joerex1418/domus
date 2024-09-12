@@ -3,22 +3,23 @@
         "agency_name": null,
         "agency_phone": null, // CTN vs Destination number? (Homes.com)
         "email": null,
+        "office_email": null,
         "name": null,
         "key": null,
         "role": null,
-        "domain_url": null,
-        "bio": null,
+        "url": null,
         "phone": null,
-        "mls_key_agent": null,
-        "mls_key_agency": null,
-        "mls_key_office": null,
-        "office_email": null,
-        "office_phone": null
+        "office_phone": null,
+        "bio": null
     },
-    "amenities": [],
-    "images": [],
-    "mls_info": null,
-    "neighborhood": {},
+    "amenities": [], // these could be organized any number of ways. Each DB does it in its own way, so I didn't know which would be best in order to provide the most flexibility
+    "images": [], 
+    "mls_info": {}, // if it can be found. just leave as null if it can't be found
+    "neighborhood": {}, // neighborhood details 
+    "num_beds": null,
+    "num_baths": null,
+    "has_garage": null,
+    "basement": null, // one of 3 values ('finished' if finished basement, 'unfinished' if unfinished basement, None if there's no basement)
     "address": {
         "city": null,
         "country_code": null,
@@ -27,11 +28,13 @@
         "postal_code": null,
         "state": null,
         "street": null,
-        "lat": null, // HomesAPI -> 'lt'
-        "lon": null // HomesAPI -> 'ln'
+        "lat": null,
+        "lon": null
     },
     "price_history": [],
-    "views": null,
-    "dbid": null,
-    "dbname": null
+    "views": null, // number of views (if it's possible to find across all responses, otherwise leave it out)
+
+    "db_listing_id": null, // the listing id from the particular DB (should be a string)
+    "db_property_id": null, // the property id from the particular DB (should be a string)
+    "db_name": null // the particular DB that this response is from (homes, realtor, redfin, or zillow)
 }

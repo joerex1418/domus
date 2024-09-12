@@ -5,7 +5,7 @@ from httpx import Request
 from httpx import Response
 from httpx import Client, AsyncClient
 
-from ._ptext import log_response
+from .ptext import log_response
 
 
 

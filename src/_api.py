@@ -12,9 +12,9 @@ from dateutil.relativedelta import relativedelta
 from . import paths
 from ._util import readjson
 from ._util import readfile
-from ._util import get_bounding_box
+from ._geo import get_bounding_box
 from ._http import send_request
-from ._ptext import console
+from .ptext import console
 from ._constants import RF_UIPT_MAP
 from ._constants import RF_POOL_TYPE_MAP
 from ._constants import RF_REGION_TYPE_MAP

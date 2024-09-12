@@ -11,7 +11,7 @@
     "queryOptions": {
       "debug": false,
       "interactionId": "9AB34EED-9AB8-4F85-BF69-18E36F8F9D20",
-      "maxResults": 20,
+      "maxResults": 100,
       "multiRegion": null,
       "priorSearches": [],
       "regionId": null,
