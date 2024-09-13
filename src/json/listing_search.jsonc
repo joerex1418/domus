@@ -1,8 +1,8 @@
 {
-    "agency_name": null,
-    "agency_phone": null,
-    "agent_name": null,
-    "agent_phone": null,
+    // "agency_name": null,
+    // "agency_phone": null,
+    // "agent_name": null,
+    // "agent_phone": null,
     "images": [], 
     "mls_info": {}, // if it can be found. just leave as null if it can't be found
     "neighborhood": {}, // neighborhood details 

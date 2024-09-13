@@ -80,8 +80,9 @@ class Realtor:
         
         # data = rawdata.get("data", {}).get("home_search", {}).get("properties")
         # data = self._compact_search_data(rawdata)
+        data = self.normalize.property_search(rawdata)
 
-        return rawdata
+        return data
 
 
     def city_search(
@@ -119,8 +120,8 @@ class Realtor:
         base_url = "https://www.realtor.com/realestateandhomes-detail"
         return f"{base_url}/{permalink}"
     
-
-    def generate_custom_photo_url(self, og_url, width: int | None=None):
+    @staticmethod
+    def generate_custom_photo_url(og_url, width: int | None=None):
         if width != None:
             url_obj = httpx.URL(og_url)
 
@@ -135,6 +136,26 @@ class Realtor:
         else:
             return og_url
 
+    @staticmethod
+    def generate_custom_photo_url2(og_url: str, width: int | None):
+        width = 960 if width == None else width
+        width = str(width).strip()
+
+        url_obj = httpx.URL(og_url)
+        
+        start_idx = url_obj.path.rfind("/") + 1
+
+        urlpath = Path(url_obj.path[start_idx:])
+        
+        old_ending = f"s{urlpath.suffix}"
+        new_ending = f"rd-w{width}{urlpath.suffix}"
+
+        new_name = urlpath.name.replace(old_ending, new_ending)
+
+        edited_url = f"{url_obj.scheme}://{url_obj.host}/" + new_name
+
+        return edited_url
+        
 
     def property_details(self, property_id):
         req = self.request.property_details(property_id)
@@ -217,25 +238,6 @@ class Realtor:
 
         return rawdata
 
-
-    def generate_custom_photo_url2(self, og_url: str, width: int | None):
-        width = str(width).strip()
-
-        url_obj = httpx.URL(og_url)
-        
-        start_idx = url_obj.path.rfind("/") + 1
-
-        urlpath = Path(url_obj.path[start_idx:])
-        
-        old_ending = f"s{urlpath.suffix}"
-        new_ending = f"rd-w{width}{urlpath.suffix}"
-
-        new_name = urlpath.name.replace(old_ending, new_ending)
-
-        edited_url = f"{url_obj.scheme}://{url_obj.host}/" + new_name
-
-        return edited_url
-        
 
     class request:
         @staticmethod
@@ -609,47 +611,53 @@ class Realtor:
             
             normalized_data = []
 
-            from .ptext import console
-
             for property in property_list:
-                # Use the template for each property
                 property_data = template.copy()
                 
                 # Fill agent and agency details
-                property_data["agency_name"] = always_get("source", property, {}).get("agents", [{}])[0].get("office_name", None)
+                # _source = always_get("source", property, {})
+                # _agent = always_get("agents", _source, [{}])[0]
+                # _advertiser = always_get("advertisers", property, [{}])[0]
 
-                property_data["agent_name"] = property.get("advertisers", [{}])[0].get("type", None)
-                property_data["agent_phone"] = None  # No explicit field for phone in Realtor data
-                
+                # property_data["agency_name"] = _agent.get("office_name")
+                # property_data["agency_phone"] = maybe we could get the phone number for the agency?
+                # property_data["agent_name"] = _advertiser.get("type", None)
+                # property_data["agent_phone"] = None  # No explicit field for phone with Realtor API
+
                 # Address information
-                property_data["address"]["city"] = property.get("location", {}).get("address", {}).get("city", None)
+                _location = always_get("location", property, {})
+                property_data["address"]["city"] = _location.get("address", {}).get("city")
                 property_data["address"]["country_code"] = "US"
-                property_data["address"]["county"] = property.get("location", {}).get("county", {}).get("name", None)
-                property_data["address"]["postal_code"] = property.get("location", {}).get("address", {}).get("postal_code", None)
-                property_data["address"]["state"] = property.get("location", {}).get("address", {}).get("state", None)
-                property_data["address"]["street"] = property.get("location", {}).get("address", {}).get("line", None)
-                property_data["address"]["lat"] = property.get("location", {}).get("coordinate", {}).get("lat", None)
-                property_data["address"]["lon"] = property.get("location", {}).get("coordinate", {}).get("lon", None)
+                property_data["address"]["county"] = _location.get("county", {}).get("name")
+                property_data["address"]["postal_code"] = _location.get("address", {}).get("postal_code")
+                property_data["address"]["state"] = _location.get("address", {}).get("state")
+                property_data["address"]["street"] = _location.get("address", {}).get("line")
+                property_data["address"]["lat"] = _location.get("coordinate", {}).get("lat")
+                property_data["address"]["lon"] = _location.get("coordinate", {}).get("lon")
                 
                 # Number of beds and baths
-                property_data["num_beds"] = property.get("description", {}).get("beds", None)
-                property_data["num_baths"] = float(property.get("description", {}).get("baths_consolidated", "0").split('+')[0])
+                _description = always_get("description", property, {})
+                property_data["num_beds"] = _description.get("beds")
+                property_data["num_baths"] = float(_description.get("baths_consolidated", "0").split('+')[0])
                 
                 # Images
-                property_data["images"] = [photo.get("href") for photo in property.get("photos", [])]
+                property_data["images"] = [
+                    Realtor.generate_custom_photo_url2(photo.get("href"))
+                    for photo in always_get("photos", property, [])
+                    ]
                 
                 # Price and price history
-                property_data["price"] = property.get("list_price", None)
-                if property.get("description", {}).get("sold_price", None):
+                property_data["price"] = property.get("list_price")
+                if _description.get("sold_price"):
                     property_data["price_history"] = [{
-                        "price": property.get("description", {}).get("sold_price", None),
-                        "date": property.get("description", {}).get("sold_date", None)
+                        "price": _description.get("sold_price"),
+                        "date": _description.get("sold_date")
                     }]
                 
                 # Database fields
-                property_data["db_listing_id"] = property.get("listing_id", None)
-                property_data["db_property_id"] = property.get("property_id", None)
-                property_data["db_name"] = property.get("description", {}).get("name", None)
+                property_data["db_listing_id"] = property.get("listing_id")
+                property_data["db_property_id"] = property.get("property_id")
+                property_data["db_name"] = _description.get("name")
 
                 normalized_data.append(property_data)
             
