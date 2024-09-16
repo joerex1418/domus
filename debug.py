@@ -74,11 +74,11 @@ def index():
     # with open("search_response-homes.json", "w+") as fp:
     #     json.dump(homes_data, fp, indent=4)
 
-    # redfin_data = redfin.query_search(q)
+    redfin_data = redfin.query_search(q)
     # with open("search_response-redfin.json", "w+") as fp:
     #     json.dump(redfin_data, fp, indent=4)
 
-    realtor_data = realtor.query_search(q)
+    # realtor_data = realtor.query_search(q)
     # realtor_data = realtor.normalize.property_search(realtor_data)
     # with open("search_response-realtor.json", "w+") as fp:
     #     json.dump(realtor_data, fp, indent=4)
@@ -87,7 +87,7 @@ def index():
     # with open("search_response-zillow.json", "w+") as fp:
     #     json.dump(zillow_data, fp, indent=4)
     
-    return realtor_data
+    return redfin_data
     
     # return {"homes": homes_data, "redfin": redfin_data, "realtor": realtor_data, "zillow": zillow_data}
 

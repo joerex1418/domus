@@ -73,7 +73,7 @@ def generate_uncommented_json():
 
 def always_get(key, data: dict, default=None):
     """
-    Always retrieve a value (event)
+    Always retrieve a value
     """
     value = data.get(key, default)
     # If the value is not a dict or is None, return the default

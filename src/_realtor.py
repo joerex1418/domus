@@ -3,6 +3,7 @@ import json
 import datetime as dt
 from pathlib import Path
 from typing import Literal
+from copy import deepcopy
 
 import httpx
 from dateutil import relativedelta
@@ -605,24 +606,13 @@ class Realtor:
         @staticmethod
         def property_search(response_data):
             template = readjson(JSON_DIR.joinpath("listing_search.json"))
-            # template = _StrictMap(template)
             
             property_list: list[dict] = response_data.get("data", {}).get("home_search", {}).get("properties", [])
             
             normalized_data = []
 
             for property in property_list:
-                property_data = template.copy()
-                
-                # Fill agent and agency details
-                # _source = always_get("source", property, {})
-                # _agent = always_get("agents", _source, [{}])[0]
-                # _advertiser = always_get("advertisers", property, [{}])[0]
-
-                # property_data["agency_name"] = _agent.get("office_name")
-                # property_data["agency_phone"] = maybe we could get the phone number for the agency?
-                # property_data["agent_name"] = _advertiser.get("type", None)
-                # property_data["agent_phone"] = None  # No explicit field for phone with Realtor API
+                property_data = deepcopy(template)
 
                 # Address information
                 _location = always_get("location", property, {})
@@ -657,7 +647,7 @@ class Realtor:
                 # Database fields
                 property_data["db_listing_id"] = property.get("listing_id")
                 property_data["db_property_id"] = property.get("property_id")
-                property_data["db_name"] = _description.get("name")
+                property_data["db_name"] = "Realtor"
 
                 normalized_data.append(property_data)
             

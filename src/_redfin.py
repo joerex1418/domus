@@ -1,9 +1,13 @@
 from typing import Literal
+from copy import deepcopy
 
 import httpx
 import orjson
 
 from ._geo import get_bounding_box
+from ._util import readjson
+from ._util import always_get
+from .paths import JSON_DIR
 from ._constants import RF_UIPT_MAP
 from ._constants import RF_POOL_TYPE_MAP
 from ._constants import RF_REGION_TYPE_MAP
@@ -70,9 +74,9 @@ class Redfin:
         
         client.close()
 
-        data = rawdata.get("payload", {}).get("homes")
+        # data = rawdata.get("payload", {}).get("homes")
 
-        return data
+        return rawdata
 
 
     def region_lookup(self, query:str):
@@ -477,4 +481,60 @@ class Redfin:
                 "host": "www.redfin.com",
                 "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:129.0) Gecko/20100101 Firefox/129.0",
             }
+
+
+    class normalize:
+        @staticmethod
+        def property_search(response_data):
+            template = readjson(JSON_DIR.joinpath("listing_search.json"))
+            
+            normalized_data = []
+            
+            for property in response_data["placards"]:
+                property_data = deepcopy(template)
+                
+                # Address information
+                _address = always_get("address", property, {})
+                property_data["address"]["city"] = _address.get("city")
+                property_data["address"]["country_code"] = _address.get("countryCode")
+                property_data["address"]["county"] = None  # Homes.com doesn't provide county info directly
+                property_data["address"]["postal_code"] = _address.get("postalCode")
+                property_data["address"]["state"] = _address.get("state")
+                property_data["address"]["street"] = _address.get("street")
+                
+                # Latitude and longitude (not available in Homes.com sample)
+                property_data["address"]["lat"] = None
+                property_data["address"]["lon"] = None
+
+                # Price information
+                property_data["price"] = property.get("currentPrice")
+                
+                # Number of beds and baths
+                property_data["num_beds"] = property.get("beds")
+                property_data["num_baths"] = property.get("bathsTotal")
+                
+                # Images
+                property_data["images"] = [
+                    attachment.get("uri") 
+                    for attachment in always_get("attachments", property, [])
+                ]
+
+                # Agent information
+                _agent = always_get("listingAgent", property, {})
+                property_data["agency_name"] = _agent.get("agencyName")
+                property_data["agent_name"] = _agent.get("fullName")
+                property_data["agent_phone"] = _agent.get("phoneNumber")
+                
+                # Price history (Homes.com doesn't provide sold price history)
+                property_data["price_history"] = []
+                
+                # Database fields
+                property_data["db_listing_id"] = always_get("listingKey", property, {}).get("key")
+                property_data["db_property_id"] = always_get("propertyKey", property, {}).get("key")
+                property_data["db_name"] = "Homes"
+
+                normalized_data.append(property_data)
+            
+            return normalized_data
+
 
