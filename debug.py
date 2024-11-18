@@ -57,37 +57,16 @@ def index():
     
     # return {}
 
-    try:
-        assert(q != None)
-    except AssertionError:
-        raise AssertionError("YOU DIDN'T GIMME A QUERY, DUM DUM!")
-
-    # data = _()
-
-
     homes = Homes()
     redfin = Redfin()
     realtor = Realtor()
     zillow = Zillow()
 
-    # homes_data = homes.query_search(q)
-    # with open("search_response-homes.json", "w+") as fp:
-    #     json.dump(homes_data, fp, indent=4)
 
-    redfin_data = redfin.query_search(q)
-    # with open("search_response-redfin.json", "w+") as fp:
-    #     json.dump(redfin_data, fp, indent=4)
-
-    # realtor_data = realtor.query_search(q)
-    # realtor_data = realtor.normalize.property_search(realtor_data)
-    # with open("search_response-realtor.json", "w+") as fp:
-    #     json.dump(realtor_data, fp, indent=4)
-
-    # zillow_data = zillow.query_search(q)
-    # with open("search_response-zillow.json", "w+") as fp:
-    #     json.dump(zillow_data, fp, indent=4)
+    data = realtor.query_search(q)
+    data = realtor.property_details("417000864825")
     
-    return redfin_data
+    return data
     
     # return {"homes": homes_data, "redfin": redfin_data, "realtor": realtor_data, "zillow": zillow_data}
 
@@ -108,10 +87,11 @@ def homessearch():
 
     return data
 
-@app.route("/rfapi/<path:anything>")
+@app.route("/rf/<path:anything>")
 def rfapi(anything):
-    url = f"https://www.redfin.com/{request.path.replace('/rfapi/', '')}"
+    url = f"https://www.redfin.com/{request.path.replace('/rf/', '')}"
     print(url)
+    
 
     headers = {
         "accept": "*/*",

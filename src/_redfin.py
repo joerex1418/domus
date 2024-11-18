@@ -7,6 +7,7 @@ import orjson
 from ._geo import get_bounding_box
 from ._util import readjson
 from ._util import always_get
+from ._http import fetch_bulk
 from .paths import JSON_DIR
 from ._constants import RF_UIPT_MAP
 from ._constants import RF_POOL_TYPE_MAP
@@ -74,8 +75,8 @@ class Redfin:
         
         client.close()
 
-        # data = rawdata.get("payload", {}).get("homes")
-
+        data = self.normalize.property_search(rawdata)
+        return data
         return rawdata
 
 
@@ -169,6 +170,35 @@ class Redfin:
         return rawdata
 
 
+    def property_details(self, property_id, listing_id=None):
+        """
+        /stingray/api/home/details/propertyParcelInfo?propertyId=18049742&accessLevel=1&listingId=193320119
+        /stingray/api/home/details/belowTheFold?propertyId=18049742&accessLevel=1&listingId=193320119
+        /stingray/api/home/details/aboveTheFold?propertyId=18049742&accessLevel=1&listingId=193320119
+
+        """
+        # /stingray/api/home/details/listing/floorplans?listingId=193320119
+        # /stingray/api/home/details/avmHistoricalData?propertyId=18049742&accessLevel=1&listingId=193320119
+        # /stingray/api/home/details/avm?propertyId=18049742&accessLevel=1&listingId=193320119
+        # /stingray/api/home/details/mainHouseInfoPanelInfo?propertyId=18049742&accessLevel=1&listingId=193320119
+        request_list = [
+            self.request.above_the_fold(property_id, listing_id),
+            self.request.below_the_fold(property_id, listing_id),
+            self.request.avm(property_id, listing_id),
+            self.request.property_parcel_info(property_id, listing_id),
+        ]
+
+        responses = fetch_bulk(request_list)
+
+        all_data = {}
+        for r in responses:
+            endpoint = r.url.path[r.url.path.rfind("/")+1:]
+            all_data[endpoint] = orjson.loads(r.content.replace(b"{}&&", b""))
+        
+
+        return all_data
+
+
     def _compact_region_data(self, rawdata):
         data = []
 
@@ -234,6 +264,33 @@ class Redfin:
 
         # return data
         return rawdata
+
+
+    def _generate_photo_url(self, datasource_id, mls_id, photo_num:int=0):
+        # url = "https://ssl.cdn-redfin.com/photo/{database_id}/bigphoto/{mls_id}/genIslnoResize.{mls_id}_0.jpg"
+        full_mls_id = str(mls_id)
+        mls_id = full_mls_id[-3:]
+        photo_num = int(photo_num)
+        
+        if photo_num == 0:
+            url = f"https://ssl.cdn-redfin.com/photo/{datasource_id}/bigphoto/{mls_id}/{full_mls_id}_0.jpg"
+        else:
+            url = f"https://ssl.cdn-redfin.com/photo/{datasource_id}/bigphoto/{mls_id}/{full_mls_id}_{photo_num}_0.jpg"
+        
+        return url
+    
+    def _generate_photo_url2(self, datasource_id, mls_id, photo_num:int=0):
+        # url = "https://ssl.cdn-redfin.com/photo/{database_id}/bigphoto/{mls_id}/genIslnoResize.{mls_id}_0.jpg"
+        full_mls_id = str(mls_id)
+        mls_id = full_mls_id[-3:]
+        photo_num = int(photo_num)
+        
+        if photo_num == 0:
+            url = f"https://ssl.cdn-redfin.com/photo/{datasource_id}/bigphoto/{mls_id}/{full_mls_id}_0.jpg"
+        else:
+            url = f"https://ssl.cdn-redfin.com/photo/{datasource_id}/bigphoto/{mls_id}/{full_mls_id}_{photo_num}_0.jpg"
+        
+        return url
 
 
     class request:
@@ -469,6 +526,75 @@ class Redfin:
             req = httpx.Request("GET", url, params=params, headers=headers)
 
             return req
+        
+        @staticmethod
+        def above_the_fold(property_id, listing_id=None):
+            url = "https://www.redfin.com/stingray/api/home/details/aboveTheFold"
+
+            params = {"propertyId": property_id, "accessLevel": "1"}
+            
+            if listing_id:
+                params["listingId"] = listing_id
+            
+            req = httpx.Request("GET", url, params=params, headers=Redfin.request._headers())
+
+            return req
+
+
+        @staticmethod
+        def below_the_fold(property_id, listing_id=None):
+            url = "https://www.redfin.com/stingray/api/home/details/belowTheFold"
+
+            params = {"propertyId": property_id, "accessLevel": "1"}
+            
+            if listing_id:
+                params["listingId"] = listing_id
+            
+            req = httpx.Request("GET", url, params=params, headers=Redfin.request._headers())
+
+            return req
+
+
+        @staticmethod
+        def main_house_info(property_id, listing_id=None):
+            url = "https://www.redfin.com/stingray/api/home/details/mainHouseInfoPanelInfo"
+
+            params = {"propertyId": property_id, "accessLevel": "1"}
+            
+            if listing_id:
+                params["listingId"] = listing_id
+            
+            req = httpx.Request("GET", url, params=params, headers=Redfin.request._headers())
+
+            return req
+
+
+        @staticmethod
+        def avm(property_id, listing_id=None):
+            url = "https://www.redfin.com/stingray/api/home/details/avm"
+            
+            params = {"propertyId": property_id, "accessLevel": "1"}
+            
+            if listing_id:
+                params["listingId"] = listing_id
+            
+            req = httpx.Request("GET", url, params=params, headers=Redfin.request._headers())
+
+            return req
+
+
+        @staticmethod
+        def property_parcel_info(property_id, listing_id=None):
+            url = "https://www.redfin.com/stingray/api/home/details/propertyParcelInfo"
+
+            params = {"propertyId": property_id, "accessLevel": "1"}
+            
+            if listing_id:
+                params["listingId"] = listing_id
+            
+            req = httpx.Request("GET", url, params=params, headers=Redfin.request._headers())
+
+            return req
 
 
         @staticmethod
@@ -486,55 +612,88 @@ class Redfin:
     class normalize:
         @staticmethod
         def property_search(response_data):
+            # Load the template
             template = readjson(JSON_DIR.joinpath("listing_search.json"))
             
             normalized_data = []
-            
-            for property in response_data["placards"]:
+            i = 0
+            for property in response_data.get("payload", {}).get("homes", []):
+                i += 1
                 property_data = deepcopy(template)
+
+                # mls_id = always_get("mlsId", property, {}).get("value")
+                mls_id = property.get("mlsId", {}).get("value")
+                datasource_id = property.get("dataSourceId")
                 
                 # Address information
-                _address = always_get("address", property, {})
-                property_data["address"]["city"] = _address.get("city")
-                property_data["address"]["country_code"] = _address.get("countryCode")
-                property_data["address"]["county"] = None  # Homes.com doesn't provide county info directly
-                property_data["address"]["postal_code"] = _address.get("postalCode")
-                property_data["address"]["state"] = _address.get("state")
-                property_data["address"]["street"] = _address.get("street")
+                property_data["address"]["street"] = always_get("streetLine", property, {}).get("value")
+                property_data["address"]["city"] = property.get("city")
+                property_data["address"]["state"] = property.get("state")
+                property_data["address"]["postal_code"] = always_get("postalCode", property, {}).get("value")
+                property_data["address"]["country_code"] = property.get("countryCode", "US")
+                print(property["url"])
+                # Latitude and Longitude
+                _latlong = always_get("latLong", property, {}).get("value", {})
+                property_data["address"]["lat"] = _latlong.get("latitude")
+                property_data["address"]["lon"] = _latlong.get("longitude")
                 
-                # Latitude and longitude (not available in Homes.com sample)
-                property_data["address"]["lat"] = None
-                property_data["address"]["lon"] = None
-
                 # Price information
-                property_data["price"] = property.get("currentPrice")
+                property_data["price"] = always_get("price", property, {}).get("value")
                 
                 # Number of beds and baths
                 property_data["num_beds"] = property.get("beds")
-                property_data["num_baths"] = property.get("bathsTotal")
+                property_data["num_baths"] = property.get("baths")
                 
                 # Images
-                property_data["images"] = [
-                    attachment.get("uri") 
-                    for attachment in always_get("attachments", property, [])
-                ]
+                property_data["images"] = []
+                image_keys: str = always_get("photos", property, {}).get("value")
+                if image_keys:
+                    property_data["images"].extend(parse_photos(image_keys, mls_id, datasource_id))
 
+                # property_data["images"] = [
+                #     always_get("photos", property, {}).get("value")
+                # ]
+                
                 # Agent information
                 _agent = always_get("listingAgent", property, {})
-                property_data["agency_name"] = _agent.get("agencyName")
-                property_data["agent_name"] = _agent.get("fullName")
-                property_data["agent_phone"] = _agent.get("phoneNumber")
+                property_data["agent_name"] = _agent.get("name")
+                property_data["agency_name"] = None  # No agency info in Redfin data
                 
-                # Price history (Homes.com doesn't provide sold price history)
+                # Price history (not available in the Redfin sample data)
                 property_data["price_history"] = []
                 
                 # Database fields
-                property_data["db_listing_id"] = always_get("listingKey", property, {}).get("key")
-                property_data["db_property_id"] = always_get("propertyKey", property, {}).get("key")
-                property_data["db_name"] = "Homes"
+                property_data["db_listing_id"] = property.get("listingId")
+                property_data["db_property_id"] = property.get("propertyId")
+                property_data["db_name"] = "Redfin"
 
                 normalized_data.append(property_data)
             
             return normalized_data
 
 
+def parse_photos(photos_value, mls_id, datasource_id):
+    base_url = f"https://ssl.cdn-redfin.com/photo/{datasource_id}/bigphoto/{mls_id[-3:]}/{mls_id}"
+    
+    photo_urls = []
+
+    photo_ranges = photos_value.split(",")
+
+    for item in photo_ranges:
+        range_part, level = item.split(":")
+        level = str(level).strip()
+            
+        if "-" in range_part:
+            start, end = map(int, range_part.split("-"))
+        else:
+            start = end = int(range_part)
+
+        for photo_id in range(start, end + 1):
+            if str(photo_id) == "0" and str(level) == "0":
+                # Special case: no level for photo ID 0 and level 0
+                photo_url = f"{base_url}_0.jpg"
+            else:
+                photo_url = f"{base_url}_{photo_id}_{level}.jpg"
+            photo_urls.append(photo_url)
+
+    return photo_urls
