@@ -438,7 +438,8 @@ class RealtorAPI:
             url = "https://www.realtor.com/frontdoor/graphql"
 
             _variables = {"propertyId": f"{property_id}"}
-            _extensions = {"persistedQuery": {"version": 1, "sha256Hash": "f092e858153fb66a74362fd819a7587b0cb445975107fe13bcff8fcdb500caae"}}
+            # _extensions = {"persistedQuery": {"version": 1, "sha256Hash": "f092e858153fb66a74362fd819a7587b0cb445975107fe13bcff8fcdb500caae"}}
+            _extensions = {"persistedQuery": {"version": 1, "sha256Hash": "830b3b7dc4f8f3ba14c233aa852456fd2b62777a54faf35a8c2fd29e8fb8de92"}}
 
             params = {
                 "operationName": "FullPropertyDetails",
@@ -2334,10 +2335,6 @@ class HomesAPI:
         @staticmethod
         def autocomplete(query:str):
             url = "https://www.homes.com/routes/res/consumer/property/autocomplete/"
-
-            # headers = Homes.request._desktop_headers()
-            # headers["accept"] = "application/json"
-            # headers["content-type"] = "application/json-patch+json"
 
             headers = HomesAPI.request._desktop_headers2()
 
